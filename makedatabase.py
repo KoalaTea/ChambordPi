@@ -1,5 +1,8 @@
 #!flask/bin/python
 from pymongo import MongoClient
+from werkzeug.security import generate_password_hash
+# TODO make usernames unique
+
 
 client = MongoClient()
 client.drop_database("ChambordPi")
@@ -85,11 +88,21 @@ drinks.insert_one(
 users.insert_one(
         {
             "username" : "koalatea",
-            "password" : "test",
+            "password" : generate_password_hash("test"),
             "credits" : 1000000,
-            "roles" : [ "bartender", "admin", "users" ]
+            "roles" : [ "bartender", "admin", "user" ]
         }
 )
+
+users.insert_one(
+        {
+            "username" : "john",
+            "password" : generate_password_hash("test"),
+            "credits" : 100,
+            "roles" : [ "user" ]
+        }
+)
+
 
 orders.insert_one(
         {
