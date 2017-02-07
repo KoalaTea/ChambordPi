@@ -31,19 +31,17 @@ def login():
         return redirect('/index')
     return render_template('login.html', title='Sign In', form=form)
 
-@app.route("/list_alchohal", methods=["GET", "POST"])
-def list_alchohal():
-    pass
+@app.route("/list_alchohol", methods=["GET", "POST"])
+def list_alchohol():
+    return render_template('alchohol.html', title='Alchohol', user=user, alchohol_list=db.Alchohol.find())
 
 @app.route("/list_drinks", methods=["GET", "POST"])
 def list_drinks():
-    for drink in db.Drinks.find():
-        print(drink)
     return render_template('drinks.html', title='All Drinks', user=user, drinks=db.Drinks.find())
 
 @app.route("/menu", methods=["GET", "POST"])
 def menu():
-    pass
+    return render_template('drinks.html', title='Menu', user=user, drinks=db.Drinks.find({"available" : True}))
 
 @app.route("/orders", methods=["GET", "POST"])
 def orders():

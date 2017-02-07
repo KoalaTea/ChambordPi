@@ -6,21 +6,21 @@ client.drop_database("ChambordPi")
 db = client.ChambordPi
 
 drinks = db.Drinks
-alchohal = db.Alchohal
+alchohol = db.Alchohol
 users = db.Users
 orders = db.Orders
 mixers = db.Mixers
 beer = db.Beer
 
-alchohal.insert_one(
+alchohol.insert_one(
         {
             "type" : "vodka",
             "name" : "sky",
             "flavor" : None,
             "bottles" : 1
         }
- )
-alchohal.insert_one(
+)
+alchohol.insert_one(
         {
             "type" : "liqueur",
             "name" : "chambord",
@@ -28,7 +28,7 @@ alchohal.insert_one(
             "bottles" : 1
         }
 )
-alchohal.insert_one(
+alchohol.insert_one(
         {
             "type" : "vodka",
             "name" : "grey goose",
@@ -97,5 +97,3 @@ orders.insert_one(
             "user" : "koalatea"
         }
 )
-
-
