@@ -5,6 +5,7 @@ from pymongo import MongoClient
 
 client = MongoClient()
 db = client.ChambordPi
+user = { "nickname" : "koalatea" }
 
 @app.route("/")
 @app.route("/index")
@@ -34,8 +35,14 @@ def login():
 def list_alchohal():
     pass
 
-@app.route("/menu", methods=["GET", "POST"])
+@app.route("/list_drinks", methods=["GET", "POST"])
 def list_drinks():
+    for drink in db.Drinks.find():
+        print(drink)
+    return render_template('drinks.html', title='All Drinks', user=user, drinks=db.Drinks.find())
+
+@app.route("/menu", methods=["GET", "POST"])
+def menu():
     pass
 
 @app.route("/orders", methods=["GET", "POST"])

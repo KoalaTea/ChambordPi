@@ -2,6 +2,7 @@
 from pymongo import MongoClient
 
 client = MongoClient()
+client.drop_database("ChambordPi")
 db = client.ChambordPi
 
 drinks = db.Drinks
