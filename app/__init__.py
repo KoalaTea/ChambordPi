@@ -8,7 +8,7 @@ from flask_login import LoginManager
 
 lm = LoginManager()
 lm.session_protection = 'strong'
-lm.login_view = 'auth.login'
+lm.login_view = 'login'
 lm.init_app(app)
 
 def create_app(config_name):

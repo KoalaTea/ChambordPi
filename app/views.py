@@ -3,7 +3,7 @@ from app import app, lm
 from .forms import LoginForm
 from pymongo import MongoClient
 from werkzeug.security import check_password_hash
-from flask_login import login_required
+from flask_login import login_required, login_user, logout_user
 from .objects import User
 from .decorators import bartender_required, admin_required
 #from .db import db
@@ -33,8 +33,8 @@ def login():
     form = LoginForm()
     if(request.method == "POST" and form.validate_on_submit()):
         user = db.Users.find_one({"username": form.username.data})
-        if(user is not None and User.validate_login(user.password, form.password.data)):
-            user_obj = User(user.username)
+        if(user is not None and User.validate_login(user['password'], form.password.data)):
+            user_obj = User(user)
             login_user(user_obj)
         else:
             flash('Login failed for username="%s" and password="%s"' % (form.username.data, form.password.data))
@@ -71,4 +71,4 @@ def load_user(username):
     u = db.Users.find_one({"username" : username})
     if not u:
         return None
-    return User(u.username)
+    return User(u)

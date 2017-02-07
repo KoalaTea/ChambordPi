@@ -4,9 +4,9 @@ from .db import db
 class User():
 
     def __init__(self, user_json):
-        self.username = user_json.username
-        self.credits = user_json.credits
-        self.roles = user_json.roles
+        self.username = user_json['username']
+        self.credits = user_json['credits']
+        self.roles = user_json['roles']
 
     def is_authenticated(self):
         return True
