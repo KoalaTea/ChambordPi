@@ -1,10 +1,10 @@
 flask
+pymongo
 #flask-login
 #flask-openid
-#flask-sqlalchemy
 #sqlalchemy-migrate
 #flask-whooshalchemy
-#flask-wtf
+flask-wtf
 #flask-babel
 #guess-language
 #flipflop
