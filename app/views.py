@@ -1,6 +1,10 @@
 from flask import render_template, flash, redirect
 from app import app
 from .forms import LoginForm
+from pymongo import MongoClient
+
+client = MongoClient()
+db = client.ChambordPi
 
 @app.route("/")
 @app.route("/index")
@@ -25,3 +29,15 @@ def login():
         flash('Login for username="%s" and password="%s"' % (form.username.data, form.password.data))
         return redirect('/index')
     return render_template('login.html', title='Sign In', form=form)
+
+@app.route("/list_alchohal", methods=["GET", "POST"])
+def list_alchohal():
+    pass
+
+@app.route("/menu", methods=["GET", "POST"])
+def list_drinks():
+    pass
+
+@app.route("/orders", methods=["GET", "POST"])
+def orders():
+    pass
