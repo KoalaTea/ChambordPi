@@ -1,7 +1,7 @@
 flask
-flask-login
+#flask-login
 #flask-openid
-flask-sqlalchemy
+#flask-sqlalchemy
 #sqlalchemy-migrate
 #flask-whooshalchemy
 #flask-wtf
