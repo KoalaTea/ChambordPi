@@ -103,6 +103,15 @@ users.insert_one(
         }
 )
 
+users.insert_one(
+        {
+            "username" : "admin",
+            "password" : generate_password_hash("admin"),
+            "credits" : 100,
+            "roles" : [ "user", "admin" ]
+        }
+)
+
 
 orders.insert_one(
         {
