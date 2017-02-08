@@ -6,10 +6,10 @@ from werkzeug.security import check_password_hash
 from flask_login import login_required, login_user, logout_user
 from .objects import User
 from .decorators import bartender_required, admin_required
-#from .db import db
+from .db import db
 
-client = MongoClient()
-db = client.ChambordPi
+#client = MongoClient()
+#db = client.ChambordPi
 user = { "nickname" : "koalatea" }
 
 @app.route("/")
