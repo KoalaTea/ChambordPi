@@ -98,7 +98,7 @@ def list_alchohol():
 def add_alchohol():
     data = request.get_json()
     if set(data.keys()) == set(["type","name","flavor","bottles"]):
-         current_alchohol = db.Alchohol.find({"type": data["type"], "name", data["name"], "flavor":data["flavor"])
+        current_alchohol = db.Alchohol.find({"type": data["type"], "name": data["name"], "flavor":data["flavor"]})
         if(current_alchohol is None):
             db.Alchohol.insert_one(data)
         # update to set bottles += bottles added
@@ -125,8 +125,8 @@ def remove_alchohol():
     data = request.get_json()
     if(set(data.keys()) == set(["type","name","flavor","bottles"])):
         print("works")
-        current_alchohol = db.Alchohol.find({"type": data["type"], "name": data["name"], "flavor":data["flavor"])
-        if(current_alchohol is None or current_alchohol["bottles"] == 0 or current_alchohol["bottles"] > data["bottles"]):
+        current_alchohol = db.Alchohol.find({"type": data["type"], "name": data["name"], "flavor":data["flavor"]})
+        if(current_alchohol is None or current_alchohol["bottles"] == 0 or current_alchohol["bottles"] < data["bottles"]):
             # raise issue
             return "{}"
         # update to set bottles -= bottles added
@@ -176,7 +176,7 @@ def order_drink():
     if(set(data.keys()) == set(["name"])):
         the_drink = db.Drinks.find(data)
         if(the_drink is not None):
-        db.Orders.insert_one({"drink": {"name": the_drink["name"], "type": the_drink["type"], "recipe": the_drink["recipe"]}, "user": current_username.username})
+            db.Orders.insert_one({"drink": {"name": the_drink["name"], "type": the_drink["type"], "recipe": the_drink["recipe"]}, "user": current_username.username})
             return db.Orders.find("user", current_user.username)
     return "{}"
 
