@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1>Hello, {{ user.nickname }}</h1>
+    <p>all orders</p>
+    {% for order in orders %}
+        <div><p>{{ order.drink.name }}, {{ order.drink.type }}</p>
+            {% for ingredient in order.drink.recipe %}
+            <p><b>
+                {% if ingredient.flavor is not none %}
+                    {{ ingredient.flavor }}
+                {% endif %}
+                {{ ingredient.type }}, {{ ingredient.ammount }}
+            </p></b>
+            {% endfor %}
+        </div>
+    {% endfor %}
+{% endblock %}
