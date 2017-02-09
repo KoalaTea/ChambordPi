@@ -1,16 +1,17 @@
 {% extends "base.html" %}
 {% block content %}
-    <h1>Hello, {{ user.nickname }}</h1>
-    <p>all drinks</p>
+    <h1>Hello, {{ user.username }}</h1>
+    <p>[{{ user.username }}@Hackerbar menu]$ ls -l</p>
     {% for drink in drinks %}
-        <div><p>{{ drink.name }}, {{ drink.type }}</p>
+        <div class="drinks"><p>{{ drink.name }}, {{ drink.type }}</p>
             {% for ingredient in drink.recipe %}
-            <p><b>
+            <div class="recipe"><p><b>
                 {% if ingredient.flavor is not none %}
                     {{ ingredient.flavor }}
                 {% endif %}
                 {{ ingredient.type }}, {{ ingredient.ammount }}
             </p></b>
+            </div>
             {% endfor %}
         </div>
     {% endfor %}

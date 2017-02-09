@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
-    <h1>Hello, {{ user.nickname }}</h1>
+    <h1>Hello, {{ user.username }}</h1>
     <p>all drinks</p>
     {% for drink in drinks %}
         <div><p>{{ drink.name }}, {{ drink.type }}</p>

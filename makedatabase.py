@@ -117,6 +117,7 @@ orders.insert_one(
         {
             "drink" : {
                 "name" : "Has the stuff test",
+                "type" : "mixed",
                 "recipe" : [
                     {
                         "type" : "vodka",

@@ -12,11 +12,18 @@
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
- 
+
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/base.css') }}">
+
+        {% block head %}
+        {% endblock %}
+
     </head>
     <body>
-        <div>Hackerbar:
-            <a href="/index">Home</a>
+        <nav>
+            <a href="/index">Hackerbar</a>
+
+            <div class="links">
             <a href="/list_drinks">All Recipes</a>
             <a href="/menu">Menu</a>
             {% if current_user.is_authenticated %}
@@ -24,7 +31,8 @@
             {% else %}
                 <a href="/login">SignIn</a>
             {% endif %}
-        </div>
+            </div>
+        </nav>
         <hr>
         {% with messages = get_flashed_messages() %}
             {% if messages %}
@@ -35,6 +43,7 @@
                 </ul>
             {% endif %}
         {% endwith %}
-        {% block content %}{% endblock %}
+        {% block content %}
+        {% endblock %}
     </body>
 </html>

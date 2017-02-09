@@ -1,4 +1,9 @@
-div {
-    border: 2px solid
-    border-radius: 25px
+nav{
+    margin: 1rem 0 0;
+    padding: .5rem 1rem;
+    display: flex;
+    justify-content: space-between;
+}
+.links a {
+    padding-right: 3rem;
 }

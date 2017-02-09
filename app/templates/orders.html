@@ -1,16 +1,22 @@
 {% extends "base.html" %}
+
+{% block head %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/orders.css') }}">
+{% endblock %}
+
 {% block content %}
-    <h1>Hello, {{ user.nickname }}</h1>
-    <p>all orders</p>
+    <h1>Hello, {{ user.username }}</h1>
+    <p>[{{ user.username }}@Hackerbar orders]$ ls -l</p>
     {% for order in orders %}
-        <div><p>{{ order.drink.name }}, {{ order.drink.type }}</p>
+        <div class="orders">
+            <p>{{ order.drink.name }}, {{ order.drink.type }}</p>
             {% for ingredient in order.drink.recipe %}
-            <p><b>
+            <button type="button" class="btn btn-primary btn-cons"><b>
                 {% if ingredient.flavor is not none %}
                     {{ ingredient.flavor }}
                 {% endif %}
                 {{ ingredient.type }}, {{ ingredient.ammount }}
-            </p></b>
+            </b></button><br>
             {% endfor %}
         </div>
     {% endfor %}

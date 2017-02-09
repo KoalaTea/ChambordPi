@@ -10,7 +10,7 @@ from .db import db
 
 #client = MongoClient()
 #db = client.ChambordPi
-user = { "nickname" : "koalatea" }
+user = { "nickname" : "username" }
 
 # index
 #   the main page
