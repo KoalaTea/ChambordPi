@@ -29,6 +29,7 @@ def index():
     return render_template('index.html', title='Home', user=user, drinks=drinks)
 
 @app.route("/login", methods=["POST", "GET"])
+@app.route("/signin", methods=["POST", "GET"])
 def login():
     form = LoginForm()
     if(request.method == "POST" and form.validate_on_submit()):
@@ -43,6 +44,7 @@ def login():
     return render_template('login.html', title='Sign In', form=form)
 
 @app.route("/logout")
+@app.route("/signout")
 def logout():
     logout_user()
     return redirect('/index')
@@ -51,13 +53,35 @@ def logout():
 def list_alchohol():
     return render_template('alchohol.html', title='Alchohol', user=user, alchohol_list=db.Alchohol.find())
 
+@app.route("/add_alchohol", methods=["POST"])
+@bartender_required
+def add_alchohol():
+    data = request.get_json()
+    if set(data.keys()) == set(["type","name","flavor","bottles"]):
+        current_alchohol = db.Alchohol.find(data)
+        if current_alchohol == None:
+            db.Alchohol.insert_one(data)
+        # update to set bottles += bottles added
+        new_alchohol = db.Alchohol.find(data)
+        return new_alchohol
+    return "{}"
+
+@app.route("/remove_alchohol", methods=["POST"])
+@bartender_required
+def remove_alchohol():
+    pass
+
 @app.route("/list_drinks", methods=["GET", "POST"])
 def list_drinks():
     return render_template('drinks.html', title='All Drinks', user=user, drinks=db.Drinks.find())
 
-@app.route("/menu", methods=["GET", "POST"])
+@app.route("/menu", methods=["GET"])
 def menu():
     return render_template('drinks.html', title='Menu', user=user, drinks=db.Drinks.find({"available" : True}))
+
+@app.route("/order_drink", methods=["POST"])
+def order_drink():
+    pass
 
 @app.route("/orders", methods=["GET", "POST"])
 @login_required
