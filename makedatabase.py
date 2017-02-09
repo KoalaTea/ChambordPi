@@ -115,7 +115,26 @@ users.insert_one(
 
 orders.insert_one(
         {
-            "name" : "Has the stuff test",
+            "drink" : {
+                "name" : "Has the stuff test",
+                "recipe" : [
+                    {
+                        "type" : "vodka",
+                        "flavor" : None,
+                        "ammount" : "1 oz"
+                    },
+                    {
+                        "type" : "liqueur",
+                        "flavor" : "raspberry",
+                        "ammount" : "1 oz"
+                    },
+                    {
+                        "type" : "mixer",
+                        "name" : "sprite",
+                        "ammount" : "fill"
+                    }
+                ]
+            },
             "user" : "koalatea"
         }
 )
