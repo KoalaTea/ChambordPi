@@ -3,14 +3,15 @@ from app import app, lm
 from .forms import LoginForm
 from pymongo import MongoClient
 from werkzeug.security import check_password_hash
-from flask_login import login_required, login_user, logout_user
+from flask_login import login_required, login_user, logout_user, current_user
 from .objects import User
 from .decorators import bartender_required, admin_required
 from .db import db
+import json
 
 #client = MongoClient()
 #db = client.ChambordPi
-user = { "nickname" : "username" }
+user = { "username" : "koalatea" }
 
 # index
 #   the main page
@@ -172,12 +173,18 @@ def menu():
 @login_required
 def order_drink():
     #TODO money things
-    data = request.get_json()
+    print(current_user.username)
+    data = request.json
+    print(data)
     if(set(data.keys()) == set(["name"])):
-        the_drink = db.Drinks.find(data)
+        the_drink = db.Drinks.find_one(data)
+        print(the_drink)
         if(the_drink is not None):
-            db.Orders.insert_one({"drink": {"name": the_drink["name"], "type": the_drink["type"], "recipe": the_drink["recipe"]}, "user": current_username.username})
-            return db.Orders.find("user", current_user.username)
+            db.Orders.insert_one({"drink": {"name": the_drink["name"], "type": the_drink["type"], "recipe": the_drink["recipe"]}, "user": current_user.username})
+            output = ''
+            for i in db.Orders.find({"user": current_user.username}):
+                output += str(i)
+            return output
     return "{}"
 
 # orders

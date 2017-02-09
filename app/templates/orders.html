@@ -2,11 +2,15 @@
 
 {% block head %}
 <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/orders.css') }}">
+<script type="text/javascript" src="/static/js/order.js"></script>
 {% endblock %}
 
 {% block content %}
     <h1>Hello, {{ user.username }}</h1>
-    <p>[{{ user.username }}@Hackerbar orders]$ ls -l</p>
+    <div class="terminal">
+        <p>[{{ user.username }}@Hackerbar orders]$ ls -l</p>
+    </div>
+    <div id=output></div>
     {% for order in orders %}
         <div class="orders">
             <p>{{ order.drink.name }}, {{ order.drink.type }}</p>
@@ -15,9 +19,10 @@
                 {% if ingredient.flavor is not none %}
                     {{ ingredient.flavor }}
                 {% endif %}
-                {{ ingredient.type }}, {{ ingredient.ammount }}
+                {{ ingredient.type }} - {{ ingredient.ammount }}
             </b></button><br>
             {% endfor %}
+            <button type="button" class="btn btn-success btn-cons"><b>Completed</b></button>
         </div>
     {% endfor %}
 {% endblock %}

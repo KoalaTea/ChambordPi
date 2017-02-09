@@ -1,18 +1,29 @@
 {% extends "base.html" %}
+
+{% block head %}
+    <script type="text/javascript" src="/static/js/order_drink.js"></script>
+{% endblock %}
+
 {% block content %}
-    <h1>Hello, {{ user.username }}</h1>
+   <h1>Hello, {{ user.username }}</h1>
     <p>[{{ user.username }}@Hackerbar menu]$ ls -l</p>
     {% for drink in drinks %}
-        <div class="drinks"><p>{{ drink.name }}, {{ drink.type }}</p>
+        <div class="drinks"><p>
+            <p>{{ drink.name }}<br>{{ drink.type }}</p>
             {% for ingredient in drink.recipe %}
-            <div class="recipe"><p><b>
+            <div class="recipe">
+                <p><b>
                 {% if ingredient.flavor is not none %}
                     {{ ingredient.flavor }}
                 {% endif %}
-                {{ ingredient.type }}, {{ ingredient.ammount }}
-            </p></b>
+                {{ ingredient.type }} - {{ ingredient.ammount }}
+                </p></b>
             </div>
             {% endfor %}
+            <form action="/order_drink" method="post">
+               <input name="name" value="{{ drink.name }}" hidden=True>
+               <button id="order" type="button" class="btn btn-success btn-cons" onclick="order_drink('{{ drink.name }}')"><b>Order</b></button>
+            </form>
         </div>
     {% endfor %}
 {% endblock %}

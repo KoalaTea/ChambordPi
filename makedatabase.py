@@ -42,7 +42,7 @@ alchohol.insert_one(
 
 drinks.insert_one(
         {
-            "name" : "Has the stuff test",
+            "name" : "SuccessDrink",
             "type" : "mixed",
             "recipe" : [
                 {
@@ -67,16 +67,16 @@ drinks.insert_one(
 
 drinks.insert_one(
         {
-            "name" : "Don't have",
-            "type" : "shot",
+            "name" : "Godfather",
+            "type" : "mixed",
             "recipe" : [
                 {
-                    "type" : "vodka",
+                    "type" : "amerreto",
                     "flavor" : None,
                     "ammount" : "half"
                 },
                 {
-                    "type" : "gin",
+                    "type" : "scotch",
                     "flavor" : None,
                     "ammount" : "half"
                 }
@@ -116,7 +116,7 @@ users.insert_one(
 orders.insert_one(
         {
             "drink" : {
-                "name" : "Has the stuff test",
+                "name" : "SuccessDrink",
                 "type" : "mixed",
                 "recipe" : [
                     {
