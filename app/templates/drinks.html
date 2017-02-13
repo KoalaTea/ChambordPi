@@ -1,6 +1,5 @@
 {% extends "base.html" %}
 {% block content %}
-    <h1>Hello, {{ user.username }}</h1>
     <p>all drinks</p>
     {% for drink in drinks %}
         <div class="drinks">{{ drink.name }}<br>{{ drink.type }}</p>

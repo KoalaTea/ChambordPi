@@ -21,7 +21,6 @@ user = { "username" : "koalatea" }
 @app.route("/")
 @app.route("/index")
 def index():
-    user = { "nickname": "koalatea" }
     drinks = [
         {
             'drink_name' : 'Godfather',
@@ -32,7 +31,7 @@ def index():
             'ingredients' : [ 'nothing', 'more nothing' ]
         }
     ]
-    return render_template('index.html', title='Home', user=user, drinks=drinks)
+    return render_template('index.html', title='Home', user=current_user, drinks=drinks)
 
 # login
 #   login page

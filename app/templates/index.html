@@ -1,6 +1,10 @@
 {% extends "base.html" %}
 {% block content %}
-    <h1>Hello, {{ user.username }}</h1>
+    {% if current_user.is_authenticated %}
+        <h1>Hello {{ user.username }},</h1>
+    {% else %}
+        <h1>Hello Guest,</h1>
+    {% endif %}
     {% for drink in drinks %}
         <div><p>{{ drink.drink_name }}</p>
         {% for ingredient in drink.ingredients %}

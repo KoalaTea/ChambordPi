@@ -1,5 +1,5 @@
 #!flask/bin/python
-from pymongo import MongoClient
+from pymongo import MongoClient, ASCENDING
 from werkzeug.security import generate_password_hash
 # TODO make usernames unique
 
@@ -39,6 +39,8 @@ alchohol.insert_one(
             "bottles" : 0
         }
 )
+
+drinks.create_index([("name", ASCENDING)], unique=True)
 
 drinks.insert_one(
         {
@@ -84,6 +86,8 @@ drinks.insert_one(
             "available" : False
         }
 )
+
+users.create_index([("username", ASCENDING)], unique=True)
 
 users.insert_one(
         {
