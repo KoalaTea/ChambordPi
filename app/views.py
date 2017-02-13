@@ -193,12 +193,20 @@ def order_drink():
 #   orders template with all current orders listed
 #
 # TODO verify correct ordering
-@app.route("/orders", methods=["GET", "POST"])
+@app.route("/orders", methods=["GET"])
 @login_required
 @bartender_required
 def orders():
     orders = db.Orders.find()
     return render_template('orders.html', title='Orders', user=user, orders=orders)
+
+@app.route("/current_orders", methods=["GET"])
+@login_required
+@bartender_required
+def current_orders():
+    orders = db.Orders.find()
+    return render_template('current_orders.html', title='Orders', user=user, orders=orders)
+
 
 # load_user
 #   sets things up for loading a user since we use mongo instead of sqllite
