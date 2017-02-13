@@ -8,6 +8,7 @@ function reload_orders(){
         success: function(data) { // data is the response from your php script
             // This function is called if your AJAX query was successful
             $('#output').replaceWith(data);
+            alert(data);
         },
         error: function() {
             // This callback is called if your AJAX query has failed
