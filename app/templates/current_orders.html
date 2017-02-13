@@ -9,6 +9,6 @@
             {{ ingredient.type }} - {{ ingredient.ammount }}
         </b></button><br>
         {% endfor %}
-        <button type="button" class="btn btn-success btn-cons"><b>Completed</b></button>
+        <button type="button" class="btn btn-success btn-cons" onclick="order_complete('{{ order._id }}')"><b>Completed</b></button>
     </div>
 {% endfor %}

@@ -2,6 +2,7 @@ from flask import render_template, flash, redirect, request
 from app import app, lm
 from .forms import LoginForm
 from pymongo import MongoClient
+from bson.objectid import ObjectId
 from werkzeug.security import check_password_hash
 from flask_login import login_required, login_user, logout_user, current_user
 from .objects import User
@@ -9,9 +10,10 @@ from .decorators import bartender_required, admin_required
 from .db import db
 import json
 
-#client = MongoClient()
-#db = client.ChambordPi
-user = { "username" : "koalatea" }
+# TODO:
+#   set all pages to check for authentication and if none - guest@Hackerbar
+#   metrics
+#   times
 
 # index
 #   the main page
@@ -78,7 +80,7 @@ def logout():
 #   alchohol template which has all alchohols available
 @app.route("/list_alchohol", methods=["GET", "POST"])
 def list_alchohol():
-    return render_template('alchohol.html', title='Alchohol', user=user, alchohol_list=db.Alchohol.find())
+    return render_template('alchohol.html', title='Alchohol', user=current_user, alchohol_list=db.Alchohol.find())
 
 # add_alchohol
 #   will add bottles to an alchohol that exists, or add the alchohol to the list if it does not exist
@@ -140,17 +142,21 @@ def remove_alchohol():
 # returns
 #   drinks template with all recorded drinks
 @app.route("/list_drinks", methods=["GET", "POST"])
+@app.route("/recipes", methods=["GET", "POST"])
 def list_drinks():
-    return render_template('drinks.html', title='All Drinks', user=user, drinks=db.Drinks.find())
+    return render_template('recipes.html', title='All Drinks', user=current_user, drinks=db.Drinks.find())
 
 # menu
 #   lists all available drinks based on alchohol currently in stock
 #
 # returns
 #   menu template with only available drinks
+#
+# TODO
+#   in views if unauthenticated, do not show order button
 @app.route("/menu", methods=["GET"])
 def menu():
-    return render_template('menu.html', title='Menu', user=user, drinks=db.Drinks.find({"available" : True}))
+    return render_template('menu.html', title='Menu', user=current_user, drinks=db.Drinks.find({"available" : True}))
 
 # order_drink
 #   page to order drinks from
@@ -198,14 +204,40 @@ def order_drink():
 @bartender_required
 def orders():
     orders = db.Orders.find()
-    return render_template('orders.html', title='Orders', user=user, orders=orders)
+    return render_template('orders.html', title='Orders', user=current_user, orders=orders)
 
 @app.route("/current_orders", methods=["GET"])
 @login_required
 @bartender_required
 def current_orders():
     orders = db.Orders.find()
-    return render_template('current_orders.html', title='Orders', user=user, orders=orders)
+    return render_template('current_orders.html', title='Orders', user=current_user, orders=orders)
+
+@app.route("/order_complete", methods=["POST"])
+@login_required
+@bartender_required
+def order_complete():
+    print(current_user.username)
+    data = request.json
+    print(data)
+    if(set(data.keys()) == set(["_id"])):
+        print("we here")
+        the_order = db.Orders.find_one({"_id": ObjectId(data["_id"])})
+        print(the_order)
+        if(the_order is not None):
+            db.Orders.delete_one({"_id": ObjectId(data["_id"])})
+    orders = db.Orders.find()
+    return render_template('current_orders.html', title='Orders', user=current_user, orders=orders)
+
+# admin
+#   admin panel
+#
+# returns
+#   admin panel template
+@app.route("/admin", methods=["GET"])
+@admin_required
+def admin_panel():
+    pass
 
 
 # load_user

@@ -1,18 +1,34 @@
 //$(document).ready(function()){
 function reload_orders(){
-    $('#output').replaceWith("<h1>fuck</h1>");
     $.ajax({
         url: '/current_orders',
         type: 'GET', // GET or POST
-        data: parameters,
         success: function(data) { // data is the response from your php script
-            // This function is called if your AJAX query was successful
-            $('#output').replaceWith(data);
-            alert(data);
+            $('#output').html(data);
         },
         error: function() {
             // This callback is called if your AJAX query has failed
             alert("Error!");
         }
     });
-});
+};
+
+function order_complete( orderid ){
+    $.ajax({
+        url: "/order_complete",
+        type: "POST",
+        contentType: "application/json",
+        data: JSON.stringify({ _id : orderid }), 
+        success: function(data) {
+             $('#output').html(data);
+       },
+        error: function(data) {
+            alert("ERROR");
+        }
+    });
+};
+
+window.setInterval(function(){
+    reload_orders();
+}, 5000);
+
