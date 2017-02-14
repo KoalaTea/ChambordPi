@@ -103,7 +103,7 @@ def add_alchohol():
         current_alchohol = db.Alchohol.find({"type": data["type"], "name": data["name"], "flavor":data["flavor"]})
         if(current_alchohol is None):
             db.Alchohol.insert_one(data)
-        # update to set bottles += bottles added
+        #TODO update to set bottles += bottles added
         new_alchohol = db.Alchohol.find(data)
         return new_alchohol
     return "{}"
@@ -131,7 +131,10 @@ def remove_alchohol():
         if(current_alchohol is None or current_alchohol["bottles"] == 0 or current_alchohol["bottles"] < data["bottles"]):
             # raise issue
             return "{}"
-        # update to set bottles -= bottles added
+        #TODO update to set bottles -= bottles added
+        db.Alchohol.delete_one(current_alchohol)
+        current_alchohol["bottles"] -= data["bottles"]
+        db.Alchohol.insert_one(current_alchohol)
         new_alchohol = db.Alchohol.find(data)
         return new_alchohol
     return "{}"
@@ -157,6 +160,36 @@ def list_drinks():
 @app.route("/menu", methods=["GET"])
 def menu():
     return render_template('menu.html', title='Menu', user=current_user, drinks=db.Drinks.find({"available" : True}))
+
+@app.route("/update_menu", methods=["POST"])
+@login_required
+@bartender_required
+def update_menu():
+    data = request.get_json()
+    if(set(data.keys()) == set(["type","flavor"])):
+        print("works")
+        have_more = False
+        alchohols = db.Alchohol.find({"type": data["type"], "flavor": data["flavor"]})
+        if(alchohols is not None):
+            for alchohol in alchohols:
+                if(alchohol["bottles"] > 0):
+                    have_more = True
+            if(have_more):
+                #TODO decide on format
+                return '{"okay":"cool"}'
+            else:
+                drinks = db.Drinks.find({"available": True})
+                for drink in drinks:
+                    for ingredient in drink["recipe"]:
+                        if(ingredient["type"] == data["type"] and ingredient["flavor"] == data["flavor"]):
+                            #TODO update the drinks availability to false
+                            #TODO maybe complete?
+                            db.Drinks.delete_one(drink)
+                            drink["available"] = False
+                            db.Drinks.insert_one(drink)
+                            return '{"New": "Menu"}'
+    return "{}"
+
 
 # order_drink
 #   page to order drinks from
@@ -223,6 +256,7 @@ def order_complete():
     if(set(data.keys()) == set(["_id"])):
         print("we here")
         the_order = db.Orders.find_one({"_id": ObjectId(data["_id"])})
+        db.PastOrders.insert_one(the_order)
         print(the_order)
         if(the_order is not None):
             db.Orders.delete_one({"_id": ObjectId(data["_id"])})
