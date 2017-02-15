@@ -12,7 +12,9 @@
       <div class="panel panel-default panel-table">
           <div class="panel-heading">
               <div class="tr">
-                  <div class="td">[{{ user.username }}@Hackerbar menu]$ ls -l</div>
+                  <div class="td">
+                    <h5 class="drink-title"> [{{ user.username }}@Hackerbar menu]$ ls -l | less </h5>
+                  </div>
               </div>
           </div>
           <div class="panel-body">
@@ -25,10 +27,10 @@
                       <button id="orderBtn" class="btn btn-primary btn-hover-green">Place Order</button>
                     </div>
                     <div class="col col-xs-8" align=left>
-                      <h4>{{drink.name}}</h4>
+                      <h3 class="drink-title"><b>{{drink.name}}</b></h3>
                       <ul>
                         {% for ingredient in drink['recipe'] %}
-                          <li>{{ingredient['amount']}}
+                          <li class="drink-text">{{ingredient['amount']}}
                               {% if ingredient['flavor']|lower != "none" %}
                                 {{ingredient['flavor']}}
                               {% endif %}
@@ -42,8 +44,10 @@
               {% endfor %}
           </div>
           <div class="panel-footer">
-              <div class="tr">
-                  <div class="td">footer</div>
+              <div class="tr" align=center>
+                  <div class="td">
+                  <h5>(END)</h5>
+                  </div>
               </div>
           </div>
       </div>

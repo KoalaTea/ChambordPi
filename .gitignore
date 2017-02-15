@@ -2,3 +2,4 @@ flask/
 */__pycache__/
 *.pyc
 config.file
+venv/
