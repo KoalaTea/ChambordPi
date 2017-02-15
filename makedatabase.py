@@ -40,35 +40,141 @@ alchohol.insert_one(
         }
 )
 
-drinks.create_index([("name", ASCENDING)], unique=True)
+drinks.create_index([("id", ASCENDING)], unique=True)
 
 drinks.insert_one(
         {
-            "name" : "SuccessDrink",
-            "type" : "mixed",
-            "recipe" : [
+            "id": 0,
+            "name": "Mystery Drink",
+            "type": "mixed",
+            "image": "dirty_martini.png",
+            "recipe": [
                 {
-                    "type" : "vodka",
-                    "flavor" : None,
-                    "ammount" : "1 oz"
+                    "type": "vodka",
+                    "flavor": None,
+                    "amount": "1 oz"
                 },
                 {
-                    "type" : "liqueur",
-                    "flavor" : "raspberry",
-                    "ammount" : "1 oz"
+                    "type": "liqueur",
+                    "flavor": "raspberry",
+                    "amount": "1 oz"
                 },
                 {
-                    "type" : "mixer",
-                    "name" : "sprite",
-                    "ammount" : "fill"
+                    "type": "mixer",
+                    "name": "sprite",
+                    "amount": "fill"
                 }
             ],
-            "available" : True
+            "available": True
         }
 )
-
 drinks.insert_one(
         {
+            "id": 1,
+            "name": "Mystery Drink",
+            "type": "mixed",
+            "image": "dirty_martini.png",
+            "recipe": [
+                {
+                    "type": "vodka",
+                    "flavor": None,
+                    "amount": "1 oz"
+                },
+                {
+                    "type": "liqueur",
+                    "flavor": "raspberry",
+                    "amount": "1 oz"
+                },
+                {
+                    "type": "mixer",
+                    "name": "sprite",
+                    "amount": "fill"
+                }
+            ],
+            "available": True
+        }
+)
+drinks.insert_one(
+        {
+            "id": 2,
+            "name": "Mystery Drink",
+            "type": "mixed",
+            "image": "dirty_martini.png",
+            "recipe": [
+                {
+                    "type": "vodka",
+                    "flavor": None,
+                    "amount": "1 oz"
+                },
+                {
+                    "type": "liqueur",
+                    "flavor": "raspberry",
+                    "amount": "1 oz"
+                },
+                {
+                    "type": "mixer",
+                    "name": "sprite",
+                    "amount": "fill"
+                }
+            ],
+            "available": True
+        }
+)
+drinks.insert_one(
+        {
+            "id": 3,
+            "name": "Mystery Drink",
+            "type": "mixed",
+            "image": "dirty_martini.png",
+            "recipe": [
+                {
+                    "type": "vodka",
+                    "flavor": None,
+                    "amount": "1 oz"
+                },
+                {
+                    "type": "liqueur",
+                    "flavor": "raspberry",
+                    "amount": "1 oz"
+                },
+                {
+                    "type": "mixer",
+                    "name": "sprite",
+                    "amount": "fill"
+                }
+            ],
+            "available": True
+        }
+)
+drinks.insert_one(
+        {
+            "id": 4,
+            "name": "Mystery Drink",
+            "type": "mixed",
+            "image": "dirty_martini.png",
+            "recipe": [
+                {
+                    "type": "vodka",
+                    "flavor": None,
+                    "amount": "1 oz"
+                },
+                {
+                    "type": "liqueur",
+                    "flavor": "raspberry",
+                    "amount": "1 oz"
+                },
+                {
+                    "type": "mixer",
+                    "name": "sprite",
+                    "amount": "fill"
+                }
+            ],
+            "available": True
+        }
+)
+drinks.insert_one(
+        {
+            "id": "5",
             "name" : "Godfather",
             "type" : "mixed",
             "recipe" : [
