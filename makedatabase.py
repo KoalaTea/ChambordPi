@@ -225,27 +225,33 @@ users.insert_one(
 
 orders.insert_one(
         {
-            "drink" : {
-                "name" : "SuccessDrink",
-                "type" : "mixed",
-                "recipe" : [
-                    {
-                        "type" : "vodka",
-                        "flavor" : None,
-                        "ammount" : "1 oz"
-                    },
-                    {
-                        "type" : "liqueur",
-                        "flavor" : "raspberry",
-                        "ammount" : "1 oz"
-                    },
-                    {
-                        "type" : "mixer",
-                        "name" : "sprite",
-                        "ammount" : "fill"
-                    }
-                ]
-            },
-            "user" : "koalatea"
+            "name" : "DrinkOne",
+            "type" : "mixed",
+            "image": "dirty_martini.png",
+            "timeOrdered": "152321",
+            "user": "koalatea",
+            "status": "Queued"
         }
 )
+
+orders.insert_one(
+        {
+            "name" : "DrinkTwo",
+            "type" : "mixed",
+            "image": "dirty_martini.png",
+            "timeOrdered": "152321",
+            "user": "koalatea",
+            "status": "Inprogress"
+        }
+)
+orders.insert_one(
+        {
+            "name" : "DrinkThree",
+            "type" : "mixed",
+            "image": "dirty_martini.png",
+            "timeOrdered": "152321",
+            "user": "koalatea",
+            "status": "Ready"
+        }
+)
+

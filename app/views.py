@@ -258,6 +258,13 @@ def my_current_orders():
     orders = db.Orders.find({"user": current_user.username})
     return render_template('my_current_orders.html', title='Orders', user=current_user, orders=orders)
 
+@app.route("/recent_orders")
+@login_required
+def recent_orders():
+    orders = db.Orders.find({"user": current_user.username})
+    return render_template('recent_orders.html', title='Orders', user=current_user, orders=orders)
+
+
 
 @app.route("/order_complete", methods=["POST"])
 @login_required
