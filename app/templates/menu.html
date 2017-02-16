@@ -13,7 +13,11 @@
           <div class="panel-heading">
               <div class="tr">
                   <div class="td">
-                    <h5 class="drink-title"> [{{ user.username }}@Hackerbar menu]$ ls -l | less </h5>
+                    <h5 class="drink-title">
+                      [<b class="user-name">{{ user.username }}</b>@<b class="hacker-bar">Hackerbar
+                      </b>
+                      <b class="dir">~/menu/</b>]$ ls -l | less
+                    </h5>
                   </div>
               </div>
           </div>
@@ -46,7 +50,7 @@
           <div class="panel-footer">
               <div class="tr" align=center>
                   <div class="td">
-                  <h5>(END)</h5>
+                  <h5 class="drink-title">(END)</h5>
                   </div>
               </div>
           </div>

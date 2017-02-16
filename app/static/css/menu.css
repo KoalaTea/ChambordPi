@@ -8,6 +8,15 @@
 .drink-text {
   color: #a9a9a9;
 }
+.hacker-bar {
+  color: red;
+}
+.user-name {
+  color: white;
+}
+.dir {
+  color: #87cefa;
+}
 .panel-table {
     display:table;
     background: transparent;
