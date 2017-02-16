@@ -271,10 +271,10 @@ def review_order(drinkname):
     print type(drink)
     print drinkname
     if(len(drink.values()) > 0):
-        return render_template('review_order.html')
+        return render_template('review_order.html', title='Review and Order', user=current_user, drink=drink)
     else:
         return menu()
-    
+
 @app.route("/order_complete", methods=["POST"])
 @login_required
 @bartender_required
