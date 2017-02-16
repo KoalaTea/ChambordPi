@@ -22,16 +22,6 @@
 
     <body style="font-family: 'Lucida Sans Typewriter', 'Lucida Console', Monaco, 'Bitstream Vera Sans Mono', monospace;">
 
-      <div class="container" id="stock-ticker">
-          <div class="row">
-            <marquee behavior="scroll" direction="left" scrollamount="10">
-              <h3 style="color: green">
-
-              </h3>
-            </marquee>
-          </div>
-      </div>
-
       <div class="jumbotron">
         <div class="container text-center">
           <h1>
@@ -41,34 +31,49 @@
         </div>
       </div>
 
-      <nav class="navbar navbar-inverse">
-        <div class="container-fluid">
-          <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
+      <div class="navbar-more-overlay"></div>
+      <nav class="navbar navbar-inverse navbar-fixed-top animate">
+        <div class="container navbar-more visible-xs">
+          <form class="navbar-form navbar-left" role="search">
+            <div class="form-group">
+              <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search for...">
+                <span class="input-group-btn">
+                  <button class="btn btn-default" type="submit">Submit</button>
+                </span>
+              </div>
+            </div>
+          </form>
+          <ul class="nav navbar-nav"></ul>
+        </div>
+        <div class="container">
+          <div class="navbar-header hidden-xs">
+            <a class="navbar-brand" href="#">Hacker Bar</a>
           </div>
-          <div class="collapse navbar-collapse" id="myNavbar">
-            <ul class="nav navbar-nav">
-              <li class="active"><a href="/index">Home</a></li>
-              <li><a href="/menu">Drinks</a></li>
-              <li><a href="list_drinks">Recipes</a></li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-            {% if current_user.is_authenticated %}
-                <li><a href="#"><span class="glyphicon glyphicon-user"></span> Your Account</a></li>
-                <li><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> Order</a></li>
-                <li><a href="/logout">Sign Out</a></li>
-            {% else %}
-                <li><a href="/login">Sign In</a></li>
-            {% endif %}
-            </ul>
-          </div>
+
+          <ul class="nav navbar-nav navbar-right mobile-bar">
+            <li>
+              <a href="#">
+                <span class="menu-icon fa fa-home"></span>
+                Home
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <span class="menu-icon fa fa-info"></span>
+                About
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <span class="menu-icon fa fa-ship"></span>
+                Cruises
+              </a>
+            </li>
+          </ul>
         </div>
       </nav>
-      <h1>Hi</h1>
+
       <hr>
         {% with messages = get_flashed_messages() %}
             {% if messages %}
