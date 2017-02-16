@@ -239,12 +239,25 @@ def orders():
     orders = db.Orders.find()
     return render_template('orders.html', title='Orders', user=current_user, orders=orders)
 
+@app.route("/my_orders", methods=["GET"])
+@login_required
+def my_orders():
+    orders = db.Orders.find({"user": current_user.username})
+    return render_template('my_orders.html', title='My Orders', user=current_user, orders=orders)
+
 @app.route("/current_orders", methods=["GET"])
 @login_required
 @bartender_required
 def current_orders():
     orders = db.Orders.find()
     return render_template('current_orders.html', title='Orders', user=current_user, orders=orders)
+
+@app.route("/my_current_orders", methods=["GET"])
+@login_required
+def my_current_orders():
+    orders = db.Orders.find({"user": current_user.username})
+    return render_template('my_current_orders.html', title='Orders', user=current_user, orders=orders)
+
 
 @app.route("/order_complete", methods=["POST"])
 @login_required
