@@ -149,6 +149,9 @@ def remove_alchohol():
 def list_drinks():
     return render_template('recipes.html', title='All Drinks', user=current_user, drinks=db.Drinks.find())
 
+def bartender():
+    return render_template('bartender.html', title='Bartender', user=current_user)
+
 # menu
 #   lists all available drinks based on alchohol currently in stock
 #
