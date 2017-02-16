@@ -2,6 +2,7 @@ from flask import render_template, flash, redirect, request
 from app import app, lm
 from .forms import LoginForm
 from pymongo import MongoClient
+from bson.objectid import ObjectId
 from werkzeug.security import check_password_hash
 from flask_login import login_required, login_user, logout_user, current_user
 from .objects import User
@@ -9,9 +10,10 @@ from .decorators import bartender_required, admin_required
 from .db import db
 import json
 
-#client = MongoClient()
-#db = client.ChambordPi
-user = { "username" : "koalatea" }
+# TODO:
+#   set all pages to check for authentication and if none - guest@Hackerbar
+#   metrics
+#   times
 
 # index
 #   the main page
@@ -78,7 +80,7 @@ def logout():
 #   alchohol template which has all alchohols available
 @app.route("/list_alchohol", methods=["GET", "POST"])
 def list_alchohol():
-    return render_template('alchohol.html', title='Alchohol', user=user, alchohol_list=db.Alchohol.find())
+    return render_template('alchohol.html', title='Alchohol', user=current_user, alchohol_list=db.Alchohol.find())
 
 # add_alchohol
 #   will add bottles to an alchohol that exists, or add the alchohol to the list if it does not exist
@@ -101,7 +103,7 @@ def add_alchohol():
         current_alchohol = db.Alchohol.find({"type": data["type"], "name": data["name"], "flavor":data["flavor"]})
         if(current_alchohol is None):
             db.Alchohol.insert_one(data)
-        # update to set bottles += bottles added
+        #TODO update to set bottles += bottles added
         new_alchohol = db.Alchohol.find(data)
         return new_alchohol
     return "{}"
@@ -129,7 +131,10 @@ def remove_alchohol():
         if(current_alchohol is None or current_alchohol["bottles"] == 0 or current_alchohol["bottles"] < data["bottles"]):
             # raise issue
             return "{}"
-        # update to set bottles -= bottles added
+        #TODO update to set bottles -= bottles added
+        db.Alchohol.delete_one(current_alchohol)
+        current_alchohol["bottles"] -= data["bottles"]
+        db.Alchohol.insert_one(current_alchohol)
         new_alchohol = db.Alchohol.find(data)
         return new_alchohol
     return "{}"
@@ -140,17 +145,51 @@ def remove_alchohol():
 # returns
 #   drinks template with all recorded drinks
 @app.route("/list_drinks", methods=["GET", "POST"])
+@app.route("/recipes", methods=["GET", "POST"])
 def list_drinks():
-    return render_template('drinks.html', title='All Drinks', user=user, drinks=db.Drinks.find())
+    return render_template('recipes.html', title='All Drinks', user=current_user, drinks=db.Drinks.find())
 
 # menu
 #   lists all available drinks based on alchohol currently in stock
 #
 # returns
 #   menu template with only available drinks
+#
+# TODO
+#   in views if unauthenticated, do not show order button
 @app.route("/menu", methods=["GET"])
 def menu():
-    return render_template('menu.html', title='Menu', user=user, drinks=db.Drinks.find({"available" : True}))
+    return render_template('menu.html', title='Menu', user=current_user, drinks=db.Drinks.find({"available" : True}))
+
+@app.route("/update_menu", methods=["POST"])
+@login_required
+@bartender_required
+def update_menu():
+    data = request.get_json()
+    if(set(data.keys()) == set(["type","flavor"])):
+        print("works")
+        have_more = False
+        alchohols = db.Alchohol.find({"type": data["type"], "flavor": data["flavor"]})
+        if(alchohols is not None):
+            for alchohol in alchohols:
+                if(alchohol["bottles"] > 0):
+                    have_more = True
+            if(have_more):
+                #TODO decide on format
+                return '{"okay":"cool"}'
+            else:
+                drinks = db.Drinks.find({"available": True})
+                for drink in drinks:
+                    for ingredient in drink["recipe"]:
+                        if(ingredient["type"] == data["type"] and ingredient["flavor"] == data["flavor"]):
+                            #TODO update the drinks availability to false
+                            #TODO maybe complete?
+                            db.Drinks.delete_one(drink)
+                            drink["available"] = False
+                            db.Drinks.insert_one(drink)
+                            return '{"New": "Menu"}'
+    return "{}"
+
 
 # order_drink
 #   page to order drinks from
@@ -198,14 +237,54 @@ def order_drink():
 @bartender_required
 def orders():
     orders = db.Orders.find()
-    return render_template('orders.html', title='Orders', user=user, orders=orders)
+    return render_template('orders.html', title='Orders', user=current_user, orders=orders)
+
+@app.route("/my_orders", methods=["GET"])
+@login_required
+def my_orders():
+    orders = db.Orders.find({"user": current_user.username})
+    return render_template('my_orders.html', title='My Orders', user=current_user, orders=orders)
 
 @app.route("/current_orders", methods=["GET"])
 @login_required
 @bartender_required
 def current_orders():
     orders = db.Orders.find()
-    return render_template('current_orders.html', title='Orders', user=user, orders=orders)
+    return render_template('current_orders.html', title='Orders', user=current_user, orders=orders)
+
+@app.route("/my_current_orders", methods=["GET"])
+@login_required
+def my_current_orders():
+    orders = db.Orders.find({"user": current_user.username})
+    return render_template('my_current_orders.html', title='Orders', user=current_user, orders=orders)
+
+
+@app.route("/order_complete", methods=["POST"])
+@login_required
+@bartender_required
+def order_complete():
+    print(current_user.username)
+    data = request.json
+    print(data)
+    if(set(data.keys()) == set(["_id"])):
+        print("we here")
+        the_order = db.Orders.find_one({"_id": ObjectId(data["_id"])})
+        db.PastOrders.insert_one(the_order)
+        print(the_order)
+        if(the_order is not None):
+            db.Orders.delete_one({"_id": ObjectId(data["_id"])})
+    orders = db.Orders.find()
+    return render_template('current_orders.html', title='Orders', user=current_user, orders=orders)
+
+# admin
+#   admin panel
+#
+# returns
+#   admin panel template
+@app.route("/admin", methods=["GET"])
+@admin_required
+def admin_panel():
+    pass
 
 
 # load_user
