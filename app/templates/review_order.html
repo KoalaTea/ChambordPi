@@ -16,20 +16,18 @@
                     <h5 class="drink-title">
                       [<b class="user-name">{{ user.username }}</b>@<b class="hacker-bar">Hackerbar
                       </b>
-                      <b class="dir">~/menu/</b>]$ ls -l | less
+                      <b class="dir">~/menu/</b>]$ curl order | less
                     </h5>
                   </div>
               </div>
           </div>
           <div class="panel-body">
-              {% for drink in drinks %}
               {% set drinkname = drink['name'] %}
               {% set img = drink['image'] %}
               <div class="tr">
                   <div class="td">
                     <div class="col col-xs-4" align=left>
                       <img height="100%" width="100%" src="{{url_for('static', filename='images/drinks/')}}{{img}}">
-                      <button id="orderBtn" onclick="selectDrink('{{drinkname}}')" class="btn btn-primary btn-hover-green">Place Order</button>
                     </div>
                     <div class="col col-xs-8" align=left>
                       <h3 class="drink-title"><b>{{drinkname}}</b></h3>
@@ -46,7 +44,20 @@
                     </div>
                   </div>
               </div>
-              {% endfor %}
+              <div class = "tr">
+                <div class="col col-xs-12">
+                  <div class="form-group">
+                    <label class="drink-title" for="ordernotes">Enter any special requests:</label>
+                    <textarea placeholder="Show me the moose..." class="form-control" id="notes" rows="3"></textarea>
+                  </div>
+                  <div class="col col-xs-6">
+                    <button style="width: 100%" id="cancelBtn" onclick="selectDrink('{{drinkname}}')" class="btn btn-primary btn-hover-green">Cancel</button>
+                  </div>
+                  <div class="col col-xs-6">
+                    <button style="width: 100%" id="orderBtn" onclick="selectDrink('{{drinkname}}')" class="btn btn-primary btn-hover-green">Order</button>
+                  </div>
+                </div>
+              </div>
           </div>
           <div class="panel-footer">
               <div class="tr" align=center>
@@ -59,4 +70,5 @@
     </div>
   </div>
 </div>
+
 {% endblock %}

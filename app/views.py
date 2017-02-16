@@ -261,6 +261,22 @@ def my_current_orders():
     orders = db.Orders.find({"user": current_user.username})
     return render_template('my_current_orders.html', title='Orders', user=current_user, orders=orders)
 
+@login_required
+@app.route("/recent_orders")
+def recent_orders():
+    orders = db.Orders.find({"user": current_user.username})
+    return render_template('recent_orders.html', title='Orders', user=current_user, orders=orders)
+
+@login_required
+@app.route('/review_order/<drinkname>')
+def review_order(drinkname):
+    drink = db.Drinks.find_one({"name": drinkname})
+    print type(drink)
+    print drinkname
+    if(len(drink.values()) > 0):
+        return render_template('review_order.html', title='Review and Order', user=current_user, drink=drink)
+    else:
+        return menu()
 
 @app.route("/order_complete", methods=["POST"])
 @login_required
