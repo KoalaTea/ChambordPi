@@ -23,15 +23,16 @@
           </div>
           <div class="panel-body">
               {% for drink in drinks %}
+              {% set drinkname = drink['name'] %}
+              {% set img = drink['image'] %}
               <div class="tr">
                   <div class="td">
                     <div class="col col-xs-4" align=left>
-                      {% set img = drink['image'] %}
-                      <img height="100%" width="100%" src="{{url_for('static', filename='images/drinks/')}}{{drink['image']}}">
-                      <button id="orderBtn" class="btn btn-primary btn-hover-green">Place Order</button>
+                      <img height="100%" width="100%" src="{{url_for('static', filename='images/drinks/')}}{{img}}">
+                      <button id="orderBtn" onclick="selectDrink('{{drinkname}}')" class="btn btn-primary btn-hover-green">Place Order</button>
                     </div>
                     <div class="col col-xs-8" align=left>
-                      <h3 class="drink-title"><b>{{drink.name}}</b></h3>
+                      <h3 class="drink-title"><b>{{drinkname}}</b></h3>
                       <ul>
                         {% for ingredient in drink['recipe'] %}
                           <li class="drink-text">{{ingredient['amount']}}
