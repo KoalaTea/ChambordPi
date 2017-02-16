@@ -2,27 +2,56 @@
 
 {% block head %}
     <script type="text/javascript" src="/static/js/order_drink.js"></script>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/menu.css') }}">
 {% endblock %}
 
 {% block content %}
-    <p>[{{ user.username }}@Hackerbar menu]$ ls -l</p>
-    {% for drink in drinks %}
-        <div class="drinks"><p>
-            <p>{{ drink.name }}<br>{{ drink.type }}</p>
-            {% for ingredient in drink.recipe %}
-            <div class="recipe">
-                <p><b>
-                {% if ingredient.flavor is not none %}
-                    {{ ingredient.flavor }}
-                {% endif %}
-                {{ ingredient.type }} - {{ ingredient.ammount }}
-                </p></b>
-            </div>
-            {% endfor %}
-            <form action="/order_drink" method="post">
-               <input name="name" value="{{ drink.name }}" hidden=True>
-               <button id="order" type="button" class="btn btn-success btn-cons" onclick="order_drink('{{ drink.name }}')"><b>Order</b></button>
-            </form>
-        </div>
-    {% endfor %}
+<div class="container" style="margin-top:5px">
+  <div class="row">
+    <div class="col">
+      <div class="panel panel-default panel-table">
+          <div class="panel-heading">
+              <div class="tr">
+                  <div class="td">
+                    <h5 class="drink-title"> [{{ user.username }}@Hackerbar menu]$ ls -l | less </h5>
+                  </div>
+              </div>
+          </div>
+          <div class="panel-body">
+              {% for drink in drinks %}
+              <div class="tr">
+                  <div class="td">
+                    <div class="col col-xs-4" align=left>
+                      {% set img = drink['image'] %}
+                      <img height="100%" width="100%" src="{{url_for('static', filename='images/drinks/')}}{{drink['image']}}">
+                      <button id="orderBtn" class="btn btn-primary btn-hover-green">Place Order</button>
+                    </div>
+                    <div class="col col-xs-8" align=left>
+                      <h3 class="drink-title"><b>{{drink.name}}</b></h3>
+                      <ul>
+                        {% for ingredient in drink['recipe'] %}
+                          <li class="drink-text">{{ingredient['amount']}}
+                              {% if ingredient['flavor']|lower != "none" %}
+                                {{ingredient['flavor']}}
+                              {% endif %}
+                              {{ingredient['type']}}
+                          </li>
+                        {% endfor %}
+                      </ul>
+                    </div>
+                  </div>
+              </div>
+              {% endfor %}
+          </div>
+          <div class="panel-footer">
+              <div class="tr" align=center>
+                  <div class="td">
+                  <h5>(END)</h5>
+                  </div>
+              </div>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}
