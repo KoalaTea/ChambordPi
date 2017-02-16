@@ -52,7 +52,8 @@
           </div>
 
           <ul class="nav navbar-nav navbar-right mobile-bar">
-            <li>
+            {% if current_user.is_authenticated %}
+              <li>
               <a href="#">
                 <span class="menu-icon 	glyphicon glyphicon-home"></span>
                 Home
@@ -61,7 +62,7 @@
             <li>
               <a href="#">
                 <span class="menu-icon glyphicon glyphicon-glass"></span>
-                Menu
+                  Menu
               </a>
             </li>
             <li>
@@ -73,6 +74,17 @@
           </ul>
         </div>
       </nav>
+      {% else %}
+            <li>
+              <a href="/login">
+                <span class="menu-icon 	glyphicon glyphicon-home"></span>
+                Sign In
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+      {% endif %}
 
       <hr>
         {% with messages = get_flashed_messages() %}
