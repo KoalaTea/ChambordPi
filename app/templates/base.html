@@ -60,7 +60,7 @@
               </a>
             </li>
             <li>
-              <a href="#">
+              <a href="/menu">
                 <span class="menu-icon glyphicon glyphicon-glass"></span>
                   Menu
               </a>
@@ -86,7 +86,7 @@
       </nav>
       {% endif %}
 
-      <hr>
+      <p>
         {% with messages = get_flashed_messages() %}
             {% if messages %}
                 <ul>
@@ -98,7 +98,7 @@
         {% endwith %}
         {% block content %}
         {% endblock %}
-      </hr>
+      </p>
 
     </body>
 </html>
