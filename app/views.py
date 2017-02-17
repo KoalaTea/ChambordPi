@@ -149,9 +149,13 @@ def remove_alchohol():
 def list_drinks():
     return render_template('recipes.html', title='All Drinks', user=current_user, drinks=db.Drinks.find())
 
+@login_required
+@bartender_required
+@app.route("/bartender", methods=["GET"])
 def bartender():
-    return render_template('bartender.html', title='Bartender', user=current_user)
-
+    orders = db.orders.find()
+    return render_template('bartender.html', title='Bartender', user=current_user, orders=orders)
+    
 # menu
 #   lists all available drinks based on alchohol currently in stock
 #
@@ -271,8 +275,6 @@ def recent_orders():
 @app.route('/review_order/<drinkname>')
 def review_order(drinkname):
     drink = db.Drinks.find_one({"name": drinkname})
-    print type(drink)
-    print drinkname
     if(len(drink.values()) > 0):
         return render_template('review_order.html', title='Review and Order', user=current_user, drink=drink)
     else:
