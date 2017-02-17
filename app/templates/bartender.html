@@ -16,7 +16,7 @@
                     <h5 class="drink-title">
                       [<b class="user-name">{{ user.username }}</b>@<b class="hacker-bar">Hackerbar
                       </b>
-                      <b class="dir">~/bartender/</b>]$ cat orders | less
+                      <b class="dir">~/menu/</b>]$ cat orders | less
                     </h5>
                   </div>
               </div>
@@ -27,20 +27,41 @@
               <div class="tr">
                   <div class="td">
                     <div class="col col-xs-12" align=center>
-                      <div class="col col-xs-4" align=left>
-                        <h3 class="drink-title"><b>{{order['name']}}</b></h3>
-                      </div>
-                      <h3 class="order-status"> Status:</h3>
                         {% if order['status']|lower == "queued" %}
-                        <h3 class="order-queued">Queued</h3>
-                        <progress value="25" max="100"></progress>
+                        <div class="col col-xs-4" align=left>
+                          <h3 class="drink-title"><b>{{order['name']}}</b></h3>
+                          <ul>
+                            {% for ingredient in order['recipe'] %}
+                              <li class="drink-text">{{ingredient['amount']}}
+                                  {% if ingredient['flavor']|lower != "none" %}
+                                    {{ingredient['flavor']}}
+                                  {% endif %}
+                                  {{ingredient['type']}}
+                              </li>
+                            {% endfor %}
+                          </ul>
+                          <button id="stepBtn" class="btn btn-primary btn-hover-green">Mixing</button>
+                        </div>
+                        <div class="col col-xs-8">
+                          <div class="row">
+                          </div>
+                          <br>
+                          <label class="drink-text">{{order['instructions']}}</label>
+                        </div>
+
                         {% elif order['status']|lower == "inprogress" %}
-                        <h3 class="order-inprogress">Mixing Now</h3>
-                        <progress value="75" max="100"></progress>
-                        {% else %}
-                        <h3 class="order-ready">Ready</h3>
-                        <progress value="100" max="100"></progress>
+                        <div class="col col-xs-4" align=left>
+                          <h3 class="drink-title"><b>{{order['name']}}</b></h3>
+                          <button id="stepBtn" class="btn btn-success btn-hover-green">Finish</button>
+                        </div>
+                        <div class="col col-xs-8">
+                          <div class="row">
+                          </div>
+                          <br>
+                          <label class="drink-text">{{order['instructions']}}</label>
+                        </div>
                         {% endif %}
+
                     </div>
                   </div>
               </div>

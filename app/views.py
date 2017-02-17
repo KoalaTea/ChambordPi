@@ -154,8 +154,9 @@ def list_drinks():
 @bartender_required
 @app.route("/bartender", methods=["GET"])
 def bartender():
-    orders = db.orders.find()
-    return render_template('bartender.html', title='Bartender', user=current_user, orders=orders)
+    Orders = db.Orders.find()
+    Drinks = db.Drinks.find({"available" : True})
+    return render_template('bartender.html', title='Bartender', user=current_user, orders=Orders, drinks=Drinks)
 
 # menu
 #   lists all available drinks based on alchohol currently in stock
@@ -327,7 +328,6 @@ def cancel_drink():
     postData = dict(request.form)
     orderid = ObjectId(postData['order'][0])
     order = db.Orders.find_one({"_id": orderid})
-    print postData
     if order is not None:
         if order['status'].lower() == "queued":
             db.Orders.delete_one({"_id": orderid, "user": current_user.username})
