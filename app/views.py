@@ -277,7 +277,6 @@ def recent_orders():
 @app.route('/review_order/<drinkname>')
 def review_order(drinkname):
     drink = db.Drinks.find_one({"name": drinkname})
-    if(len(drink.values()) > 0):
     if drink is not None:
         return render_template('review_order.html', title='Review and Order', user=current_user, drink=drink)
     else:
@@ -303,6 +302,22 @@ def order_drink():
         return '{"status": "okay"}'
     else:
         return '{"status": "failed - no such drink"}'
+
+@login_required
+@app.route('/cancel_drink', methods=["POST"])
+def cancel_drink():
+    postData = dict(request.form)
+    orderid = ObjectId(postData['order'][0])
+    order = db.Orders.find_one({"_id": orderid})
+    print postData
+    if order is not None:
+        if order['status'].lower() == "queued":
+            db.Orders.delete_one({"_id": orderid, "user": current_user.username})
+            return '{"status": "okay"}'
+        return '{"status": "cannot cancel progressed order"}'
+    else:
+        return '{"status": "failed - no such order"}'
+
 @app.route("/order_complete", methods=["POST"])
 @login_required
 @bartender_required
