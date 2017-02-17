@@ -33,6 +33,7 @@
           <div class="panel-body">
               {% if orders.length != 0 %}
               {% for order in orders %}
+              {% if order['status']|lower != "complete" %}
               {% set drinkname = order['name'] %}
               {% set orderid = order['_id'] %}
               <div class="tr">
@@ -78,6 +79,7 @@
                     </div>
                   </div>
               </div>
+              {% endif %}
               {% endfor %}
               {% else %}
               <h1 class="drink-title"> No Orders... </h1>
