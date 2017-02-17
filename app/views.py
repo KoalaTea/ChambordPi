@@ -181,6 +181,14 @@ def update_order():
                     'status': "Ready"
                 }
             })
+    elif Status.lower() == 'ready':
+        db.Orders.update_one({"_id": Orderup},
+            {
+                '$set': {
+                    'status': "complete"
+                }
+            })
+
 
     return redirect(url_for('bartender'))
 
