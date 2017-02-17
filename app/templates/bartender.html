@@ -16,7 +16,7 @@
                     <h5 class="drink-title">
                       [<b class="user-name">{{ user.username }}</b>@<b class="hacker-bar">Hackerbar
                       </b>
-                      <b class="dir">~/bartender/</b>]$ cat orders | less
+                      <b class="dir">~/menu/</b>]$ cat orders | less
                     </h5>
                   </div>
               </div>
@@ -29,8 +29,11 @@
                     <div class="col col-xs-12" align=center>
                       <div class="col col-xs-4" align=left>
                         <h3 class="drink-title"><b>{{order['name']}}</b></h3>
+                        <img height="100%" width="100%" src="{{url_for('static', filename='images/drinks/')}}{{order['image']}}">
                       </div>
-                      <h3 class="order-status"> Status:</h3>
+                      <div class="col col-xs-8">
+                        <div class="row">
+                        <h3 class="order-status"> Status:</h3>
                         {% if order['status']|lower == "queued" %}
                         <h3 class="order-queued">Queued</h3>
                         <progress value="25" max="100"></progress>
@@ -41,6 +44,10 @@
                         <h3 class="order-ready">Ready</h3>
                         <progress value="100" max="100"></progress>
                         {% endif %}
+                        </div>
+                        <br>
+                        <label class="drink-text">{{order['instructions']}}</label>
+                      </div>
                     </div>
                   </div>
               </div>

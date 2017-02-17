@@ -154,8 +154,9 @@ def list_drinks():
 @bartender_required
 @app.route("/bartender", methods=["GET"])
 def bartender():
-    orders = db.orders.find()
-    return render_template('bartender.html', title='Bartender', user=current_user, orders=orders)
+    Orders = db.Orders.find()
+    Drinks = db.Drinks.find({"available" : True})
+    return render_template('bartender.html', title='Bartender', user=current_user, orders=Orders, drinks=Drinks)
 
 # menu
 #   lists all available drinks based on alchohol currently in stock
@@ -277,7 +278,6 @@ def recent_orders():
 @app.route('/review_order/<drinkname>')
 def review_order(drinkname):
     drink = db.Drinks.find_one({"name": drinkname})
-    if(len(drink.values()) > 0):
     if drink is not None:
         return render_template('review_order.html', title='Review and Order', user=current_user, drink=drink)
     else:
