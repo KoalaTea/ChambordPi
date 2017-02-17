@@ -162,12 +162,14 @@ def bartender():
 #
 # returns
 #   menu template with only available drinks
-#
-# TODO
-#   in views if unauthenticated, do not show order button
+
+@login_required
 @app.route("/menu", methods=["GET"])
 def menu():
-    return render_template('menu.html', title='Menu', user=current_user, drinks=db.Drinks.find({"available" : True}))
+    return render_template('menu.html', title='Menu',
+                           user=current_user,
+                           credits=get_user_credits(current_user.username),
+                           drinks=db.Drinks.find({"available": True}))
 
 @app.route("/update_menu", methods=["POST"])
 @login_required
