@@ -2,7 +2,7 @@
 
 {% block head %}
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/menu.css') }}">
-    <script type="text/javascript" src="/static/js/menu.js"></script>
+    <script type="text/javascript" src="/static/js/review_order.js"></script>
 {% endblock %}
 
 {% block content %}
@@ -48,13 +48,13 @@
                 <div class="col col-xs-12">
                   <div class="form-group">
                     <label class="drink-title" for="ordernotes">Enter any special requests:</label>
-                    <textarea placeholder="Show me the moose..." class="form-control" id="notes" rows="3"></textarea>
+                    <textarea placeholder="Show me the moose..." class="form-control" id="instructOrder" rows="3"></textarea>
                   </div>
                   <div class="col col-xs-6">
-                    <button style="width: 100%" id="cancelBtn" onclick="selectDrink('{{drinkname}}')" class="btn btn-primary btn-hover-green">Cancel</button>
+                    <button style="width: 100%" id="cancelBtn" onclick="cancelOrder()" class="btn btn-primary btn-hover-green">Cancel</button>
                   </div>
                   <div class="col col-xs-6">
-                    <button style="width: 100%" id="orderBtn" onclick="selectDrink('{{drinkname}}')" class="btn btn-primary btn-hover-green">Order</button>
+                    <button style="width: 100%" id="orderBtn" onclick="orderDrink('{{drinkname}}')" class="btn btn-primary btn-hover-green">Order</button>
                   </div>
                 </div>
               </div>

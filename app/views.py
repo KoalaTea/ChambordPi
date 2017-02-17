@@ -1,4 +1,4 @@
-from flask import render_template, flash, redirect, request
+from flask import render_template, flash, redirect, request, url_for
 from app import app, lm
 from .forms import LoginForm
 from pymongo import MongoClient
@@ -9,6 +9,7 @@ from .objects import User
 from .decorators import bartender_required, admin_required
 from .db import db
 import json
+import time
 
 # TODO:
 #   set all pages to check for authentication and if none - guest@Hackerbar
@@ -155,7 +156,7 @@ def list_drinks():
 def bartender():
     orders = db.orders.find()
     return render_template('bartender.html', title='Bartender', user=current_user, orders=orders)
-    
+
 # menu
 #   lists all available drinks based on alchohol currently in stock
 #
@@ -214,6 +215,7 @@ def update_menu():
 #
 # returns
 #   ... TODO think about money and other stuff for fails
+"""
 @app.route("/order_drink", methods=["POST"])
 @login_required
 def order_drink():
@@ -231,7 +233,7 @@ def order_drink():
                 output += str(i)
             return output
     return "{}"
-
+"""
 # orders
 #   view all orders, must be bartender or admin
 #
@@ -276,10 +278,32 @@ def recent_orders():
 def review_order(drinkname):
     drink = db.Drinks.find_one({"name": drinkname})
     if(len(drink.values()) > 0):
+    print drinkname
+    if drink is not None:
         return render_template('review_order.html', title='Review and Order', user=current_user, drink=drink)
     else:
-        return menu()
+        return redirect(url_for('menu'))
 
+@login_required
+@app.route('/order_drink', methods=["POST"])
+def order_drink():
+    postData = dict(request.form)
+    drink = db.Drinks.find_one({"name": postData['drink'][0]})
+    if drink is not None:
+        db.Orders.insert_one(
+             {
+                 "name": drink['name'],
+                 "type": drink['type'],
+                 "image": drink['image'],
+                 "timeOrdered": time.time(),
+                 "user": current_user.username,
+                 "instructions": postData['instructions'][0],
+                 "status": "queued"
+             }
+        )
+        return '{"status": "okay"}'
+    else:
+        return '{"status": "failed - no such drink"}'
 @app.route("/order_complete", methods=["POST"])
 @login_required
 @bartender_required
