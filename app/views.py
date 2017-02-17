@@ -381,9 +381,7 @@ def custom_drink():
 @app.route('/order_custom_drink', methods=["POST"])
 def order_custom_drink():
     postData = dict(request.form)
-    print postData
     if get_user_credits(current_user.username) < CUSTOM_COST:
-        print "Can't afford drink"
         return '{"status": "failed - not enough credits"}'
     db.Users.update_one({'username': current_user.username},
                         {
