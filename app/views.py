@@ -278,7 +278,6 @@ def recent_orders():
 def review_order(drinkname):
     drink = db.Drinks.find_one({"name": drinkname})
     if(len(drink.values()) > 0):
-    print drinkname
     if drink is not None:
         return render_template('review_order.html', title='Review and Order', user=current_user, drink=drink)
     else:
