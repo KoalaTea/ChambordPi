@@ -155,8 +155,33 @@ def list_drinks():
 @app.route("/bartender", methods=["GET"])
 def bartender():
     Orders = db.Orders.find()
-    Drinks = db.Drinks.find({"available" : True})
-    return render_template('bartender.html', title='Bartender', user=current_user, orders=Orders, drinks=Drinks)
+    return render_template('bartender.html', title='Bartender', user=current_user, orders=Orders)
+
+#Takes the drink ID & status then updates it.
+@login_required
+@bartender_required
+@app.route("/update_order", methods=["POST"])
+def update_order():
+
+    postData = dict(request.form)
+    Orderup = ObjectId(postData['id'][0])
+    Status = postData['status'][0]
+    if Status == 'queued':
+        print (Orderup)
+        n = db.Orders.update_one(
+            { "_id": Orderup },
+            { '$set': { "status": "InProgress" } }
+        )
+    elif Status == 'InProgress':
+        db.Orders.update_one({"_id": Orderup},
+            {
+                '$set': {
+                    'status': "Ready"
+                }
+            })
+
+    return redirect(url_for('bartender'))
+
 
 # menu
 #   lists all available drinks based on alchohol currently in stock
