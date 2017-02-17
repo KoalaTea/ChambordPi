@@ -123,8 +123,9 @@ drinks.insert_one(
 drinks.insert_one(
         {
             "id": 3,
-            "name": "Mystery Drink",
+            "name": "Not Free",
             "type": "mixed",
+            "cost": 50,
             "image": "dirty_martini.png",
             "recipe": [
                 {
@@ -149,8 +150,9 @@ drinks.insert_one(
 drinks.insert_one(
         {
             "id": 4,
-            "name": "Mystery Drink",
+            "name": "Expensive",
             "type": "mixed",
+            "cost": 10000000,
             "image": "dirty_martini.png",
             "recipe": [
                 {
@@ -221,3 +223,48 @@ users.insert_one(
             "roles" : [ "user", "admin" ]
         }
 )
+<<<<<<< HEAD
+=======
+users.insert_one(
+        {
+            "username" : "usrtest",
+            "password" : generate_password_hash("test"),
+            "credits" : 100,
+            "roles" : [ "user"]
+        }
+)
+
+
+orders.insert_one(
+        {
+            "name" : "DrinkOne",
+            "type" : "mixed",
+            "image": "dirty_martini.png",
+            "timeOrdered": "152321",
+            "user": "koalatea",
+            "status": "Queued"
+        }
+)
+
+orders.insert_one(
+        {
+            "name" : "DrinkTwo",
+            "type" : "mixed",
+            "image": "dirty_martini.png",
+            "timeOrdered": "152321",
+            "user": "koalatea",
+            "status": "Inprogress"
+        }
+)
+orders.insert_one(
+        {
+            "name" : "DrinkThree",
+            "type" : "mixed",
+            "image": "dirty_martini.png",
+            "timeOrdered": "152321",
+            "user": "koalatea",
+            "status": "Ready"
+        }
+)
+
+>>>>>>> 8227edaef2033f0a6c151e31c9989da6e7631bc2

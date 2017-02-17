@@ -163,12 +163,14 @@ def bartender():
 #
 # returns
 #   menu template with only available drinks
-#
-# TODO
-#   in views if unauthenticated, do not show order button
+
+@login_required
 @app.route("/menu", methods=["GET"])
 def menu():
-    return render_template('menu.html', title='Menu', user=current_user, drinks=db.Drinks.find({"available" : True}))
+    return render_template('menu.html', title='Menu',
+                           user=current_user,
+                           credits=get_user_credits(current_user.username),
+                           drinks=db.Drinks.find({"available": True}))
 
 @app.route("/update_menu", methods=["POST"])
 @login_required
@@ -272,7 +274,12 @@ def my_current_orders():
 @app.route("/recent_orders")
 def recent_orders():
     orders = db.Orders.find({"user": current_user.username})
-    return render_template('recent_orders.html', title='Orders', user=current_user, orders=orders)
+    return render_template('recent_orders.html',
+                           title='Orders',
+                           user=current_user,
+                           orders=orders,
+                           totaldrinks=get_user_drinks(current_user.username),
+                           credits=get_user_credits(current_user.username))
 
 @login_required
 @app.route('/review_order/<drinkname>')
@@ -289,9 +296,19 @@ def order_drink():
     postData = dict(request.form)
     drink = db.Drinks.find_one({"name": postData['drink'][0]})
     if drink is not None:
+        if get_user_credits(current_user.username) < drink['cost']:
+            return '{"status": "failed - not enough credits"}'
+        db.Users.update_one({'username': current_user.username},
+                            {
+                            '$inc': {
+                                    'credits': -drink['cost'],
+                                    'drinksOrdered': 1
+                                }
+                            })
         db.Orders.insert_one(
              {
                  "name": drink['name'],
+                 "cost": drink['cost'],
                  "type": drink['type'],
                  "image": drink['image'],
                  "timeOrdered": time.time(),
@@ -303,6 +320,29 @@ def order_drink():
         return '{"status": "okay"}'
     else:
         return '{"status": "failed - no such drink"}'
+
+@login_required
+@app.route('/cancel_drink', methods=["POST"])
+def cancel_drink():
+    postData = dict(request.form)
+    orderid = ObjectId(postData['order'][0])
+    order = db.Orders.find_one({"_id": orderid})
+    if order is not None:
+        if order['status'].lower() == "queued":
+            db.Orders.delete_one({"_id": orderid, "user": current_user.username})
+            db.Users.update_one({'username': current_user.username},
+                    {
+                    '$inc': {
+                            'credits': order['cost'],
+                            'drinksOrdered': -1
+                        }
+                    })
+
+            return '{"status": "okay"}'
+        return '{"status": "cannot cancel progressed order"}'
+    else:
+        return '{"status": "failed - no such order"}'
+
 @app.route("/order_complete", methods=["POST"])
 @login_required
 @bartender_required
@@ -342,3 +382,10 @@ def load_user(username):
     if not u:
         return None
     return User(u)
+
+def get_user_credits(username):
+    usr = db.Users.find_one({'username': username})
+    return usr['credits']
+def get_user_drinks(username):
+    usr = db.Users.find_one({'username': username})
+    return usr['drinksOrdered']

@@ -16,7 +16,16 @@
                     <h5 class="drink-title">
                       [<b class="user-name">{{ user.username }}</b>@<b class="hacker-bar">Hackerbar
                       </b>
-                      <b class="dir">~/menu/</b>]$ cat orders | less
+                      <b class="dir">~/credits</b>]$ {{credits}}
+                    </h5><h5 class="drink-title">
+                      [<b class="user-name">{{ user.username }}</b>@<b class="hacker-bar">Hackerbar
+                      </b>
+                      <b class="dir">~/total_drinks</b>]$ {{totaldrinks}}
+                    </h5>
+                    <h5 class="drink-title">
+                      [<b class="user-name">{{ user.username }}</b>@<b class="hacker-bar">Hackerbar
+                      </b>
+                      <b class="dir">~/status/</b>]$ cat orders | less
                     </h5>
                   </div>
               </div>
@@ -24,12 +33,28 @@
           <div class="panel-body">
               {% if orders.length != 0 %}
               {% for order in orders %}
+              {% set drinkname = order['name'] %}
+              {% set orderid = order['_id'] %}
               <div class="tr">
                   <div class="td">
                     <div class="col col-xs-12" align=center>
-                      <div class="col col-xs-4" align=left>
+                      <div class="col col-xs-4" align=center>
                         <h3 class="drink-title"><b>{{order['name']}}</b></h3>
                         <img height="100%" width="100%" src="{{url_for('static', filename='images/drinks/')}}{{order['image']}}">
+                        <div class="row">
+                          <div class="col">
+                            <div class="panel panel-default panel-table">
+                             <div class="tr">
+                               <button width="100%" style="margin-bottom: 5px" id="orderAgainBtn" onclick="selectDrink('{{drinkname}}')" class="btn btn-primary btn-hover-green">Order Again</button>
+                             </div>
+                             {% if order['status']|lower == "queued" %}
+                              <div class="tr">
+                                <button width="100%" id="cancelBtn" onclick="cancelDrink('{{orderid}}')" class="btn btn-danger">Cancel Order</button>
+                              </div>
+                             {% endif %}
+                           </div>
+                          </div>
+                        </div>
                       </div>
                       <div class="col col-xs-8">
                         <div class="row">
@@ -40,20 +65,22 @@
                         {% elif order['status']|lower == "inprogress" %}
                         <h3 class="order-inprogress">Mixing Now</h3>
                         <progress value="75" max="100"></progress>
-                        {% else %}
+                        {% elif order['status']|lower == "ready" %}
                         <h3 class="order-ready">Ready</h3>
                         <progress value="100" max="100"></progress>
                         {% endif %}
                         </div>
                         <br>
-                        <label class="drink-text">{{order['instructions']}}</label>
+                        <div class="col">
+                          <label class="drink-text">{{order['instructions']}}</label>
+                        </div>
                       </div>
                     </div>
                   </div>
               </div>
               {% endfor %}
               {% else %}
-              <h1> No Orders... </h1>
+              <h1 class="drink-title"> No Orders... </h1>
               {% endif %}
           </div>
           <div class="panel-footer">

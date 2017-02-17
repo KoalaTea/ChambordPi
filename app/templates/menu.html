@@ -16,6 +16,11 @@
                     <h5 class="drink-title">
                       [<b class="user-name">{{ user.username }}</b>@<b class="hacker-bar">Hackerbar
                       </b>
+                      <b class="dir">~/credits</b>]$ {{credits}}
+                    </h5>
+                    <h5 class="drink-title">
+                      [<b class="user-name">{{ user.username }}</b>@<b class="hacker-bar">Hackerbar
+                      </b>
                       <b class="dir">~/menu/</b>]$ ls -l | less
                     </h5>
                   </div>
@@ -33,6 +38,7 @@
                     </div>
                     <div class="col col-xs-8" align=left>
                       <h3 class="drink-title"><b>{{drinkname}}</b></h3>
+                      <h5 class="drink-text">Cost: {{drink['cost']}}</h5>
                       <ul>
                         {% for ingredient in drink['recipe'] %}
                           <li class="drink-text">{{ingredient['amount']}}
