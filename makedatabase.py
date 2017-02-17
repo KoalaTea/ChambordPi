@@ -123,8 +123,9 @@ drinks.insert_one(
 drinks.insert_one(
         {
             "id": 3,
-            "name": "Mystery Drink",
+            "name": "Not Free",
             "type": "mixed",
+            "cost": 50,
             "image": "dirty_martini.png",
             "recipe": [
                 {
@@ -149,8 +150,9 @@ drinks.insert_one(
 drinks.insert_one(
         {
             "id": 4,
-            "name": "Mystery Drink",
+            "name": "Expensive",
             "type": "mixed",
+            "cost": 10000000,
             "image": "dirty_martini.png",
             "recipe": [
                 {
@@ -219,6 +221,14 @@ users.insert_one(
             "password" : generate_password_hash("admin"),
             "credits" : 100,
             "roles" : [ "user", "admin" ]
+        }
+)
+users.insert_one(
+        {
+            "username" : "usrtest",
+            "password" : generate_password_hash("test"),
+            "credits" : 100,
+            "roles" : [ "user"]
         }
 )
 
