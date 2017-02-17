@@ -166,8 +166,8 @@ def bartender():
 # returns
 #   menu template with only available drinks
 
-@login_required
 @app.route("/menu", methods=["GET"])
+@login_required
 def menu():
     return render_template('menu.html', title='Menu',
                            user=current_user,
@@ -272,8 +272,8 @@ def my_current_orders():
     orders = db.Orders.find({"user": current_user.username})
     return render_template('my_current_orders.html', title='Orders', user=current_user, orders=orders)
 
-@login_required
 @app.route("/recent_orders")
+@login_required
 def recent_orders():
     orders = db.Orders.find({"user": current_user.username})
     return render_template('recent_orders.html',
@@ -283,8 +283,8 @@ def recent_orders():
                            totaldrinks=get_user_drinks(current_user.username),
                            credits=get_user_credits(current_user.username))
 
-@login_required
 @app.route('/review_order/<drinkname>')
+@login_required
 def review_order(drinkname):
     drink = db.Drinks.find_one({"name": drinkname})
     if drink is not None:
@@ -292,8 +292,8 @@ def review_order(drinkname):
     else:
         return redirect(url_for('menu'))
 
-@login_required
 @app.route('/order_drink', methods=["POST"])
+@login_required
 def order_drink():
     postData = dict(request.form)
     drink = db.Drinks.find_one({"name": postData['drink'][0]})
@@ -324,8 +324,8 @@ def order_drink():
     else:
         return '{"status": "failed - no such drink"}'
 
-@login_required
 @app.route('/cancel_drink', methods=["POST"])
+@login_required
 def cancel_drink():
     postData = dict(request.form)
     orderid = ObjectId(postData['order'][0])
@@ -346,14 +346,14 @@ def cancel_drink():
     else:
         return '{"status": "failed - no such order"}'
 
-@login_required
 @app.route('/custom_drink')
+@login_required
 def custom_drink():
     ingredients = db.Ingredients.find({"available": True})
     return render_template('custom_drink.html', ingredients=ingredients)
 
-@login_required
 @app.route('/order_custom_drink', methods=["POST"])
+@login_required
 def order_custom_drink():
     postData = dict(request.form)
     print postData
