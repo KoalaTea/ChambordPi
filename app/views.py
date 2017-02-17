@@ -312,7 +312,7 @@ def order_drink():
                  "name": drink['name'],
                  "cost": drink['cost'],
                  "type": drink['type'],
-                 "recipe": drink['recipe'][0],
+                 "recipe": drink['recipe'],
                  "image": drink['image'],
                  "timeOrdered": time.time(),
                  "user": current_user.username,
