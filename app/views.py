@@ -11,6 +11,8 @@ from .db import db
 import json
 import time
 
+CUSTOM_COST=150
+
 # TODO:
 #   set all pages to check for authentication and if none - guest@Hackerbar
 #   metrics
@@ -335,7 +337,7 @@ def order_drink():
                  "name": drink['name'],
                  "cost": drink['cost'],
                  "type": drink['type'],
-                 "recipe": drink['recipe'][0],
+                 "recipe": drink['recipe'],
                  "image": drink['image'],
                  "timeOrdered": time.time(),
                  "user": current_user.username,
@@ -368,6 +370,43 @@ def cancel_drink():
         return '{"status": "cannot cancel progressed order"}'
     else:
         return '{"status": "failed - no such order"}'
+
+@login_required
+@app.route('/custom_drink')
+def custom_drink():
+    ingredients = db.Ingredients.find({"available": True})
+    return render_template('custom_drink.html', ingredients=ingredients)
+
+@login_required
+@app.route('/order_custom_drink', methods=["POST"])
+def order_custom_drink():
+    postData = dict(request.form)
+    print postData
+    if get_user_credits(current_user.username) < CUSTOM_COST:
+        print "Can't afford drink"
+        return '{"status": "failed - not enough credits"}'
+    db.Users.update_one({'username': current_user.username},
+                        {
+                        '$inc': {
+                                'credits': -CUSTOM_COST,
+                                'drinksOrdered': 1
+                            }
+                        })
+    db.Orders.insert_one(
+         {
+             "name": "Custom Drink",
+             "cost": CUSTOM_COST,
+             "type": "custom",
+             "recipe": postData['recipe[]'][0],
+             "image": 'custom_drink.png',
+             "timeOrdered": time.time(),
+             "user": current_user.username,
+             "instructions": postData['instructions'][0],
+             "status": "queued"
+         }
+    )
+    return '{"status": "okay"}'
+
 
 @app.route("/order_complete", methods=["POST"])
 @login_required
@@ -404,7 +443,7 @@ def admin_panel():
 #   User object of the user from the database
 @lm.user_loader
 def load_user(username):
-    u = db.Users.find_one({"username" : username})
+    u = db.Users.find_one({"username": username})
     if not u:
         return None
     return User(u)

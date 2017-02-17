@@ -14,31 +14,142 @@ users = db.Users
 orders = db.Orders
 mixers = db.Mixers
 beer = db.Beer
+ingredients = db.Ingredients
 
-alchohol.insert_one(
+ingredients.insert_one(
         {
+            "class": "alchohol",
             "type" : "vodka",
             "name" : "sky",
             "flavor" : None,
-            "bottles" : 1
+            "bottles" : 1,
+            "available": True,
+            "cost": 25
         }
 )
-alchohol.insert_one(
+ingredients.insert_one(
         {
-            "type" : "liqueur",
-            "name" : "chambord",
-            "flavor" : "raspberry",
-            "bottles" : 1
-        }
-)
-alchohol.insert_one(
-        {
-            "type" : "vodka",
-            "name" : "grey goose",
+            "class": "alchohol",
+            "type" : "",
+            "name" : "Jager",
             "flavor" : None,
-            "bottles" : 0
+            "bottles" : 1,
+            "available": True,
+            "cost": 25
         }
 )
+ingredients.insert_one(
+        {
+            "class": "alchohol",
+            "type" : "rum",
+            "name" : "Malibu",
+            "flavor" : "Coconut",
+            "bottles" : 1,
+            "available": True,
+            "cost": 25
+
+        }
+)
+ingredients.insert_one(
+        {
+            "class": "alchohol",
+            "type" : "rum",
+            "name" : "Bacardi",
+            "flavor" : None,
+            "bottles" : 1,
+            "available": True,
+            "cost": 25
+
+        }
+)
+ingredients.insert_one(
+        {
+            "class": "alchohol",
+            "type" : "Gin",
+            "name" : "Beefeater",
+            "flavor" : None,
+            "bottles" : 1,
+            "available": True,
+            "cost": 25
+
+        }
+)
+ingredients.insert_one(
+        {
+            "class": "alchohol",
+            "type" : "Whiskey",
+            "name" : "Jack Daniels",
+            "flavor" : None,
+            "bottles" : 1,
+            "available": True,
+            "cost": 25
+
+        }
+)
+ingredients.insert_one(
+        {
+            "class": "alchohol",
+            "type" : "vodka",
+            "name" : "UV Blue",
+            "flavor" : None,
+            "bottles" : 1,
+            "available": True,
+            "cost": 25
+
+        }
+)
+
+
+ingredients.insert_one(
+        {
+            "class": "mixer",
+            "name": "Orange Juice",
+            "bottles": 5,
+            "available": True
+        }
+)
+ingredients.insert_one(
+        {
+            "class": "mixer",
+            "name": "Sprite",
+            "bottles": 5,
+            "available": True
+        }
+)
+ingredients.insert_one(
+        {
+            "class": "mixer",
+            "name": "Coca-Cola",
+            "bottles": 5,
+            "available": True
+        }
+)
+ingredients.insert_one(
+        {
+            "class": "mixer",
+            "name": "Ginger Ale",
+            "bottles": 5,
+            "available": True
+        }
+)
+ingredients.insert_one(
+        {
+            "class": "mixer",
+            "name": "Lemonade",
+            "bottles": 5,
+            "available": True
+        }
+)
+ingredients.insert_one(
+        {
+            "class": "mixer",
+            "name": "Tonic",
+            "bottles": 5,
+            "available": True
+        }
+)
+
+
 
 drinks.create_index([("id", ASCENDING)], unique=True)
 

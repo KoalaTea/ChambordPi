@@ -37,7 +37,7 @@
               {% set orderid = order['_id'] %}
               <div class="tr">
                   <div class="td">
-                    <div class="col col-xs-12" align=center>
+                    <div class="col col-xs-12" align=right>
                       <div class="col col-xs-4" align=center>
                         <h3 class="drink-title"><b>{{order['name']}}</b></h3>
                         <img height="100%" width="100%" src="{{url_for('static', filename='images/drinks/')}}{{order['image']}}">
@@ -58,15 +58,15 @@
                       </div>
                       <div class="col col-xs-8">
                         <div class="row">
-                        <h3 class="order-status"> Status:</h3>
+                        <h4 class="order-status"> Status:</h4>
                         {% if order['status']|lower == "queued" %}
-                        <h3 class="order-queued">Queued</h3>
+                        <h4 class="order-queued">Queued</h4>
                         <progress value="25" max="100"></progress>
                         {% elif order['status']|lower == "inprogress" %}
-                        <h3 class="order-inprogress">Mixing Now</h3>
+                        <h4 class="order-inprogress">Mixing Now</h4>
                         <progress value="75" max="100"></progress>
                         {% elif order['status']|lower == "ready" %}
-                        <h3 class="order-ready">Ready</h3>
+                        <h4 class="order-ready">Ready</h4>
                         <progress value="100" max="100"></progress>
                         {% endif %}
                         </div>
