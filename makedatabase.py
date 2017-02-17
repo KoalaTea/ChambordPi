@@ -223,8 +223,6 @@ users.insert_one(
             "roles" : [ "user", "admin" ]
         }
 )
-<<<<<<< HEAD
-=======
 users.insert_one(
         {
             "username" : "usrtest",
@@ -267,4 +265,3 @@ orders.insert_one(
         }
 )
 
->>>>>>> 8227edaef2033f0a6c151e31c9989da6e7631bc2
