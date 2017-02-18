@@ -11,6 +11,7 @@ from .db import db
 import json
 import time
 
+CURRENT_STAT_FILE = 1
 CUSTOM_COST=150
 
 # TODO:
@@ -26,14 +27,17 @@ CUSTOM_COST=150
 @app.route("/")
 @app.route("/index")
 def index():
-
-    drink_stats = db.Drinks.find()
-    for stat in drink_stats:
-        total_drinks = stat["times_ordered"]
-
-    print (total_drinks)
-    return render_template('index.html', title='Home')
-
+    drinks = [
+        {
+            'drink_name' : 'Godfather',
+            'ingredients' : [ 'half ameretto', 'half scotch whiskey' ]
+        },
+        {
+            'drink_name' : 'temp test',
+            'ingredients' : [ 'nothing', 'more nothing' ]
+        }
+    ]
+    return render_template('index.html', title='Home', user=current_user, drinks=drinks)
 
 # login
 #   login page
@@ -325,6 +329,7 @@ def review_order(drinkname):
 def order_drink():
     postData = dict(request.form)
     drink = db.Drinks.find_one({"name": postData['drink'][0]})
+    print (drink['recipe'])
     if drink is not None:
         if get_user_credits(current_user.username) < drink['cost']:
             return '{"status": "failed - not enough credits"}'
@@ -342,12 +347,47 @@ def order_drink():
                  "type": drink['type'],
                  "recipe": drink['recipe'],
                  "image": drink['image'],
-                 "timeOrdered": time.time(),
+                 "timeOrdered": int(time.time()),
                  "user": current_user.username,
                  "instructions": postData['instructions'][0],
                  "status": "queued"
              }
         )
+
+        stats = db.Statistics.find_one({"id": CURRENT_STAT_FILE})
+        if (int(time.time()) - stats['time']) >= 3600:
+            #An hour or more has passed
+            CURRENT_STAT_FILE = CURRENT_STAT_FILE + 1
+            statistics.insert_one(
+                {
+                    "id": CURRENT_STAT_FILE,
+                    "time": int(time.time()*1000) ,
+                    "total_orders": 1,
+                    "drink_orders": [
+                        {"name": drink['name'], "Orders": 1},
+                    ]
+                })
+        else:
+            stat_exists = db.Statistics.find_one({"name" : drink['name']})
+            if stat_exists:
+                db.Users.update_one({'id': CURRENT_STAT_FILE},
+                                    {
+                                    '$inc': {
+                                            'total_orders': 1
+                                        }
+                                    })
+
+            db.Users.update_one({'id': CURRENT_STAT_FILE},
+                                {
+                                '$inc': {
+                                        'total_orders': 1
+                                    },
+                                '$addToSet': {
+                                        'name' : drink['name'], 'Orders': 1
+                                    }
+
+                                })
+
         return '{"status": "okay"}'
     else:
         return '{"status": "failed - no such drink"}'
@@ -383,9 +423,22 @@ def custom_drink():
 @app.route('/order_custom_drink', methods=["POST"])
 @login_required
 def order_custom_drink():
+    recipe = []
     postData = dict(request.form)
+    print(postData['recipe[]'])
     if get_user_credits(current_user.username) < CUSTOM_COST:
+        print ("Can't afford drink")
         return '{"status": "failed - not enough credits"}'
+
+    for ing in postData['recipe[]']:
+        print(ing)
+
+        ingredient = {}
+        ingredient['type'] = ing
+        ingredient['flavor'] = ''
+        ingredient['amount'] = ""
+        recipe.append(ingredient)
+
     db.Users.update_one({'username': current_user.username},
                         {
                         '$inc': {
@@ -398,9 +451,9 @@ def order_custom_drink():
              "name": "Custom Drink",
              "cost": CUSTOM_COST,
              "type": "custom",
-             "recipe": postData['recipe[]'][0],
+             "recipe": recipe,
              "image": 'custom_drink.png',
-             "timeOrdered": time.time(),
+             "timeOrdered": int(time.time()),
              "user": current_user.username,
              "instructions": postData['instructions'][0],
              "status": "queued"
