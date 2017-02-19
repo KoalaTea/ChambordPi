@@ -178,7 +178,7 @@ drinks.insert_one(
             "id": 0,
             "name": "Miller High Life",
             "type": "beer",
-            "image": "dirty_martini.png",
+            "image": "beer.png",
             "recipe": [
                 {
                     "type": "beer",
@@ -195,7 +195,7 @@ drinks.insert_one(
             "id": 1,
             "name": "Miller Lite",
             "type": "beer",
-            "image": "dirty_martini.png",
+            "image": "beer.png",
             "recipe": [
                 {
                     "type": "beer",
@@ -213,7 +213,7 @@ drinks.insert_one(
             "id": 2,
             "name": "Budweiser",
             "type": "beer",
-            "image": "dirty_martini.png",
+            "image": "beer.png",
             "recipe": [
                 {
                     "type": "beer",
@@ -231,7 +231,7 @@ drinks.insert_one(
             "id": 3,
             "name": "Shock Top",
             "type": "beer",
-            "image": "dirty_martini.png",
+            "image": "beer.png",
             "recipe": [
                 {
                     "type": "beer",
