@@ -187,7 +187,8 @@ drinks.insert_one(
                 }
                             ],
             "available": True,
-            "times_ordered" : 0
+            "times_ordered" : 0,
+            "cost" : 25
         }
 )
 drinks.insert_one(
@@ -204,8 +205,9 @@ drinks.insert_one(
                 }
                             ],
             "available": True,
-            "times_ordered" : 0
-        }
+            "times_ordered" : 0,
+            "cost" : 10
+       }
 )
 
 drinks.insert_one(
@@ -222,8 +224,9 @@ drinks.insert_one(
                 }
                             ],
             "available": True,
-            "times_ordered" : 0
-        }
+            "times_ordered" : 0,
+            "cost" : 10
+       }
 )
 
 drinks.insert_one(
@@ -240,8 +243,9 @@ drinks.insert_one(
                 }
                             ],
             "available": True,
-            "times_ordered" : 0
-        }
+            "times_ordered" : 0,
+            "cost" : 25
+       }
 )
 
 drinks.insert_one(
@@ -256,15 +260,16 @@ drinks.insert_one(
                     "flavor": None,
                     "amount": "1 oz"
                 },
-		        {
-		            "type": "orange juice",
+                {
+                    "type": "orange juice",
                     "flavor": None,
                     "amount": "1 oz"
                 }
                             ],
             "available": True,
-            "times_ordered" : 0
-        }
+            "times_ordered" : 0,
+            "cost" : 25
+       }
 )
 
 drinks.insert_one(
@@ -279,15 +284,16 @@ drinks.insert_one(
                     "flavor": None,
                     "amount": "1 oz"
                 },
-		        {
-		            "type": "whiskey",
+                {
+                    "type": "whiskey",
                     "flavor": None,
                     "amount": "1 oz"
                 }
                             ],
             "available": True,
-            "times_ordered" : 0
-        }
+            "times_ordered" : 0,
+            "cost" : 50
+       }
 )
 
 drinks.insert_one(
@@ -302,8 +308,8 @@ drinks.insert_one(
                     "flavor": None,
                     "amount": "1/2"
                 },
-		        {
-		            "type": "white rum",
+                {
+                    "type": "white rum",
                     "flavor": None,
                     "amount": "2 oz"
                 },
@@ -320,12 +326,13 @@ drinks.insert_one(
                 {
                     "type": "sugar",
                     "flavor": None,
-                    "amount": "tablespoon of sugar"                
+                    "amount": "tablespoon of sugar"
                 }
                             ],
             "available": True,
-            "times_ordered" : 0
-        }
+            "times_ordered" : 0,
+            "cost" : 50
+       }
 )
 
 drinks.insert_one(
@@ -352,8 +359,9 @@ drinks.insert_one(
                 }
                             ],
             "available": True,
-            "times_ordered" : 0
-        }
+            "times_ordered" : 0,
+            "cost" : 25
+       }
 )
 
 drinks.insert_one(
@@ -380,14 +388,15 @@ drinks.insert_one(
                 }
                             ],
             "available": True,
-            "times_ordered" : 0
-        }
+            "times_ordered" : 0,
+            "cost" : 25
+       }
 )
 
 drinks.insert_one(
         {
             "id": 9,
-            "name": "Rum Chata",
+            "name": "Rum Chata TODO",
             "type": "mixed",
             "image": "dirty_martini.png",
             "recipe": [
@@ -408,8 +417,9 @@ drinks.insert_one(
                 }
                             ],
             "available": True,
-            "times_ordered" : 0
-        }
+            "times_ordered" : 0,
+            "cost" : 25
+       }
 )
 
 drinks.insert_one(
@@ -436,8 +446,9 @@ drinks.insert_one(
                 }
                             ],
             "available": True,
-            "times_ordered" : 0
-        }
+            "times_ordered" : 0,
+            "cost" : 75
+       }
 )
 
 drinks.insert_one(
@@ -464,8 +475,9 @@ drinks.insert_one(
                 }
                             ],
             "available": True,
-            "times_ordered" : 0
-        }
+            "times_ordered" : 0,
+            "cost" : 75
+       }
 )
 
 drinks.insert_one(
@@ -487,8 +499,9 @@ drinks.insert_one(
                 }
                             ],
             "available": True,
-            "times_ordered" : 0
-        }
+            "times_ordered" : 0,
+            "cost" : 50
+       }
 )
 
 drinks.insert_one(
@@ -510,8 +523,9 @@ drinks.insert_one(
                 }
                             ],
             "available": True,
-            "times_ordered" : 0
-        }
+            "times_ordered" : 0,
+            "cost" : 50
+       }
 )
 
 drinks.insert_one(
@@ -533,8 +547,9 @@ drinks.insert_one(
                 }
                             ],
             "available": True,
-            "times_ordered" : 0
-        }
+            "times_ordered" : 0,
+            "cost" : 50
+       }
 )
 
 drinks.insert_one(
@@ -556,8 +571,9 @@ drinks.insert_one(
                 }
                             ],
             "available": True,
-            "times_ordered" : 0
-        }
+            "times_ordered" : 0,
+            "cost" : 50
+       }
 )
 
 drinks.insert_one(
@@ -577,7 +593,7 @@ drinks.insert_one(
                     "flavor": None,
                     "amount": "1 shot"
                 },
-		        {
+                {
                     "type": "Sprite",
                     "flavor": None,
                     "amount": "1 shot"
@@ -589,8 +605,9 @@ drinks.insert_one(
                 }
                             ],
             "available": True,
-            "times_ordered" : 0
-        }
+            "times_ordered" : 0,
+            "cost" : 25
+       }
 )
 
 drinks.insert_one(
@@ -612,8 +629,9 @@ drinks.insert_one(
                 }
                             ],
             "available": True,
-            "times_ordered" : 0
-        }
+            "times_ordered" : 0,
+            "cost" : 50
+       }
 )
 
 drinks.insert_one(
@@ -635,8 +653,9 @@ drinks.insert_one(
                 }
                             ],
             "available": True,
-            "times_ordered" : 0
-        }
+            "times_ordered" : 0,
+            "cost" : 25
+       }
 )
 
 drinks.insert_one(
@@ -663,15 +682,16 @@ drinks.insert_one(
                 }
                             ],
             "available": True,
-            "times_ordered" : 0
-        }
+            "times_ordered" : 0,
+            "cost" : 25
+       }
 )
 
 drinks.insert_one(
         {
             "id": 20,
             "name": "Blowjob Shot",
-            "type": "mixed",
+            "type": "shot",
             "image": "dirty_martini.png",
             "recipe": [
                 {
@@ -686,8 +706,9 @@ drinks.insert_one(
                 }
                             ],
             "available": True,
-            "times_ordered" : 0
-        }
+            "times_ordered" : 0,
+            "cost" : 25
+       }
 )
 
 drinks.insert_one(
@@ -709,8 +730,9 @@ drinks.insert_one(
                 }
                             ],
             "available": True,
-            "times_ordered" : 0
-        }
+            "times_ordered" : 0,
+            "cost" : 50
+       }
 )
 
 drinks.insert_one(
@@ -737,8 +759,9 @@ drinks.insert_one(
                 }
                             ],
             "available": True,
-            "times_ordered" : 0
-        }
+            "times_ordered" : 0,
+            "cost" : 50
+       }
 )
 
 drinks.insert_one(
@@ -756,7 +779,7 @@ drinks.insert_one(
                 {
                     "type": "Vodka",
                     "flavor": None,
-                    "amount": "2 shots"
+                    "amount": "2 shots TODO"
                 },
                 {
                     "type": "Cream",
@@ -765,8 +788,9 @@ drinks.insert_one(
                 }
                             ],
             "available": True,
-            "times_ordered" : 0
-        }
+            "times_ordered" : 0,
+            "cost" : 75
+       }
 )
 
 drinks.insert_one(
@@ -788,8 +812,9 @@ drinks.insert_one(
                 }
                             ],
             "available": True,
-            "times_ordered" : 0
-        }
+            "times_ordered" : 0,
+            "cost" : 50
+       }
 )
 
 drinks.insert_one(
@@ -811,14 +836,15 @@ drinks.insert_one(
                 }
                             ],
             "available": True,
-            "times_ordered" : 0
-        }
+            "times_ordered" : 0,
+            "cost" : 75
+       }
 )
 
 drinks.insert_one(
         {
             "id": 26,
-            "name": "Grasshopper",
+            "name": "Grasshopper TODO Blended?",
             "type": "mixed",
             "image": "dirty_martini.png",
             "recipe": [
@@ -839,36 +865,38 @@ drinks.insert_one(
                 }
                             ],
             "available": True,
-            "times_ordered" : 0
-        }
+            "times_ordered" : 0,
+            "cost" : 50
+       }
 )
 
 drinks.insert_one(
         {
             "id": 27,
             "name": "B-52",
-            "type": "mixed",
+            "type": "part",
             "image": "dirty_martini.png",
             "recipe": [
                 {
                     "type": "Kahlua",
                     "flavor": None,
-                    "amount": "1 shot"
+                    "amount": "1 part"
                 },
                 {
                     "type": "Bailey's",
                     "flavor": None,
-                    "amount": "1 shot"
+                    "amount": "1 part"
                 },
                 {
                     "type": "Brandy",
                     "flavor": None,
-                    "amount": "1 shot"
+                    "amount": "1 part"
                 }
                             ],
             "available": True,
-            "times_ordered" : 0
-        }
+            "times_ordered" : 0,
+            "cost" : 75
+       }
 )
 
 users.create_index([("username", ASCENDING)], unique=True)
@@ -878,6 +906,7 @@ users.insert_one(
             "username" : "koalatea",
             "password" : generate_password_hash("temporary2017koalatea"),
             "credits" : 1000000,
-            "roles" : [ "bartender", "admin", "user" ]
+            "roles" : [ "bartender", "admin", "user" ],
+            "drinksOrdered" : 0
         }
 )

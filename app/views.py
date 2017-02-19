@@ -327,12 +327,15 @@ def review_order(drinkname):
 @app.route('/order_drink', methods=["POST"])
 @login_required
 def order_drink():
+    print("Order Drinks")
     postData = dict(request.form)
+    print(postData)
     drink = db.Drinks.find_one({"name": postData['drink'][0]})
     print (drink['recipe'])
     if drink is not None:
         if get_user_credits(current_user.username) < drink['cost']:
             return '{"status": "failed - not enough credits"}'
+        print("drink ordered since enough credits")
         db.Users.update_one({'username': current_user.username},
                             {
                             '$inc': {
@@ -340,6 +343,7 @@ def order_drink():
                                     'drinksOrdered': 1
                                 }
                             })
+        print("credits edited")
         db.Orders.insert_one(
              {
                  "name": drink['name'],
@@ -353,8 +357,10 @@ def order_drink():
                  "status": "queued"
              }
         )
-
+        print("trying statistics")
         stats = db.Statistics.find_one({"id": CURRENT_STAT_FILE})
+        #breaks here
+        print("queried " + stats)
         if (int(time.time()) - stats['time']) >= 3600:
             #An hour or more has passed
             CURRENT_STAT_FILE = CURRENT_STAT_FILE + 1
