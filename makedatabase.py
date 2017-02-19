@@ -412,6 +412,85 @@ drinks.insert_one(
         }
 )
 
+drinks.insert_one(
+        {
+            "id": 10,
+            "name": "Electric Boogaloo",
+            "type": "mixed",
+            "image": "dirty_martini.png",
+            "recipe": [
+                {
+                    "type": "UV Blue",
+                    "flavor": None,
+                    "amount": "3 shots"
+                },
+                {
+                    "type": "Lemon juice",
+                    "flavor": None,
+                    "amount": "2 shots"
+                },
+                {
+                    "type": "Sprite",
+                    "flavor": None,
+                    "amount": "Fill rest"
+                }
+                            ],
+            "available": True,
+            "times_ordered" : 0
+        }
+)
+
+drinks.insert_one(
+        {
+            "id": 11,
+            "name": "Martini",
+            "type": "mixed",
+            "image": "dirty_martini.png",
+            "recipe": [
+                {
+                    "type": "Gin",
+                    "flavor": None,
+                    "amount": "3 shots"
+                },
+                {
+                    "type": "Dry vermouth",
+                    "flavor": None,
+                    "amount": "2 shots"
+                },
+                {
+                    "type": "Crushed ice",
+                    "flavor": None,
+                    "amount": "Varies"
+                }
+                            ],
+            "available": True,
+            "times_ordered" : 0
+        }
+)
+
+drinks.insert_one(
+        {
+            "id": 12,
+            "name": "Rum and Coke",
+            "type": "mixed",
+            "image": "dirty_martini.png",
+            "recipe": [
+                {
+                    "type": "Rum",
+                    "flavor": None,
+                    "amount": "2 shots"
+                },
+                {
+                    "type": "Coca-Cola",
+                    "flavor": None,
+                    "amount": "2 shots"
+                }
+                            ],
+            "available": True,
+            "times_ordered" : 0
+        }
+)
+
 users.create_index([("username", ASCENDING)], unique=True)
 
 users.insert_one(
