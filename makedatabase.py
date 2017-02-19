@@ -560,6 +560,85 @@ drinks.insert_one(
         }
 )
 
+drinks.insert_one(
+        {
+            "id": 16,
+            "name": "Shirley Temple",
+            "type": "mixed",
+            "image": "dirty_martini.png",
+            "recipe": [
+                {
+                    "type": "Grenadine",
+                    "flavor": None,
+                    "amount": "1 shot"
+                },
+                {
+                    "type": "Ginger ale",
+                    "flavor": None,
+                    "amount": "1 shot"
+                },
+		        {
+                    "type": "Sprite",
+                    "flavor": None,
+                    "amount": "1 shot"
+                },
+                {
+                    "type": "Sky",
+                    "flavor": None,
+                    "amount": "1 shot"
+                }
+                            ],
+            "available": True,
+            "times_ordered" : 0
+        }
+)
+
+drinks.insert_one(
+        {
+            "id": 17,
+            "name": "Yellow Thunder",
+            "type": "mixed",
+            "image": "dirty_martini.png",
+            "recipe": [
+                {
+                    "type": "Vodka",
+                    "flavor": None,
+                    "amount": "2 shots"
+                },
+                {
+                    "type": "Lemonade",
+                    "flavor": None,
+                    "amount": "1 shot"
+                },
+                            ],
+            "available": True,
+            "times_ordered" : 0
+        }
+)
+
+drinks.insert_one(
+        {
+            "id": 18,
+            "name": "Jagerbomb",
+            "type": "mixed",
+            "image": "dirty_martini.png",
+            "recipe": [
+                {
+                    "type": "Jager",
+                    "flavor": None,
+                    "amount": "1 shot"
+                },
+                {
+                    "type": "Red Bull",
+                    "flavor": None,
+                    "amount": "1 shot"
+                }
+                            ],
+            "available": True,
+            "times_ordered" : 0
+        }
+)
+
 users.create_index([("username", ASCENDING)], unique=True)
 
 users.insert_one(
