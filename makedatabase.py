@@ -85,7 +85,7 @@ ingredients.insert_one(
         {
             "class": "alcohol",
             "type" : "Gin",
-            "name" : "Beefeater",
+            "name" : "New Amsterdam",
             "flavor" : None,
             "bottles" : 1,
             "available": True,
@@ -609,7 +609,7 @@ drinks.insert_one(
                     "type": "Lemonade",
                     "flavor": None,
                     "amount": "1 shot"
-                },
+                }
                             ],
             "available": True,
             "times_ordered" : 0
