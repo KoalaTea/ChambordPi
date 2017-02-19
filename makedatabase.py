@@ -171,33 +171,74 @@ ingredients.insert_one(
         }
 )
 
-
-
 drinks.create_index([("id", ASCENDING)], unique=True)
 
 drinks.insert_one(
         {
             "id": 0,
-            "name": "Mystery Drink",
-            "type": "mixed",
+            "name": "Miller High Life",
+            "type": "beer",
             "image": "dirty_martini.png",
             "recipe": [
                 {
-                    "type": "vodka",
+                    "type": "beer",
                     "flavor": None,
                     "amount": "1 oz"
-                },
-                {
-                    "type": "liqueur",
-                    "flavor": "raspberry",
-                    "amount": "1 oz"
-                },
-                {
-                    "type": "mixer",
-                    "name": "sprite",
-                    "amount": "fill"
                 }
-            ],
+                            ],
+            "available": True,
+            "times_ordered" : 0
+        }
+)
+drinks.insert_one(
+        {
+            "id": 1,
+            "name": "Miller Lite",
+            "type": "beer",
+            "image": "dirty_martini.png",
+            "recipe": [
+                {
+                    "type": "beer",
+                    "flavor": None,
+                    "amount": "1 oz"
+                }
+                            ],
+            "available": True,
+            "times_ordered" : 0
+        }
+)
+
+drinks.insert_one(
+        {
+            "id": 2,
+            "name": "Budweiser",
+            "type": "beer",
+            "image": "dirty_martini.png",
+            "recipe": [
+                {
+                    "type": "beer",
+                    "flavor": None,
+                    "amount": "1 oz"
+                }
+                            ],
+            "available": True,
+            "times_ordered" : 0
+        }
+)
+
+drinks.insert_one(
+        {
+            "id": 3,
+            "name": "Shock Top",
+            "type": "beer",
+            "image": "dirty_martini.png",
+            "recipe": [
+                {
+                    "type": "beer",
+                    "flavor": None,
+                    "amount": "1 oz"
+                }
+                            ],
             "available": True,
             "times_ordered" : 0
         }
