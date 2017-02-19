@@ -10,7 +10,7 @@ client.drop_database("ChambordPi")
 db = client.ChambordPi
 
 drinks = db.Drinks
-alchohol = db.Alchohol
+alcohol = db.Alchohol
 users = db.Users
 orders = db.Orders
 mixers = db.Mixers
@@ -33,7 +33,7 @@ statistics.insert_one(
 
 ingredients.insert_one(
         {
-            "class": "alchohol",
+            "class": "alcohol",
             "type" : "vodka",
             "name" : "sky",
             "flavor" : None,
@@ -45,7 +45,7 @@ ingredients.insert_one(
 )
 ingredients.insert_one(
         {
-            "class": "alchohol",
+            "class": "alcohol",
             "type" : "",
             "name" : "Jager",
             "flavor" : None,
@@ -57,7 +57,7 @@ ingredients.insert_one(
 )
 ingredients.insert_one(
         {
-            "class": "alchohol",
+            "class": "alcohol",
             "type" : "rum",
             "name" : "Malibu",
             "flavor" : "Coconut",
@@ -70,7 +70,7 @@ ingredients.insert_one(
 )
 ingredients.insert_one(
         {
-            "class": "alchohol",
+            "class": "alcohol",
             "type" : "rum",
             "name" : "Bacardi",
             "flavor" : None,
@@ -83,7 +83,7 @@ ingredients.insert_one(
 )
 ingredients.insert_one(
         {
-            "class": "alchohol",
+            "class": "alcohol",
             "type" : "Gin",
             "name" : "Beefeater",
             "flavor" : None,
@@ -96,7 +96,7 @@ ingredients.insert_one(
 )
 ingredients.insert_one(
         {
-            "class": "alchohol",
+            "class": "alcohol",
             "type" : "Whiskey",
             "name" : "Jack Daniels",
             "flavor" : None,
@@ -109,7 +109,7 @@ ingredients.insert_one(
 )
 ingredients.insert_one(
         {
-            "class": "alchohol",
+            "class": "alcohol",
             "type" : "vodka",
             "name" : "UV Blue",
             "flavor" : None,
@@ -171,33 +171,21 @@ ingredients.insert_one(
         }
 )
 
-
-
 drinks.create_index([("id", ASCENDING)], unique=True)
 
 drinks.insert_one(
         {
             "id": 0,
-            "name": "Mystery Drink",
-            "type": "mixed",
+            "name": "Miller High Life",
+            "type": "beer",
             "image": "dirty_martini.png",
             "recipe": [
                 {
-                    "type": "vodka",
+                    "type": "beer",
                     "flavor": None,
                     "amount": "1 oz"
-                },
-                {
-                    "type": "liqueur",
-                    "flavor": "raspberry",
-                    "amount": "1 oz"
-                },
-                {
-                    "type": "mixer",
-                    "name": "sprite",
-                    "amount": "fill"
                 }
-            ],
+                            ],
             "available": True,
             "times_ordered" : 0
         }
@@ -205,91 +193,62 @@ drinks.insert_one(
 drinks.insert_one(
         {
             "id": 1,
-            "name": "Mystery Drink",
-            "type": "mixed",
+            "name": "Miller Lite",
+            "type": "beer",
             "image": "dirty_martini.png",
             "recipe": [
                 {
-                    "type": "vodka",
+                    "type": "beer",
                     "flavor": None,
                     "amount": "1 oz"
-                },
-                {
-                    "type": "liqueur",
-                    "flavor": "raspberry",
-                    "amount": "1 oz"
-                },
-                {
-                    "type": "mixer",
-                    "name": "sprite",
-                    "amount": "fill"
                 }
-            ],
+                            ],
             "available": True,
             "times_ordered" : 0
         }
 )
+
 drinks.insert_one(
         {
             "id": 2,
-            "name": "Mystery Drink",
-            "type": "mixed",
+            "name": "Budweiser",
+            "type": "beer",
             "image": "dirty_martini.png",
             "recipe": [
                 {
-                    "type": "vodka",
+                    "type": "beer",
                     "flavor": None,
                     "amount": "1 oz"
-                },
-                {
-                    "type": "liqueur",
-                    "flavor": "raspberry",
-                    "amount": "1 oz"
-                },
-                {
-                    "type": "mixer",
-                    "name": "sprite",
-                    "amount": "fill"
                 }
-            ],
+                            ],
             "available": True,
             "times_ordered" : 0
         }
 )
+
 drinks.insert_one(
         {
             "id": 3,
-            "name": "Not Free",
-            "type": "mixed",
-            "cost": 50,
+            "name": "Shock Top",
+            "type": "beer",
             "image": "dirty_martini.png",
             "recipe": [
                 {
-                    "type": "vodka",
+                    "type": "beer",
                     "flavor": None,
                     "amount": "1 oz"
-                },
-                {
-                    "type": "liqueur",
-                    "flavor": "raspberry",
-                    "amount": "1 oz"
-                },
-                {
-                    "type": "mixer",
-                    "name": "sprite",
-                    "amount": "fill"
                 }
-            ],
+                            ],
             "available": True,
             "times_ordered" : 0
         }
 )
+
 drinks.insert_one(
         {
             "id": 4,
-            "name": "Expensive",
+            "name": "Screwdriver",
             "type": "mixed",
-            "cost": 10000000,
             "image": "dirty_martini.png",
             "recipe": [
                 {
@@ -297,39 +256,385 @@ drinks.insert_one(
                     "flavor": None,
                     "amount": "1 oz"
                 },
-                {
-                    "type": "liqueur",
-                    "flavor": "raspberry",
+		        {
+		            "type": "orange juice",
+                    "flavor": None,
                     "amount": "1 oz"
-                },
-                {
-                    "type": "mixer",
-                    "name": "sprite",
-                    "amount": "fill"
                 }
-            ],
+                            ],
             "available": True,
             "times_ordered" : 0
         }
 )
+
 drinks.insert_one(
         {
-            "id": "5",
-            "name" : "Godfather",
-            "type" : "mixed",
-            "recipe" : [
+            "id": 5,
+            "name": "Godfather",
+            "type": "mixed",
+            "image": "dirty_martini.png",
+            "recipe": [
                 {
-                    "type" : "amerreto",
-                    "flavor" : None,
-                    "ammount" : "half"
+                    "type": "amaretto",
+                    "flavor": None,
+                    "amount": "1 oz"
+                },
+		        {
+		            "type": "whiskey",
+                    "flavor": None,
+                    "amount": "1 oz"
+                }
+                            ],
+            "available": True,
+            "times_ordered" : 0
+        }
+)
+
+drinks.insert_one(
+        {
+            "id": 6,
+            "name": "Mojito",
+            "type": "mixed",
+            "image": "dirty_martini.png",
+            "recipe": [
+                {
+                    "type": "lime",
+                    "flavor": None,
+                    "amount": "1/2"
+                },
+		        {
+		            "type": "white rum",
+                    "flavor": None,
+                    "amount": "2 oz"
                 },
                 {
-                    "type" : "scotch",
-                    "flavor" : None,
-                    "ammount" : "half"
+                    "type": "club soda",
+                    "flavor": None,
+                    "amount": "2 oz"
+                },
+                {
+                    "type": "mint",
+                    "flavor": None,
+                    "amount": "muddled"
+                },
+                {
+                    "type": "sugar",
+                    "flavor": None,
+                    "amount": "tablespoon of sugar"                
                 }
-            ],
-            "available" : False,
+                            ],
+            "available": True,
+            "times_ordered" : 0
+        }
+)
+
+drinks.insert_one(
+        {
+            "id": 7,
+            "name": "Dark and Stormy",
+            "type": "mixed",
+            "image": "dirty_martini.png",
+            "recipe": [
+                {
+                    "type": "lime",
+                    "flavor": None,
+                    "amount": "1/2"
+                },
+                {
+                    "type": "rum",
+                    "flavor": None,
+                    "amount": "1 part"
+                },
+                {
+                    "type": "ginger beer",
+                    "flavor": None,
+                    "amount": "1 part"
+                }
+                            ],
+            "available": True,
+            "times_ordered" : 0
+        }
+)
+
+drinks.insert_one(
+        {
+            "id": 8,
+            "name": "Moscow Mule",
+            "type": "mixed",
+            "image": "dirty_martini.png",
+            "recipe": [
+                {
+                    "type": "lime",
+                    "flavor": None,
+                    "amount": "1/2"
+                },
+                {
+                    "type": "vodka",
+                    "flavor": None,
+                    "amount": "1 part"
+                },
+                {
+                    "type": "ginger beer",
+                    "flavor": None,
+                    "amount": "1 part"
+                }
+                            ],
+            "available": True,
+            "times_ordered" : 0
+        }
+)
+
+drinks.insert_one(
+        {
+            "id": 9,
+            "name": "Rum Chata",
+            "type": "mixed",
+            "image": "dirty_martini.png",
+            "recipe": [
+                {
+                    "type": "fireball",
+                    "flavor": None,
+                    "amount": "1 part"
+                },
+                {
+                    "type": "rum chata",
+                    "flavor": None,
+                    "amount": "3 parts"
+                },
+                {
+                    "type": "ginger beer",
+                    "flavor": None,
+                    "amount": "1 part"
+                }
+                            ],
+            "available": True,
+            "times_ordered" : 0
+        }
+)
+
+drinks.insert_one(
+        {
+            "id": 10,
+            "name": "Electric Boogaloo",
+            "type": "mixed",
+            "image": "dirty_martini.png",
+            "recipe": [
+                {
+                    "type": "UV Blue",
+                    "flavor": None,
+                    "amount": "3 shots"
+                },
+                {
+                    "type": "Lemon juice",
+                    "flavor": None,
+                    "amount": "2 shots"
+                },
+                {
+                    "type": "Sprite",
+                    "flavor": None,
+                    "amount": "Fill rest"
+                }
+                            ],
+            "available": True,
+            "times_ordered" : 0
+        }
+)
+
+drinks.insert_one(
+        {
+            "id": 11,
+            "name": "Martini",
+            "type": "mixed",
+            "image": "dirty_martini.png",
+            "recipe": [
+                {
+                    "type": "Gin",
+                    "flavor": None,
+                    "amount": "3 shots"
+                },
+                {
+                    "type": "Dry vermouth",
+                    "flavor": None,
+                    "amount": "2 shots"
+                },
+                {
+                    "type": "Crushed ice",
+                    "flavor": None,
+                    "amount": "Varies"
+                }
+                            ],
+            "available": True,
+            "times_ordered" : 0
+        }
+)
+
+drinks.insert_one(
+        {
+            "id": 12,
+            "name": "Rum and Coke",
+            "type": "mixed",
+            "image": "dirty_martini.png",
+            "recipe": [
+                {
+                    "type": "Rum",
+                    "flavor": None,
+                    "amount": "2 shots"
+                },
+                {
+                    "type": "Coca-Cola",
+                    "flavor": None,
+                    "amount": "2 shots"
+                }
+                            ],
+            "available": True,
+            "times_ordered" : 0
+        }
+)
+
+drinks.insert_one(
+        {
+            "id": 13,
+            "name": "Whiskey and Coke",
+            "type": "mixed",
+            "image": "dirty_martini.png",
+            "recipe": [
+                {
+                    "type": "Whiskey",
+                    "flavor": None,
+                    "amount": "2 shots"
+                },
+                {
+                    "type": "Coca-Cola",
+                    "flavor": None,
+                    "amount": "2 shots"
+                }
+                            ],
+            "available": True,
+            "times_ordered" : 0
+        }
+)
+
+drinks.insert_one(
+        {
+            "id": 14,
+            "name": "Whiskey Sour",
+            "type": "mixed",
+            "image": "dirty_martini.png",
+            "recipe": [
+                {
+                    "type": "Whiskey",
+                    "flavor": None,
+                    "amount": "2 shots"
+                },
+                {
+                    "type": "Lemon Juice",
+                    "flavor": None,
+                    "amount": "2 shots"
+                }
+                            ],
+            "available": True,
+            "times_ordered" : 0
+        }
+)
+
+drinks.insert_one(
+        {
+            "id": 15,
+            "name": "Rum and Sprite",
+            "type": "mixed",
+            "image": "dirty_martini.png",
+            "recipe": [
+                {
+                    "type": "Rum",
+                    "flavor": None,
+                    "amount": "2 shots"
+                },
+                {
+                    "type": "Sprite",
+                    "flavor": None,
+                    "amount": "2 shots"
+                }
+                            ],
+            "available": True,
+            "times_ordered" : 0
+        }
+)
+
+drinks.insert_one(
+        {
+            "id": 16,
+            "name": "Shirley Temple",
+            "type": "mixed",
+            "image": "dirty_martini.png",
+            "recipe": [
+                {
+                    "type": "Grenadine",
+                    "flavor": None,
+                    "amount": "1 shot"
+                },
+                {
+                    "type": "Ginger ale",
+                    "flavor": None,
+                    "amount": "1 shot"
+                },
+		        {
+                    "type": "Sprite",
+                    "flavor": None,
+                    "amount": "1 shot"
+                },
+                {
+                    "type": "Sky",
+                    "flavor": None,
+                    "amount": "1 shot"
+                }
+                            ],
+            "available": True,
+            "times_ordered" : 0
+        }
+)
+
+drinks.insert_one(
+        {
+            "id": 17,
+            "name": "Yellow Thunder",
+            "type": "mixed",
+            "image": "dirty_martini.png",
+            "recipe": [
+                {
+                    "type": "Vodka",
+                    "flavor": None,
+                    "amount": "2 shots"
+                },
+                {
+                    "type": "Lemonade",
+                    "flavor": None,
+                    "amount": "1 shot"
+                },
+                            ],
+            "available": True,
+            "times_ordered" : 0
+        }
+)
+
+drinks.insert_one(
+        {
+            "id": 18,
+            "name": "Jagerbomb",
+            "type": "mixed",
+            "image": "dirty_martini.png",
+            "recipe": [
+                {
+                    "type": "Jager",
+                    "flavor": None,
+                    "amount": "1 shot"
+                },
+                {
+                    "type": "Red Bull",
+                    "flavor": None,
+                    "amount": "1 shot"
+                }
+                            ],
+            "available": True,
             "times_ordered" : 0
         }
 )
@@ -339,34 +644,8 @@ users.create_index([("username", ASCENDING)], unique=True)
 users.insert_one(
         {
             "username" : "koalatea",
-            "password" : generate_password_hash("test"),
+            "password" : generate_password_hash("temporary2017koalatea"),
             "credits" : 1000000,
             "roles" : [ "bartender", "admin", "user" ]
-        }
-)
-
-users.insert_one(
-        {
-            "username" : "john",
-            "password" : generate_password_hash("test"),
-            "credits" : 100,
-            "roles" : [ "user" ]
-        }
-)
-
-users.insert_one(
-        {
-            "username" : "admin",
-            "password" : generate_password_hash("admin"),
-            "credits" : 100,
-            "roles" : [ "user", "admin" ]
-        }
-)
-users.insert_one(
-        {
-            "username" : "usrtest",
-            "password" : generate_password_hash("test"),
-            "credits" : 100,
-            "roles" : [ "user"]
         }
 )
