@@ -386,7 +386,7 @@ drinks.insert_one(
 
 drinks.insert_one(
         {
-            "id": 8,
+            "id": 9,
             "name": "Rum Chata",
             "type": "mixed",
             "image": "dirty_martini.png",
