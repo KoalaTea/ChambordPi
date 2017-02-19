@@ -639,6 +639,80 @@ drinks.insert_one(
         }
 )
 
+drinks.insert_one(
+        {
+            "id": 19,
+            "name": "Gin Sour",
+            "type": "mixed",
+            "image": "dirty_martini.png",
+            "recipe": [
+                {
+                    "type": "Gin",
+                    "flavor": None,
+                    "amount": "2 shots"
+                },
+                {
+                    "type": "Lemon juice",
+                    "flavor": None,
+                    "amount": "1 shot"
+                },
+                {
+                    "type": "Sugar",
+                    "flavor": None,
+                    "amount": "Tablespoon"
+                }
+                            ],
+            "available": True,
+            "times_ordered" : 0
+        }
+)
+
+drinks.insert_one(
+        {
+            "id": 20,
+            "name": "Blowjob Shot",
+            "type": "mixed",
+            "image": "dirty_martini.png",
+            "recipe": [
+                {
+                    "type": "Khalua",
+                    "flavor": None,
+                    "amount": "1/2 shot"
+                },
+                {
+                    "type": "Irish cream",
+                    "flavor": None,
+                    "amount": "1/2 shot"
+                }
+                            ],
+            "available": True,
+            "times_ordered" : 0
+        }
+)
+
+drinks.insert_one(
+        {
+            "id": 21,
+            "name": "Gin and Tonic",
+            "type": "mixed",
+            "image": "dirty_martini.png",
+            "recipe": [
+                {
+                    "type": "Gin",
+                    "flavor": None,
+                    "amount": "2 shots"
+                },
+                {
+                    "type": "Tonic",
+                    "flavor": None,
+                    "amount": "1 shot"
+                }
+                            ],
+            "available": True,
+            "times_ordered" : 0
+        }
+)
+
 users.create_index([("username", ASCENDING)], unique=True)
 
 users.insert_one(
