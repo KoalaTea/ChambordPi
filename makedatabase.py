@@ -244,6 +244,90 @@ drinks.insert_one(
         }
 )
 
+drinks.insert_one(
+        {
+            "id": 4,
+            "name": "Screwdriver",
+            "type": "mixed",
+            "image": "dirty_martini.png",
+            "recipe": [
+                {
+                    "type": "vodka",
+                    "flavor": None,
+                    "amount": "1 oz"
+                },
+		        {
+		            "type": "orange juice",
+                    "flavor": None,
+                    "amount": "1 oz"
+                }
+                            ],
+            "available": True,
+            "times_ordered" : 0
+        }
+)
+
+drinks.insert_one(
+        {
+            "id": 5,
+            "name": "Godfather",
+            "type": "mixed",
+            "image": "dirty_martini.png",
+            "recipe": [
+                {
+                    "type": "amaretto",
+                    "flavor": None,
+                    "amount": "1 oz"
+                },
+		        {
+		            "type": "whiskey",
+                    "flavor": None,
+                    "amount": "1 oz"
+                }
+                            ],
+            "available": True,
+            "times_ordered" : 0
+        }
+)
+
+drinks.insert_one(
+        {
+            "id": 6,
+            "name": "Mojito",
+            "type": "mixed",
+            "image": "dirty_martini.png",
+            "recipe": [
+                {
+                    "type": "lime",
+                    "flavor": None,
+                    "amount": "1/2"
+                },
+		        {
+		            "type": "white rum",
+                    "flavor": None,
+                    "amount": "2 oz"
+                },
+                {
+                    "type": "club soda",
+                    "flavor": None,
+                    "amount": "2 oz"
+                },
+                {
+                    "type": "mint",
+                    "flavor": None,
+                    "amount": "muddled"
+                },
+                {
+                    "type": "sugar",
+                    "flavor": None,
+                    "amount": "tablespoon of sugar"                
+                }
+                            ],
+            "available": True,
+            "times_ordered" : 0
+        }
+)
+
 users.create_index([("username", ASCENDING)], unique=True)
 
 users.insert_one(
