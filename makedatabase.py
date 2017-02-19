@@ -491,6 +491,75 @@ drinks.insert_one(
         }
 )
 
+drinks.insert_one(
+        {
+            "id": 13,
+            "name": "Whiskey and Coke",
+            "type": "mixed",
+            "image": "dirty_martini.png",
+            "recipe": [
+                {
+                    "type": "Whiskey",
+                    "flavor": None,
+                    "amount": "2 shots"
+                },
+                {
+                    "type": "Coca-Cola",
+                    "flavor": None,
+                    "amount": "2 shots"
+                }
+                            ],
+            "available": True,
+            "times_ordered" : 0
+        }
+)
+
+drinks.insert_one(
+        {
+            "id": 14,
+            "name": "Whiskey Sour",
+            "type": "mixed",
+            "image": "dirty_martini.png",
+            "recipe": [
+                {
+                    "type": "Whiskey",
+                    "flavor": None,
+                    "amount": "2 shots"
+                },
+                {
+                    "type": "Lemon Juice",
+                    "flavor": None,
+                    "amount": "2 shots"
+                }
+                            ],
+            "available": True,
+            "times_ordered" : 0
+        }
+)
+
+drinks.insert_one(
+        {
+            "id": 15,
+            "name": "Rum and Sprite",
+            "type": "mixed",
+            "image": "dirty_martini.png",
+            "recipe": [
+                {
+                    "type": "Rum",
+                    "flavor": None,
+                    "amount": "2 shots"
+                },
+                {
+                    "type": "Sprite",
+                    "flavor": None,
+                    "amount": "2 shots"
+                }
+                            ],
+            "available": True,
+            "times_ordered" : 0
+        }
+)
+
 users.create_index([("username", ASCENDING)], unique=True)
 
 users.insert_one(
