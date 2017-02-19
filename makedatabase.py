@@ -10,7 +10,7 @@ client.drop_database("ChambordPi")
 db = client.ChambordPi
 
 drinks = db.Drinks
-alchohol = db.Alchohol
+alcohol = db.Alchohol
 users = db.Users
 orders = db.Orders
 mixers = db.Mixers
@@ -33,7 +33,7 @@ statistics.insert_one(
 
 ingredients.insert_one(
         {
-            "class": "alchohol",
+            "class": "alcohol",
             "type" : "vodka",
             "name" : "sky",
             "flavor" : None,
@@ -45,7 +45,7 @@ ingredients.insert_one(
 )
 ingredients.insert_one(
         {
-            "class": "alchohol",
+            "class": "alcohol",
             "type" : "",
             "name" : "Jager",
             "flavor" : None,
@@ -57,7 +57,7 @@ ingredients.insert_one(
 )
 ingredients.insert_one(
         {
-            "class": "alchohol",
+            "class": "alcohol",
             "type" : "rum",
             "name" : "Malibu",
             "flavor" : "Coconut",
@@ -70,7 +70,7 @@ ingredients.insert_one(
 )
 ingredients.insert_one(
         {
-            "class": "alchohol",
+            "class": "alcohol",
             "type" : "rum",
             "name" : "Bacardi",
             "flavor" : None,
@@ -83,7 +83,7 @@ ingredients.insert_one(
 )
 ingredients.insert_one(
         {
-            "class": "alchohol",
+            "class": "alcohol",
             "type" : "Gin",
             "name" : "Beefeater",
             "flavor" : None,
@@ -96,7 +96,7 @@ ingredients.insert_one(
 )
 ingredients.insert_one(
         {
-            "class": "alchohol",
+            "class": "alcohol",
             "type" : "Whiskey",
             "name" : "Jack Daniels",
             "flavor" : None,
@@ -109,7 +109,7 @@ ingredients.insert_one(
 )
 ingredients.insert_one(
         {
-            "class": "alchohol",
+            "class": "alcohol",
             "type" : "vodka",
             "name" : "UV Blue",
             "flavor" : None,
