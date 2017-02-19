@@ -328,6 +328,90 @@ drinks.insert_one(
         }
 )
 
+drinks.insert_one(
+        {
+            "id": 7,
+            "name": "Dark and Stormy",
+            "type": "mixed",
+            "image": "dirty_martini.png",
+            "recipe": [
+                {
+                    "type": "lime",
+                    "flavor": None,
+                    "amount": "1/2"
+                },
+                {
+                    "type": "rum",
+                    "flavor": None,
+                    "amount": "1 part"
+                },
+                {
+                    "type": "ginger beer",
+                    "flavor": None,
+                    "amount": "1 part"
+                }
+                            ],
+            "available": True,
+            "times_ordered" : 0
+        }
+)
+
+drinks.insert_one(
+        {
+            "id": 8,
+            "name": "Moscow Mule",
+            "type": "mixed",
+            "image": "dirty_martini.png",
+            "recipe": [
+                {
+                    "type": "lime",
+                    "flavor": None,
+                    "amount": "1/2"
+                },
+                {
+                    "type": "vodka",
+                    "flavor": None,
+                    "amount": "1 part"
+                },
+                {
+                    "type": "ginger beer",
+                    "flavor": None,
+                    "amount": "1 part"
+                }
+                            ],
+            "available": True,
+            "times_ordered" : 0
+        }
+)
+
+drinks.insert_one(
+        {
+            "id": 8,
+            "name": "Rum Chata",
+            "type": "mixed",
+            "image": "dirty_martini.png",
+            "recipe": [
+                {
+                    "type": "fireball",
+                    "flavor": None,
+                    "amount": "1 part"
+                },
+                {
+                    "type": "rum chata",
+                    "flavor": None,
+                    "amount": "3 parts"
+                },
+                {
+                    "type": "ginger beer",
+                    "flavor": None,
+                    "amount": "1 part"
+                }
+                            ],
+            "available": True,
+            "times_ordered" : 0
+        }
+)
+
 users.create_index([("username", ASCENDING)], unique=True)
 
 users.insert_one(
