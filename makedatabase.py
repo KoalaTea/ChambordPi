@@ -792,6 +792,85 @@ drinks.insert_one(
         }
 )
 
+drinks.insert_one(
+        {
+            "id": 25,
+            "name": "Black Russian",
+            "type": "mixed",
+            "image": "dirty_martini.png",
+            "recipe": [
+                {
+                    "type": "Vodka",
+                    "flavor": None,
+                    "amount": "2 shots"
+                },
+                {
+                    "type": "Coffee liqueur",
+                    "flavor": None,
+                    "amount": "1.5 shots"
+                }
+                            ],
+            "available": True,
+            "times_ordered" : 0
+        }
+)
+
+drinks.insert_one(
+        {
+            "id": 26,
+            "name": "Grasshopper",
+            "type": "mixed",
+            "image": "dirty_martini.png",
+            "recipe": [
+                {
+                    "type": "Mint cream",
+                    "flavor": None,
+                    "amount": "1.5 shots"
+                },
+                {
+                    "type": "Creme de cacao",
+                    "flavor": None,
+                    "amount": "1.5 shots"
+                },
+                {
+                    "type": "Fresh cream",
+                    "flavor": None,
+                    "amount": "1 shot"
+                }
+                            ],
+            "available": True,
+            "times_ordered" : 0
+        }
+)
+
+drinks.insert_one(
+        {
+            "id": 27,
+            "name": "B-52",
+            "type": "mixed",
+            "image": "dirty_martini.png",
+            "recipe": [
+                {
+                    "type": "Kahlua",
+                    "flavor": None,
+                    "amount": "1 shot"
+                },
+                {
+                    "type": "Bailey's",
+                    "flavor": None,
+                    "amount": "1 shot"
+                },
+                {
+                    "type": "Brandy",
+                    "flavor": None,
+                    "amount": "1 shot"
+                }
+                            ],
+            "available": True,
+            "times_ordered" : 0
+        }
+)
+
 users.create_index([("username", ASCENDING)], unique=True)
 
 users.insert_one(
