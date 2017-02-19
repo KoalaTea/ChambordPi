@@ -713,6 +713,85 @@ drinks.insert_one(
         }
 )
 
+drinks.insert_one(
+        {
+            "id": 22,
+            "name": "Alexander",
+            "type": "mixed",
+            "image": "dirty_martini.png",
+            "recipe": [
+                {
+                    "type": "Brandy",
+                    "flavor": None,
+                    "amount": "1 shot"
+                },
+                {
+                    "type": "Cream",
+                    "flavor": None,
+                    "amount": "1 shot"
+                },
+                {
+                    "type": "Creme de cacao",
+                    "flavor": None,
+                    "amount": "1 shot"
+                }
+                            ],
+            "available": True,
+            "times_ordered" : 0
+        }
+)
+
+drinks.insert_one(
+        {
+            "id": 23,
+            "name": "White Russian",
+            "type": "mixed",
+            "image": "dirty_martini.png",
+            "recipe": [
+                {
+                    "type": "Coffee liqueur",
+                    "flavor": None,
+                    "amount": "1 shot"
+                },
+                {
+                    "type": "Vodka",
+                    "flavor": None,
+                    "amount": "2 shots"
+                },
+                {
+                    "type": "Cream",
+                    "flavor": None,
+                    "amount": "2 shots"
+                }
+                            ],
+            "available": True,
+            "times_ordered" : 0
+        }
+)
+
+drinks.insert_one(
+        {
+            "id": 24,
+            "name": "Vodka Red Bull",
+            "type": "mixed",
+            "image": "dirty_martini.png",
+            "recipe": [
+                {
+                    "type": "Vodka",
+                    "flavor": None,
+                    "amount": "2 shots"
+                },
+                {
+                    "type": "Red Bull",
+                    "flavor": None,
+                    "amount": "1 cup"
+                }
+                            ],
+            "available": True,
+            "times_ordered" : 0
+        }
+)
+
 users.create_index([("username", ASCENDING)], unique=True)
 
 users.insert_one(
