@@ -639,6 +639,238 @@ drinks.insert_one(
         }
 )
 
+drinks.insert_one(
+        {
+            "id": 19,
+            "name": "Gin Sour",
+            "type": "mixed",
+            "image": "dirty_martini.png",
+            "recipe": [
+                {
+                    "type": "Gin",
+                    "flavor": None,
+                    "amount": "2 shots"
+                },
+                {
+                    "type": "Lemon juice",
+                    "flavor": None,
+                    "amount": "1 shot"
+                },
+                {
+                    "type": "Sugar",
+                    "flavor": None,
+                    "amount": "Tablespoon"
+                }
+                            ],
+            "available": True,
+            "times_ordered" : 0
+        }
+)
+
+drinks.insert_one(
+        {
+            "id": 20,
+            "name": "Blowjob Shot",
+            "type": "mixed",
+            "image": "dirty_martini.png",
+            "recipe": [
+                {
+                    "type": "Khalua",
+                    "flavor": None,
+                    "amount": "1/2 shot"
+                },
+                {
+                    "type": "Irish cream",
+                    "flavor": None,
+                    "amount": "1/2 shot"
+                }
+                            ],
+            "available": True,
+            "times_ordered" : 0
+        }
+)
+
+drinks.insert_one(
+        {
+            "id": 21,
+            "name": "Gin and Tonic",
+            "type": "mixed",
+            "image": "dirty_martini.png",
+            "recipe": [
+                {
+                    "type": "Gin",
+                    "flavor": None,
+                    "amount": "2 shots"
+                },
+                {
+                    "type": "Tonic",
+                    "flavor": None,
+                    "amount": "1 shot"
+                }
+                            ],
+            "available": True,
+            "times_ordered" : 0
+        }
+)
+
+drinks.insert_one(
+        {
+            "id": 22,
+            "name": "Alexander",
+            "type": "mixed",
+            "image": "dirty_martini.png",
+            "recipe": [
+                {
+                    "type": "Brandy",
+                    "flavor": None,
+                    "amount": "1 shot"
+                },
+                {
+                    "type": "Cream",
+                    "flavor": None,
+                    "amount": "1 shot"
+                },
+                {
+                    "type": "Creme de cacao",
+                    "flavor": None,
+                    "amount": "1 shot"
+                }
+                            ],
+            "available": True,
+            "times_ordered" : 0
+        }
+)
+
+drinks.insert_one(
+        {
+            "id": 23,
+            "name": "White Russian",
+            "type": "mixed",
+            "image": "dirty_martini.png",
+            "recipe": [
+                {
+                    "type": "Coffee liqueur",
+                    "flavor": None,
+                    "amount": "1 shot"
+                },
+                {
+                    "type": "Vodka",
+                    "flavor": None,
+                    "amount": "2 shots"
+                },
+                {
+                    "type": "Cream",
+                    "flavor": None,
+                    "amount": "2 shots"
+                }
+                            ],
+            "available": True,
+            "times_ordered" : 0
+        }
+)
+
+drinks.insert_one(
+        {
+            "id": 24,
+            "name": "Vodka Red Bull",
+            "type": "mixed",
+            "image": "dirty_martini.png",
+            "recipe": [
+                {
+                    "type": "Vodka",
+                    "flavor": None,
+                    "amount": "2 shots"
+                },
+                {
+                    "type": "Red Bull",
+                    "flavor": None,
+                    "amount": "1 cup"
+                }
+                            ],
+            "available": True,
+            "times_ordered" : 0
+        }
+)
+
+drinks.insert_one(
+        {
+            "id": 25,
+            "name": "Black Russian",
+            "type": "mixed",
+            "image": "dirty_martini.png",
+            "recipe": [
+                {
+                    "type": "Vodka",
+                    "flavor": None,
+                    "amount": "2 shots"
+                },
+                {
+                    "type": "Coffee liqueur",
+                    "flavor": None,
+                    "amount": "1.5 shots"
+                }
+                            ],
+            "available": True,
+            "times_ordered" : 0
+        }
+)
+
+drinks.insert_one(
+        {
+            "id": 26,
+            "name": "Grasshopper",
+            "type": "mixed",
+            "image": "dirty_martini.png",
+            "recipe": [
+                {
+                    "type": "Mint cream",
+                    "flavor": None,
+                    "amount": "1.5 shots"
+                },
+                {
+                    "type": "Creme de cacao",
+                    "flavor": None,
+                    "amount": "1.5 shots"
+                },
+                {
+                    "type": "Fresh cream",
+                    "flavor": None,
+                    "amount": "1 shot"
+                }
+                            ],
+            "available": True,
+            "times_ordered" : 0
+        }
+)
+
+drinks.insert_one(
+        {
+            "id": 27,
+            "name": "B-52",
+            "type": "mixed",
+            "image": "dirty_martini.png",
+            "recipe": [
+                {
+                    "type": "Kahlua",
+                    "flavor": None,
+                    "amount": "1 shot"
+                },
+                {
+                    "type": "Bailey's",
+                    "flavor": None,
+                    "amount": "1 shot"
+                },
+                {
+                    "type": "Brandy",
+                    "flavor": None,
+                    "amount": "1 shot"
+                }
+                            ],
+            "available": True,
+            "times_ordered" : 0
+        }
+)
+
 users.create_index([("username", ASCENDING)], unique=True)
 
 users.insert_one(
