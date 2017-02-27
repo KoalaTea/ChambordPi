@@ -15,6 +15,7 @@ users.insert_one(
             "username" : username,
             "password" : generate_password_hash(password),
             "credits" : 500,
-            "roles" : [ "user" ]
+            "roles" : [ "user" ],
+            "drinksOrdered" : 0
         }
 )
