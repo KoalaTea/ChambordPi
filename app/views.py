@@ -18,6 +18,7 @@ CUSTOM_COST=150
 #   set all pages to check for authentication and if none - guest@Hackerbar
 #   metrics
 #   times
+#   logging
 
 # index
 #   the main page
@@ -164,6 +165,7 @@ def bartender():
 @login_required
 @bartender_required
 @app.route("/update_order", methods=["POST"])
+#TODO delete order and move it to PastOrders on completion
 def update_order():
     postData = dict(request.form)
     Orderup = ObjectId(postData['id'][0])
