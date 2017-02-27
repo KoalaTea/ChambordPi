@@ -58,8 +58,8 @@ def login():
             user_obj = User(user)
             login_user(user_obj)
         else:
-            flash('Login failed for username="%s" and password="%s"' % (form.username.data, form.password.data))
-        flash('Login for username="%s" and password="%s"' % (form.username.data, form.password.data))
+            pass
+            #TODO
         return redirect('/index')
     return render_template('login.html', title='Sign In', form=form)
 
@@ -173,13 +173,13 @@ def update_order():
         print (Orderup)
         n = db.Orders.update_one(
             { "_id": Orderup },
-            { '$set': { "status": "InProgress" } }
+            { '$set': { "status": "inprogress" } }
         )
     elif Status == 'InProgress':
         db.Orders.update_one({"_id": Orderup},
             {
                 '$set': {
-                    'status': "Ready"
+                    'status': "ready"
                 }
             })
     elif Status.lower() == 'ready':
