@@ -910,3 +910,21 @@ users.insert_one(
             "drinksOrdered" : 0
         }
 )
+users.insert_one(
+        {
+            "username" : "bartender",
+            "password" : generate_password_hash("bartender"),
+            "credits" : 1000000,
+            "roles" : [ "admin" ],
+            "drinksOrdered" : 0
+        }
+)
+users.insert_one(
+        {
+            "username" : "user",
+            "password" : generate_password_hash("user"),
+            "credits" : 1000,
+            "roles" : [ "user" ],
+            "drinksOrdered" : 0
+        }
+)

@@ -1,5 +1,18 @@
 from werkzeug.security import check_password_hash
 from .db import db
+from . import lm
+
+# load_user
+#   sets things up for loading a user since we use mongo instead of sqllite
+#
+# returns
+#   User object of the user from the database
+@lm.user_loader
+def load_user(username):
+    u = db.Users.find_one({"username": username})
+    if not u:
+        return None
+    return User(u)
 
 class User():
 
