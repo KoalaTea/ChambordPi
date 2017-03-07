@@ -120,42 +120,51 @@ def order_drink():
              }
         )
         print("trying statistics")
-        stats = db.Statistics.find_one({"id": CURRENT_STAT_FILE})
-        #breaks here
-        print("queried " + stats)
-        if (int(time.time()) - stats['time']) >= 3600:
-            #An hour or more has passed
-            CURRENT_STAT_FILE = CURRENT_STAT_FILE + 1
-            statistics.insert_one(
-                {
-                    "id": CURRENT_STAT_FILE,
-                    "time": int(time.time()*1000) ,
-                    "total_orders": 1,
-                    "drink_orders": [
-                        {"name": drink['name'], "Orders": 1},
-                    ]
-                })
-        else:
-            stat_exists = db.Statistics.find_one({"name" : drink['name']})
-            if stat_exists:
+        try:
+            global CURRENT_STAT_FILE
+            stats = db.Statistics.find_one({"id": CURRENT_STAT_FILE})
+            #breaks here
+            print(time.time()*1000)
+            print(stats['time'])
+            print(int(time.time()*1000) - int(stats['time']))
+            # loop through stats see until not exist or less than current stat file time
+            if (int(time.time()*1000) - stats['time']) >= 3600:
+                print("test!!!")
+                #An hour or more has passed
+                CURRENT_STAT_FILE = CURRENT_STAT_FILE + 1
+                statistics.insert_one(
+                    {
+                        "id": CURRENT_STAT_FILE,
+                        "time": int(time.time()*1000) ,
+                        "total_orders": 1,
+                        "drink_orders": [
+                            {"name": drink['name'], "Orders": 1},
+                        ]
+                    })
+            else:
+                print("Here")
+                stat_exists = db.Statistics.find_one({"name" : drink['name']})
+                if stat_exists:
+                    db.Users.update_one({'id': CURRENT_STAT_FILE},
+                                        {
+                                        '$inc': {
+                                                'total_orders': 1
+                                            }
+                                        })
+
                 db.Users.update_one({'id': CURRENT_STAT_FILE},
                                     {
                                     '$inc': {
                                             'total_orders': 1
+                                        },
+                                    '$addToSet': {
+                                            'name' : drink['name'], 'Orders': 1
                                         }
+
                                     })
 
-            db.Users.update_one({'id': CURRENT_STAT_FILE},
-                                {
-                                '$inc': {
-                                        'total_orders': 1
-                                    },
-                                '$addToSet': {
-                                        'name' : drink['name'], 'Orders': 1
-                                    }
-
-                                })
-
+        except Exception as e:
+            print(e)
         return '{"status": "okay"}'
     else:
         return '{"status": "failed - no such drink"}'

@@ -29,7 +29,7 @@
                     <div class="col col-xs-12" align=center>
                         {% if order['status']|lower == "queued" %}
                         <div class="col col-xs-4" align=left>
-                          <h5 class="drink-title"><b>{{order['name']}}</b></h5>
+                            <h5 class="drink-title"><b>{{order['name']}} - {{order['user']}}</b></h5>
                           <ul>
                             {% for ingredient in order['recipe'] %}
                               <li class="drink-text">{{ingredient['amount']}}
