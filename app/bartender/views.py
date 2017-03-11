@@ -44,6 +44,7 @@ def list_alchohol():
 # Returns
 #   the new alchohol database entry or empty set if failed
 @bartender.route("/add_alchohol", methods=["POST"])
+@login_required
 @bartender_required
 def add_alchohol():
     data = request.get_json()
@@ -76,6 +77,7 @@ def add_alchohol():
 # Returns
 #   the new alchohol database entry or empty set if failed
 @bartender.route("/remove_alchohol", methods=["POST"])
+@login_required
 @bartender_required
 def remove_alchohol():
     data = request.get_json()
@@ -97,8 +99,8 @@ def remove_alchohol():
     return "{}"
 
 @bartender.route("/orders", methods=["GET"])
-@bartender_required
 @login_required
+@bartender_required
 def orders():
     Orders = db.Orders.find()
     Drinks = db.Drinks.find({"available" : True})

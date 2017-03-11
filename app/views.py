@@ -86,14 +86,12 @@ def review_order(drinkname):
     else:
         return redirect(url_for('menu'))
 
+#Need to test order_drink statistics more, but is backed up in completed orders anyways
 @app.route('/order_drink', methods=["POST"])
 @login_required
 def order_drink():
-    print("Order Drinks")
     postData = dict(request.form)
-    print(postData)
     drink = db.Drinks.find_one({"name": postData['drink'][0]})
-    print (drink['recipe'])
     if drink is not None:
         if get_user_credits(current_user.username) < drink['cost']:
             return '{"status": "failed - not enough credits"}'
@@ -123,45 +121,52 @@ def order_drink():
         try:
             global CURRENT_STAT_FILE
             stats = db.Statistics.find_one({"id": CURRENT_STAT_FILE})
-            #breaks here
-            print(time.time()*1000)
-            print(stats['time'])
-            print(int(time.time()*1000) - int(stats['time']))
-            # loop through stats see until not exist or less than current stat file time
-            if (int(time.time()*1000) - stats['time']) >= 3600:
-                print("test!!!")
-                #An hour or more has passed
-                CURRENT_STAT_FILE = CURRENT_STAT_FILE + 1
-                statistics.insert_one(
-                    {
-                        "id": CURRENT_STAT_FILE,
-                        "time": int(time.time()*1000) ,
-                        "total_orders": 1,
-                        "drink_orders": [
-                            {"name": drink['name'], "Orders": 1},
-                        ]
-                    })
-            else:
-                print("Here")
-                stat_exists = db.Statistics.find_one({"name" : drink['name']})
-                if stat_exists:
-                    db.Users.update_one({'id': CURRENT_STAT_FILE},
+            if stats is not None:
+                # loop through stats see until not exist or less than current stat file time
+                if (int(time.time()*1000) - stats['time']) >= 3600:
+                    print("test!!!")
+                    #An hour or more has passed
+                    CURRENT_STAT_FILE = CURRENT_STAT_FILE + 1
+                    statistics.insert_one(
+                        {
+                            "id": CURRENT_STAT_FILE,
+                            "time": int(time.time()*1000) ,
+                            "total_orders": 1,
+                            "drink_orders": [
+                                {"name": drink['name'], "Orders": 1},
+                            ]
+                        })
+                else:
+                    #Wait what the hell is happening, how do I incriment a drinks Orders
+                    stat_exists = db.Statistics.find_one({"name" : drink['name']})
+                    if stat_exists:
+                        db.Users.update_one({'id': CURRENT_STAT_FILE},
+                                            {
+                                            '$inc': {
+                                                    'total_orders': 1
+                                                }
+                                            })
+                    else:
+                        db.Users.update_one({'id': CURRENT_STAT_FILE},
                                         {
                                         '$inc': {
                                                 'total_orders': 1
+                                            },
+                                        '$addToSet': {
+                                                'name' : drink['name'], 'Orders': 1
                                             }
+
                                         })
-
-                db.Users.update_one({'id': CURRENT_STAT_FILE},
-                                    {
-                                    '$inc': {
-                                            'total_orders': 1
-                                        },
-                                    '$addToSet': {
-                                            'name' : drink['name'], 'Orders': 1
-                                        }
-
-                                    })
+            else:
+                db.Statistics.insert_one(
+                        {
+                            "id": CURRENT_STAT_FILE,
+                            "time": int(time.time()*1000),
+                            "total_orders": 1,
+                            "drink_orders": [
+                                {"name": drink["name"], "Orders": 1},
+                            ]
+                        })
 
         except Exception as e:
             print(e)

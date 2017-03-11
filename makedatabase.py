@@ -16,20 +16,6 @@ orders = db.Orders
 mixers = db.Mixers
 beer = db.Beer
 ingredients = db.Ingredients
-statistics = db.Statistics
-
-statistics.insert_one(
-    {
-        "id": 1,
-        "time": int(time.time()*1000) ,
-        "total_orders": 0,
-        "drink_orders": [
-            {"name": "Sky", "Orders": 0},
-            {"name": "Malibu", "Orders": 0},
-            {"name": "Bacardi", "Orders": 0}
-        ]
-    }
-)
 
 ingredients.insert_one(
         {
