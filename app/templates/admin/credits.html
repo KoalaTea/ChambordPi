@@ -2,7 +2,7 @@
 
 {% block head %}
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/orders.css') }}">
-    <script type="text/javascript" src="/static/js/menu.js"></script>
+    
 {% endblock %}
 
 {% block content %}
@@ -26,22 +26,14 @@
               {% for user in users %}
               <div class="tr">
                   <div class="td">
-                    <div class="col col-xs-12" align=center>
-                        <div class="col col-xs-4" align=left>
                             <h5 class="drink-title"><b>{{user['username']}} - {{user['credits']}}</b></h5>
-                          <form action="update_user" method="post" name="update_user" class="form-drinkupdate">
-                            <input type="hidden" name="user" value= {{ user['username'] }}>
-                            <input type="hidden" name="command" value="custom">
-                            <button id="stepBtn" class="btn btn-primary btn-hover-green" type="submit">Mixing</button>
-                          </form>
+                            <button id="stepBtn" class="btn btn-primary btn-hover-green" onclick='location.href="add_credits/{{user['username']}}"'>Custom Credits</button>
                         </div>
-                          <form action="update_order" method="post" name="update_order" class="form-drinkupdate">
-                            <input type="hidden" name="user" value= {{ user['username'] }}>
-                            <input type="hidden" name="command" value="default">
-                            <button id="stepBtn" class="btn btn-success btn-hover-green" type="submit">Ready</button>
+                        <form action="add_credits/{{user['username']}}" method="post" name="update_order" class="form-drinkupdate">
+                            <input type="hidden" name="username" value="{{ user['username'] }}">
+                            <input type="hidden" name="credits" value={{cred_default}}>
+                            <button id="stepBtn" class="btn btn-success btn-hover-green" type="Add Credits">Default Credits</button>
                           </form>
-                    </div>
-                  </div>
               </div>
               {% endfor %}
               {% else %}

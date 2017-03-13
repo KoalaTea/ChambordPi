@@ -1,6 +1,5 @@
 from flask import render_template, redirect, request, url_for
 from . import admin
-from .forms import AddCreditsForm
 from pymongo import MongoClient
 from werkzeug.security import check_password_hash
 from flask_login import login_user, logout_user, login_required
@@ -27,28 +26,22 @@ def admin_page():
 @admin.route("/manage_credits")
 @login_required
 @admin_required
-def manage_credits():
-    form = AddCreditsForm()
+def credit_management():
     users = db.Users.find()
-    return render_template("admin/credits.html", users=users, form=form, cred_default=500)
+    return render_template("admin/credits.html", users=users)
 
 @admin.route("/add_credits/<username>", methods=["POST", "GET"])
 @login_required
 @admin_required
-def add_credits(username):
+def add_user_credits(username):
     form = AddCreditsForm()
-    if((request.method == "POST" and all(x in request.form for x in ['username', 'credits'])) or form.validate_on_submit()):
-        username = request.form['username']
-        credits = request.form['credits']
-        #TODO check for negatives
-        if credits.isdigit():
-            add_user_credits(username, credits)
-
-        return redirect(url_for('admin.manage_credits'))
+    if(request.method == "POST" and form.validate_on_submit()):
+        return redirect('index')
+        #TODO
     else:
         user = db.Users.find({"username" : username})
         if user is not None:
-            return render_template('admin/add_credits.html', title='Add Credits', user=username, form=form)
+            return render_remplate('admin/add_credits.html', title='Add Credits', user=username)
         else:
             return redirect('manage_credits')
 
@@ -65,18 +58,8 @@ def end_party():
                             'credits': 0
                             }
                     })
-    shutdown_server() #TODO behind nginx how does this work?
+    shutdown_server()
     return "Party ended"
-
-def add_user_credits(username, credits):
-    user = db.User.find({'username': username})
-    if user is not None:
-        db.Users.update_one({'username': username},
-                {
-                '$inc': {
-                    'credits': int(credits)
-                    }
-                })
 
 def shutdown_server():
     func = request.environ.get('werkzeug.server.shutdown')
