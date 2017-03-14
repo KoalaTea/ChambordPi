@@ -1,4 +1,4 @@
-#!flask/bin/python
+#! /usr/bin/python
 from pymongo import MongoClient
 
 client = MongoClient()

@@ -1,4 +1,4 @@
-#!flask/bin/python
+#! /usr/bin/python
 import time
 from pymongo import MongoClient, ASCENDING
 from werkzeug.security import generate_password_hash
