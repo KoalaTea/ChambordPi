@@ -1,8 +1,8 @@
 from flask import render_template, redirect, request, url_for
 from . import auth
-from .forms import LoginForm
+from .forms import LoginForm, SignUpForm
 from pymongo import MongoClient
-from werkzeug.security import check_password_hash
+from werkzeug.security import check_password_hash, generate_password_hash
 from flask_login import login_user, logout_user
 from ..objects import User
 from ..db import db
@@ -49,3 +49,15 @@ def login():
 def logout():
     logout_user()
     return redirect('index')
+
+@auth.route("/signup", methods=["POST", "GET"])
+def signup():
+    form = SignUpForm()
+    if(form.validate_on_submit()):
+        user = db.Users.find_one({"username": form.username.data})
+        if(user is None and (form.password.data == form.repassword.data)):
+            db.Users.insert_one({"username":form.username.data, "password":generate_password_hash(form.password.data), "credits":0, "roles":["user"], "drinksOrdered":0})
+        else:
+            return redirect(url_for('auth.signup'))
+        return redirect('index')
+    return render_template('auth/signup.html', title='Sign Up', form=form)
