@@ -3,11 +3,5 @@ pymongo
 flask-wtf
 werkzeug
 flask-login
-#flask-openid
-#sqlalchemy-migrate
-#flask-whooshalchemy
-#flask-babel
-#guess-language
-#flipflop
-#coverage
-#pygal
+python-socketio
+eventlet
