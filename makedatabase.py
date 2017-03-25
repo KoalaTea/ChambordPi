@@ -1,4 +1,4 @@
-#!flask/bin/python
+#! /usr/bin/python
 import time
 from pymongo import MongoClient, ASCENDING
 from werkzeug.security import generate_password_hash
@@ -16,20 +16,6 @@ orders = db.Orders
 mixers = db.Mixers
 beer = db.Beer
 ingredients = db.Ingredients
-statistics = db.Statistics
-
-statistics.insert_one(
-    {
-        "id": 1,
-        "time": int(time.time()*1000) ,
-        "total_orders": 0,
-        "drink_orders": [
-            {"name": "Sky", "Orders": 0},
-            {"name": "Malibu", "Orders": 0},
-            {"name": "Bacardi", "Orders": 0}
-        ]
-    }
-)
 
 ingredients.insert_one(
         {
@@ -907,6 +893,24 @@ users.insert_one(
             "password" : generate_password_hash("temporary2017koalatea"),
             "credits" : 1000000,
             "roles" : [ "bartender", "admin", "user" ],
+            "drinksOrdered" : 0
+        }
+)
+users.insert_one(
+        {
+            "username" : "bartender",
+            "password" : generate_password_hash("bartender"),
+            "credits" : 1000000,
+            "roles" : [ "admin" ],
+            "drinksOrdered" : 0
+        }
+)
+users.insert_one(
+        {
+            "username" : "user",
+            "password" : generate_password_hash("user"),
+            "credits" : 1000,
+            "roles" : [ "user" ],
             "drinksOrdered" : 0
         }
 )

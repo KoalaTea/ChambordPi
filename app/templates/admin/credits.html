@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/orders.css') }}">
+    
+{% endblock %}
+
+{% block content %}
+<div class="container" style="margin-top:5px">
+  <div class="row">
+    <div class="col">
+      <div class="panel panel-default panel-table">
+          <div class="panel-heading">
+              <div class="tr">
+                  <div class="td">
+                    <h5 class="drink-title">
+                      [<b class="user-name">{{ current_user.username }}</b>@<b class="hacker-bar">Hackerbar
+                      </b>
+                      <b class="dir">~/users/</b>]$ ed /etc/passwd
+                    </h5>
+                  </div>
+              </div>
+          </div>
+          <div class="panel-body">
+              {% if users.length != 0 %}
+              {% for user in users %}
+              <div class="tr">
+                  <div class="td">
+                            <h5 class="drink-title"><b>{{user['username']}} - {{user['credits']}}</b></h5>
+                            <button id="stepBtn" class="btn btn-primary btn-hover-green" onclick='location.href="add_credits/{{user['username']}}"'>Custom Credits</button>
+                        </div>
+                        <form action="add_credits/{{user['username']}}" method="post" name="update_order" class="form-drinkupdate">
+                            <input type="hidden" name="username" value="{{ user['username'] }}">
+                            <input type="hidden" name="credits" value={{cred_default}}>
+                            <button id="stepBtn" class="btn btn-success btn-hover-green" type="Add Credits">Default Credits</button>
+                          </form>
+              </div>
+              {% endfor %}
+              {% else %}
+              <h1> No Users... </h1>
+              {% endif %}
+          </div>
+          <div class="panel-footer">
+              <div class="tr" align=center>
+                  <div class="td">
+                  <h5 class="drink-title">(END)</h5>
+                  </div>
+              </div>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

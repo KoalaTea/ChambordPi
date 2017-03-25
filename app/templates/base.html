@@ -52,7 +52,6 @@
           </div>
 
           <ul class="nav navbar-nav navbar-right mobile-bar">
-            {% if current_user.is_authenticated %}
               <li>
               <a href="/">
                 <span class="menu-icon 	glyphicon glyphicon-home"></span>
@@ -65,10 +64,25 @@
                   Menu
               </a>
             </li>
+            {% if current_user.is_authenticated %}
             <li>
               <a href="/recent_orders">
                 <span class="menu-icon glyphicon glyphicon-shopping-cart"></span>
                 Orders
+              </a>
+            </li>
+            {% if current_user.is_role('admin') or current_user.is_role('bartender') %}
+            <li>
+              <a href="{{ url_for('bartender.orders') }}">
+                <span class="menu-icon glyphicon glyphicon-shopping-cart"></span>
+                Bartender
+              </a>
+            </li>
+            {% endif %}
+            <li>
+              <a href="{{ url_for('auth.logout') }}">
+                <span class="menu-icon glyphicon glyphicon-home"></span>
+                Sign Out
               </a>
             </li>
           </ul>
@@ -76,7 +90,7 @@
       </nav>
       {% else %}
             <li>
-              <a href="/login">
+              <a href="{{ url_for('auth.login') }}">
                 <span class="menu-icon 	glyphicon glyphicon-home"></span>
                 Sign In
               </a>
