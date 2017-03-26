@@ -12,7 +12,7 @@ mixers = db.Mixers
 beer = db.Beer
 past_orders = db.PastOrders
 
-backup_file = open("backups/db_backup", "w")
+backup_file = open("backups/db_backup2", "w")
 
 backup_file.write("Drinks\n")
 backups = drinks.find()

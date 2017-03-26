@@ -4,3 +4,4 @@ flask/
 config.file
 venv/
 backups/
+ChambordPi.sock

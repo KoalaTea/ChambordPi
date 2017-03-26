@@ -1,6 +1,10 @@
 //$(document).ready(function()){
 var isClosed = true;
-var updating = window.setInterval(reload_orders, 5000);
+var updating = window.setInterval(reload_page, 5000);
+
+function reload_page(){
+   window.location = "orders"
+}; 
 
 function reload_orders(){
     $.ajax({
