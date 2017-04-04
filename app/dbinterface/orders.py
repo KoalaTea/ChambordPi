@@ -1,8 +1,8 @@
-from ..db import ordersCol as Orders
+from document import Document
 
 from bson import ObjectId
 
-class Order(object):
+class Order(Document):
     def __init__(self, _id, doc=None):
         self.identifier = {'_id', ObjectId(str(_id))}
         if doc is None:
@@ -73,4 +73,4 @@ class Order(object):
 
     @staticmethod
     def get(search={})
-        return [Order(o['_id'], o) for o in Order.find(search)]
+        return [Order(o['_id'], o) for o in Document.get('Orders', search)]

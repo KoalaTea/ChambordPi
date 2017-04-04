@@ -31,10 +31,10 @@ def login():
             user_obj = User(user)
             login_user(user_obj)
         else:
-            pass
+            return render_template('auth/login.html', title='Sign In', form=form, message='Login Failed')
             #TODO
         return redirect(url_for('index'))
-    return render_template('auth/login.html', title='Sign In', form=form)
+    return render_template('auth/login.html', title='Sign In', form=form, message=None)
 
 # logout
 #   logour page destroys session
