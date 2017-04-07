@@ -24,7 +24,7 @@ class Document(object):
         """
         if collectionName is None or collectionName == "":
             raise DocumentException('Error: Cannot create document with no collection')
-        
+
         try:
             self.collection = Document.getCollection(collectionName)
             self.collectionName = collectionName
@@ -61,7 +61,7 @@ class Document(object):
         """
         Commits the document to the database.
         """
-        self.collection.save(self.doc) 
+        self.collection.save(self.doc)
 
     def update(self):
         """

@@ -1,33 +1,48 @@
-from ..db import ingredientsCol as Ingredients
-import mixers
-import alchohols
 
 from bson import ObjectId
+from document import Document
 
 class Ingredient(Document):
-    def __init__(self, _id, doc=None):
-        self.identifier = {'_id', ObjectId(str(_id))}
-        if doc is None:
-            self.doc = None
-            self.force_update()
-        else:
-            self.doc = doc
+    def __init__(self, doc):
+        #get our settings
+        name = doc.get('name', None)
+        flavor = doc.get('flavor', None)
+        ing_type = doc.get('type', None)
+        ing_class = doc.get('class', None)
+        measure = doc.get('measure', None)
+        stock = doc.get('stock', 0)
+
+        #create the document dictionary
+        ingredient_doc = {
+                'name': name,
+                'flavor': flavor,
+                'type': ing_type,
+                'class': ing_class,
+                'measure': measure,
+                'stock': stock
+        }
+
+
+        #create the Document object
+        super(Ingredient, self).__init__('Ingredients', ingredient_doc)
+
+    def update_stock(amount):
+        #add/remove bottles
+        self.stock += stock
+        self.commit()
 
     @staticmethod
-    def update_total(ammount):
-        #add/remove bottles
-        pass
+    def create_ingredient(name, flavor, ing_type, ing_class, measure, **kwargs):
+        #merge the two dictionaries
+        kwargs.update({"name": name, "flavor": flavor, "type": ing_type, "class": ing_class, "measure": measure})
+        newing = Ingredient(kwargs)
+        return newing
 
     @staticmethod
     def get_available():
+        #Ingregient.get()?
         return self.get({'available':True})
 
     @staticmethod
-    def get(search=None):
-        ingredient_list = []
-        for i in Document.get('Ingredients', search):
-            if i['class'] == "mixer":
-                ingredient_list.append(mixers.Mixer(i['_id']), i)
-            elif i['class'] == "alchohol":
-                ingredient_list.append(alchohols.Alchohol(i['_id']), i)
-        return ingredient_list
+    def get(search={}):
+        return [ i for i in Document.get('Ingredients', search) ]
