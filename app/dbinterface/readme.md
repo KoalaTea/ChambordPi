@@ -2,14 +2,14 @@ Orders
 {
     _id: objectID("..."),
     user: "username",
-    stats: "queued|complete|ready",
+    status: "queued|complete|ready",
     cost: int(cost),
     name: "Drink Name",
     recipe: DrinkObject,
     image: "image file.png",
     instructions: "user input",
     type: "beer|mixed|shot",
-    timeOrdered: 1488908888
+    time_ordered: 1488908888
 }
 
 Drinks
@@ -61,6 +61,16 @@ Ingredients
 
 PastOrders
 {
+    _id: objectID("..."),
+    status: "completed|cancelled",
+    name: "drinkname",
+    image: "image.png",
+    recipe: "recipe",
+    cost: int(cost),
+    user: "username",
+    type: "beer|shot|mixed",
+    time_ordered: time.time(),
+    instructions: "instructions"
 }
 
 

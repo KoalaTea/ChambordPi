@@ -4,48 +4,35 @@ from bson import ObjectId
 
 class Drink(object):
     def __init__(self, _id, doc=None):
-        self.identifier = {'_id', ObjectId(str(_id))}
-        if doc is None:
-            self.doc = None
-            self.force_update()
-        else:
-            self.doc = doc
+        available = doc.get('available', None)
+        cost = doc.get('cost', None)
+        name = doc.get('name', None)
+        times_ordered = doc.get('times_ordered', 0)
+        recipe = doc.get('recipe', None)
+        image = doc.get('image', None)
+        drink_type = doc.get('type', None)
+        drink_id = doc.get('id', None) #Do I Need this?
 
-    @property
-    def _id(self):
-        return self.doc.get('_id', None)
+        drink_doc = {
+                'available': available,
+                'cost': cost,
+                'name': name,
+                'times_ordered': times_ordered,
+                'recipe': recipe,
+                'image': image,
+                'type': drink_type,
+                'id': drink_id
+        }
 
-    @property
-    def available(self):
-        return self.doc.get('available')
+        super(Drink, self).__init__('Drinks', drink_doc)
 
-    @property
-    def times_ordered(self):
-        return self.doc.get('times_ordered')
 
-    @property
-    def cost(self):
-        return self.doc.get('cost')
 
-    @property
-    def name(self):
-        return self.doc.get('name')
-
-    @property
-    def recipe(self):
-        return self.doc.get('recipe')
-
-    @property
-    def type(self):
-        return self.doc.get('type')
-
-    @property
-    def image(self):
-        return self.doc.get('image')
-
-    def force_update():
-        self.doc = Drinks.find_one(self.identifier)
-        return self.doc is not None
+    @staticmethod
+    def create_drink(name, drink_type, recipe, cost=None, image=None):
+        new_drink = Drink({'name': name, 'type': drink_type, 'recipe': recipe, 'cost': cost, 'image': image})
+        new_drink.commit()
+        return new_drink
 
     @staticmethod
     def get_available():
@@ -53,4 +40,4 @@ class Drink(object):
 
     @staticmethod
     def get(search={})
-        return [Drink(o['_id'], o) for o in Drinkss.find(search)]
+        return [Drink(d) for d in Document.get('Drinks', search)]

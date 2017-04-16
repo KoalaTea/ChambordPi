@@ -27,16 +27,18 @@ class Ingredient(Document):
         super(Ingredient, self).__init__('Ingredients', ingredient_doc)
 
     def update_stock(amount):
-        #add/remove bottles
+        #add/remove stock
         self.stock += stock
         self.commit()
 
+    # you can extend functionality by doing create(...., stock=int(#)
     @staticmethod
-    def create_ingredient(name, flavor, ing_type, ing_class, measure, **kwargs):
+    def create(name, flavor, ing_type, ing_class, measure, **kwargs):
         #merge the two dictionaries
         kwargs.update({"name": name, "flavor": flavor, "type": ing_type, "class": ing_class, "measure": measure})
-        newing = Ingredient(kwargs)
-        return newing
+        new_ing = Ingredient(kwargs)
+        new_int.commit()
+        return new_ing
 
     @staticmethod
     def get_available():
@@ -45,4 +47,4 @@ class Ingredient(Document):
 
     @staticmethod
     def get(search={}):
-        return [ i for i in Document.get('Ingredients', search) ]
+        return [ Ingredient(i) for i in Document.get('Ingredients', search) ]
