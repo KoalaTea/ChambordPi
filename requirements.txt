@@ -5,3 +5,4 @@ werkzeug
 flask-login
 python-socketio
 eventlet
+mongoalchemy
