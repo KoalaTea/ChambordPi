@@ -9,3 +9,4 @@ class Ingredient(db.Document):
     obj_class = db.StringField()
     obj_type = db.StringField()
     flavor = db.StringField()
+    times_ordered db.IntField()

@@ -5,6 +5,7 @@ class Order(db.Document):
     status = db.StringField()
     cost = db.IntField()
     recipe = db.AnythingField()
+    name = db.StringField()
     image = db.StringField()
     instructions = db.StringField()
     obj_type = db.StringField()
