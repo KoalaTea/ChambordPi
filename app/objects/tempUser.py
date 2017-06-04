@@ -1,8 +1,9 @@
-from flask.mongo.mongoalchemy import MongoAlchemy
+from mongoalchemy.document import Document
+from mongoalchemy.fields import *
 
-class user(db.Document):
-    username = db.StringField()
-    password = db.StringField()
-    roles = db.AnyField()
-    drinksOrdered = db.IntField()
-    credits = db.IntField()
+class user(Document):
+    username = StringField()
+    password = StringField()
+    roles = AnyField()
+    drinksOrdered = IntField()
+    credits = IntField()
