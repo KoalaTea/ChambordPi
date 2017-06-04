@@ -1,12 +1,19 @@
-from flask.ext.mongoalchemy import MongoAlchemy
+from mongoalchemy.document import Document
+from mongoalchemy.fields import *
 
-class Ingredient(db.Document):
-    available = db.BoolField()
-    cost = db.IntField()
-    stock = db.IntField()
-    measure = db.StringField()
-    name = db.StringField()
-    obj_class = db.StringField()
-    obj_type = db.StringField()
-    flavor = db.StringField()
-    times_ordered db.IntField()
+class Ingredient(Document):
+    available = BoolField()
+    cost = IntField()
+    stock = IntField()
+    measure = StringField()
+    name = StringField()
+    obj_class = StringField()
+    obj_type = StringField()
+    flavor = StringField()
+    times_ordered = IntField()
+
+    def add(self, added_stock):
+        self.stock.inc(stock, added_stock).execute()
+
+    def remove(self, removed_stock):
+        self.stock.inc(stock, -removed_stock).execute()

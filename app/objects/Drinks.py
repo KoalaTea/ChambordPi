@@ -1,11 +1,17 @@
-from flask.ext.mongoalchemy import MongoAlchemy
+from mongoalchemy.document import Document
+from mongoalchemy.fields import *
 
-class Drink(db.Document):
-    available = db.BoolField()
-    cost = db.IntField()
-    name = db.StringField()
-    times_ordered = db.IntField()
+class Drink(Document):
+    available = BoolField()
+    cost = IntField()
+    name = StringField()
+    times_ordered = IntField()
     recipe = AnythingField()
-    image = db.StringField()
-    obj_type = db.StringField()
-    drink_id = db.IntField()
+    image = StringField()
+    obj_type = StringField()
+    drink_id = IntField()
+
+    def purchase():
+        self.inc(times_ordered, 1).execute()
+        #import session from main and create drink order
+        pass
