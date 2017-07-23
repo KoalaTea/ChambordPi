@@ -1,14 +1,18 @@
+import json
+import time
 from flask import render_template, flash, redirect, request, url_for
 from app import app
-from pymongo import MongoClient
 from bson.objectid import ObjectId
 from werkzeug.security import check_password_hash
 from flask_login import login_required, login_user, logout_user, current_user
-from .objects import User
+from .objects.users import User
 from .decorators import bartender_required, admin_required
-from .db import db
-import json
-import time
+from .db.db import db
+from pymongo import MongoClient
+from .db.db_getters import get_drinks
+from .db.db_getters import get_available_drinks
+from .db.db_getters import get_drink
+#TODO move current_user to using the objects version
 
 CURRENT_STAT_FILE = 1
 CUSTOM_COST=150
@@ -47,7 +51,8 @@ def index():
 @app.route("/list_drinks", methods=["GET", "POST"])
 @app.route("/recipes", methods=["GET", "POST"])
 def list_drinks():
-    return render_template('recipes.html', title='All Drinks', user=current_user, drinks=db.Drinks.find())
+    drinks = get_drinks()
+    return render_template('recipes.html', title='All Drinks', user=current_user, drinks=drinks)
 
 # menu
 #   lists all available drinks based on alchohol currently in stock
@@ -58,13 +63,14 @@ def list_drinks():
 @app.route("/menu", methods=["GET"])
 def menu():
     if(current_user.is_authenticated):
+        drinks = get_available_drinks()
         return render_template('menu_auth.html', title='Menu',
                            user=current_user,
                            credits=get_user_credits(current_user.username),
-                           drinks=db.Drinks.find({"available": True}))
+                           drinks=drinks)
     else:
          return render_template('menu_unauth.html', title='Menu',
-                           drinks=db.Drinks.find({"available": True}))
+                           drinks=drinks)
 
 @app.route("/recent_orders")
 @login_required
@@ -77,10 +83,11 @@ def recent_orders():
                            totaldrinks=get_user_drinks(current_user.username),
                            credits=get_user_credits(current_user.username))
 
+#needs a rethinkg TODO
 @app.route('/review_order/<drinkname>')
 @login_required
 def review_order(drinkname):
-    drink = db.Drinks.find_one({"name": drinkname})
+    drink = get_drink(drinkname)
     if drink is not None:
         return render_template('review_order.html', title='Review and Order', user=current_user, drink=drink)
     else:
@@ -91,32 +98,12 @@ def review_order(drinkname):
 @login_required
 def order_drink():
     postData = dict(request.form)
-    drink = db.Drinks.find_one({"name": postData['drink'][0]})
+    drink = get_drink(postData['drink'][0])
+    instructions = postData['instructions'][0]
     if drink is not None:
-        if get_user_credits(current_user.username) < drink['cost']:
-            return '{"status": "failed - not enough credits"}'
-        print("drink ordered since enough credits")
-        db.Users.update_one({'username': current_user.username},
-                            {
-                            '$inc': {
-                                    'credits': -drink['cost'],
-                                    'drinksOrdered': 1
-                                }
-                            })
-        print("credits edited")
-        db.Orders.insert_one(
-             {
-                 "name": drink['name'],
-                 "cost": drink['cost'],
-                 "type": drink['type'],
-                 "recipe": drink['recipe'],
-                 "image": drink['image'],
-                 "timeOrdered": int(time.time()),
-                 "user": current_user.username,
-                 "instructions": postData['instructions'][0],
-                 "status": "queued"
-             }
-        )
+        current_user.order_drink(drink, instructions)
+        #TODO figure out this return incase drink order fails
+        #return '{"status": "failed - not enough credits"}'
         print("trying statistics")
         try:
             global CURRENT_STAT_FILE
@@ -179,29 +166,17 @@ def order_drink():
 def cancel_drink():
     postData = dict(request.form)
     orderid = ObjectId(postData['order'][0])
-    order = db.Orders.find_one({"_id": orderid})
+    order = get_order(order_id)
     if order is not None:
-        if order['status'].lower() == "queued":
-            db.Orders.delete_one({"_id": orderid, "user": current_user.username})
-            db.Users.update_one({'username': current_user.username},
-                    {
-                    '$inc': {
-                            'credits': order['cost'],
-                            'drinksOrdered': -1
-                        }
-                    })
-
-            return '{"status": "okay"}'
-        return '{"status": "cannot cancel progressed order"}'
-    else:
-        return '{"status": "failed - no such order"}'
+        order.cancel_order()
 
 @app.route('/custom_drink')
 @login_required
 def custom_drink():
-    ingredients = db.Ingredients.find({"available": True})
+    ingredients = get_available_ingredients()
     return render_template('custom_drink.html', ingredients=ingredients)
 
+# TODO
 @app.route('/order_custom_drink', methods=["POST"])
 @login_required
 def order_custom_drink():
@@ -243,7 +218,8 @@ def order_custom_drink():
     )
     return '{"status": "okay"}'
 
-
+# TODO wait what is this doing? come back to it later figure out why it is doing things
+# I do not seem to understand
 @app.route("/order_complete", methods=["POST"])
 @login_required
 @bartender_required
@@ -257,10 +233,12 @@ def order_complete():
         db.PastOrders.insert_one(the_order)
         print(the_order)
         if(the_order is not None):
+            #?order.complete_order()
             db.Orders.delete_one({"_id": ObjectId(data["_id"])})
     orders = db.Orders.find()
     return render_template('current_orders.html', title='Orders', user=current_user, orders=orders)
 
+# do not really care about these anymore
 def get_user_credits(username):
     usr = db.Users.find_one({'username': username})
     return usr['credits']

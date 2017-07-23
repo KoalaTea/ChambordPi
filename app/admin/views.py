@@ -4,7 +4,7 @@ from .forms import AddCreditsForm
 from pymongo import MongoClient
 from werkzeug.security import check_password_hash
 from flask_login import login_user, logout_user, login_required
-from ..objects import User
+from ..objects.users import User
 from ..db import db
 from ..decorators import admin_required
 

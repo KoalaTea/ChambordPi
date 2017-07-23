@@ -1,6 +1,6 @@
 from werkzeug.security import check_password_hash
-from .db import db
-from . import lm
+from ..db import user_db
+from ..db import order_db
 
 # load_user
 #   sets things up for loading a user since we use mongo instead of sqllite
@@ -14,12 +14,13 @@ def load_user(username):
         return None
     return User(u)
 
-class User():
+class User(object):
 
     def __init__(self, user_json):
         self.username = user_json['username']
         self.credits = user_json['credits']
         self.roles = user_json['roles']
+        self.drinks_ordered = user_json['drinks_ordered']
 
     def is_authenticated(self):
         return True
@@ -36,9 +37,17 @@ class User():
     def is_role(self, role):
         return(role in self.roles)
 
-    def purchase(self, credits):
+    def order_drink(self, drink, instructions):
         #look up how to lock the database
-        self.credits -= credits
+        if self.credits >= drink.cost:
+            self.credits -= credits
+            self.drinks_ordered += 1
+            user_db.update(user)
+            print('credits updated for {}'.format(username))
+            order_db.create_order(self, drink, instructions)
+            print('order created')
+        else:
+            pass
         db.Users.update({
             'username': self.username
         },{

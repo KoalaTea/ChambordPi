@@ -4,7 +4,7 @@ from pymongo import MongoClient
 from bson.objectid import ObjectId
 from werkzeug.security import check_password_hash
 from flask_login import login_required, login_user, logout_user, current_user
-from ..objects import User
+from ..objects.users import User
 from ..decorators import bartender_required, admin_required
 from ..db import db
 import json

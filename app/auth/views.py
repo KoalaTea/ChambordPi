@@ -4,7 +4,7 @@ from .forms import LoginForm, SignUpForm
 from pymongo import MongoClient
 from werkzeug.security import check_password_hash, generate_password_hash
 from flask_login import login_user, logout_user
-from ..objects import User
+from ..objects.users import User
 from ..db import db
 
 # TODO:
