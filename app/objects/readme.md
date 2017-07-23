@@ -8,7 +8,7 @@ Orders
     recipe: DrinkObject,
     image: "image file.png",
     instructions: "user input",
-    type: "beer|mixed|shot",
+    order_type: "beer|mixed|shot",
     time_ordered: 1488908888
 }
 
@@ -30,8 +30,8 @@ Drinks
         }
     ],
     image: "image file.png",
-    type: "mixed|shot|beer",
-    id: int(Do I Need This?)
+    drink_type: "mixed|shot|beer",
+    drink_id: int(Do I Need This?)
 }
 
 Ingredients
