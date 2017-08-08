@@ -30,7 +30,7 @@
                     <div class="col col-xs-12" align=center>
                         {% if order['status']|lower == "queued" %}
                         <div class="col col-xs-4" align=left>
-                            <h5 class="drink-title"><b>{{order['name']}} - {{order['user']}}</b></h5>
+                            <h5 class="drink-title"><b>{{order.name]}} - {{order.user}}</b></h5>
                           <ul>
                             {% for ingredient in order['recipe'] %}
                               <li class="drink-text">{{ingredient['amount']}}
@@ -42,8 +42,8 @@
                             {% endfor %}
                           </ul>
                           <form action="update_order" method="post" name="update_order" class="form-drinkupdate">
-                            <input type="hidden" name="id" value= {{ order['_id'] }}>
-                            <input type="hidden" name="status" value= {{ order['status'] }}>
+                            <input type="hidden" name="id" value= {{ order._id }}>
+                            <input type="hidden" name="status" value= {{ order.status }}>
                             <button id="stepBtn" class="btn btn-primary btn-hover-green" type="submit">Mixing</button>
                           </form>
                         </div>
@@ -52,14 +52,14 @@
                           </div>
                           <br>
                           <p>Notes: </p>
-                          <label class="drink-text">{{order['instructions']}}</label>
+                          <label class="drink-text">{{order.instructions}}</label>
                         </div>
 
                         {% elif order['status']|lower == "inprogress" %}
                         <div class="col col-xs-4" align=left>
-                          <h5 class="drink-title"><b>{{order['name']}} - {{order['user']}}</b></h5>
+                          <h5 class="drink-title"><b>{{order.name}}</b></h5>
                           <ul>
-                            {% for ingredient in order['recipe'] %}
+                            {% for ingredient in order.recipe %}
                               <li class="drink-text">{{ingredient['amount']}}
                                   {% if ingredient['flavor']|lower != "none" %}
                                     {{ingredient['flavor']}}
@@ -69,8 +69,8 @@
                             {% endfor %}
                           </ul>
                           <form action="update_order" method="post" name="update_order" class="form-drinkupdate">
-                            <input type="hidden" name="id" value= {{ order['_id'] }}>
-                            <input type="hidden" name="status" value= {{ order['status'] }}>
+                            <input type="hidden" name="id" value= {{ order._id }}>
+                            <input type="hidden" name="status" value= {{ order.status }}>
                             <button id="stepBtn" class="btn btn-success btn-hover-green" type="submit">Ready</button>
                           </form>
 
@@ -80,14 +80,14 @@
                           </div>
                           <br>
                           <p>Notes: <p>
-                          <label class="drink-text">{{order['instructions']}}</label>
+                          <label class="drink-text">{{order.instructions}}</label>
                         </div>
 
-                        {% elif order['status']|lower == "ready" %}
+                        {% elif order.status|lower == "ready" %}
                         <div class="col col-xs-4" align=left>
-                          <h5 class="drink-title"><b>{{order['name']}} - {{order['user']}}</b></h5>
+                          <h5 class="drink-title"><b>{{order.name}}</b></h5>
                           <ul>
-                            {% for ingredient in order['recipe'] %}
+                            {% for ingredient in order.recipe %}
                               <li class="drink-text">{{ingredient['amount']}}
                                   {% if ingredient['flavor']|lower != "none" %}
                                     {{ingredient['flavor']}}
@@ -97,8 +97,8 @@
                             {% endfor %}
                           </ul>
                           <form action="update_order" method="post" name="update_order" class="form-drinkupdate">
-                            <input type="hidden" name="id" value= {{ order['_id'] }}>
-                            <input type="hidden" name="status" value= {{ order['status'] }}>
+                            <input type="hidden" name="id" value= {{ order._id }}>
+                            <input type="hidden" name="status" value= {{ order.status }}>
                             <button id="stepBtn" class="btn btn-danger btn-hover-green" type="submit">Picked Up</button>
                           </form>
 
@@ -108,7 +108,7 @@
                           </div>
                           <br>
                           <p>Notes: <p>
-                          <label class="drink-text">{{order['instructions']}}</label>
+                          <label class="drink-text">{{order.instructions}}</label>
                         </div>
                         {% endif %}
 

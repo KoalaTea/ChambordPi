@@ -6,7 +6,7 @@ from werkzeug.security import check_password_hash
 from flask_login import login_required, login_user, logout_user, current_user
 from ..objects.users import User
 from ..decorators import bartender_required, admin_required
-from ..db import db
+from ..db.db_getters import get_orders, get_available_drinks
 import json
 import time
 
@@ -102,8 +102,8 @@ def remove_alchohol():
 @login_required
 @bartender_required
 def orders():
-    Orders = db.Orders.find()
-    Drinks = db.Drinks.find({"available" : True})
+    Orders = get_orders()
+    Drinks = get_available_drinks() #?
     return render_template('bartender/orders.html', title='Bartender', user=current_user, orders=Orders, drinks=Drinks)
 
 @bartender.route("/update_order", methods=["POST"])
@@ -111,36 +111,12 @@ def orders():
 @bartender_required
 #TODO delete order and move it to PastOrders on completion
 def update_order():
-    postData = dict(request.form)
-    Orderup = ObjectId(postData['id'][0])
-    Status = postData['status'][0]
-
-    if Status == 'queued':
-        db.Orders.update_one({ "_id": Orderup },
-            {
-                '$set': {
-                    "status": "inprogress"
-                }
-            })
-    elif Status == 'inprogress':
-        db.Orders.update_one({"_id": Orderup},
-            {
-                '$set': {
-                    'status': "ready"
-                }
-            })
-    elif Status.lower() == 'ready':
-        order = db.Orders.find_one({'_id': Orderup})
-        order['status'] = 'complete'
-        del(order['_id'])
-        db.PastOrders.insert(order)
-        db.Orders.delete_one({'_id': Orderup})
-        db.Users.update_one({'username': order['user']},
-            {
-                '$inc': {
-                    'drinksOrdered' : -1
-                }
-            })
+    post_data = dict(request.form)
+    order_up = ObjectId(post_data['id'][0])
+    status = post_data['status'][0]
+    order = get_order(order_up)
+    if status.lower() == order.status:
+        order.update_order()
 
     return redirect(url_for('bartender.orders'))
 
