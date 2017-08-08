@@ -1,8 +1,8 @@
-from .db import db
-from ..objects.drinks import Drink
-from ..objects.orders import Order
-from ..objects.past_orders import PastOrder
-from ..object.ingredients import Ingredient
+from app.db import db
+from app.objects.drinks import Drink
+from app.objects.orders import Order
+from app.objects.past_orders import PastOrder
+from app.objects.ingredients import Ingredient
 
 def get_drinks(**kwargs):
     mongo_drinks = db.Drinks.find(**kwargs)

@@ -1,7 +1,7 @@
-from ..db import ingredient_db
+from app.db import ingredient_db
 
 class Ingredient(object):
-    def __init__(self, fields_dict)
+    def __init__(self, fields_dict):
         self.available = fields_dict['available']
         self.cost =  fields_dict['cost']
         self.stock = fields_dict['stock']
