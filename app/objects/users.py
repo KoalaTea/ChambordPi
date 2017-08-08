@@ -1,6 +1,9 @@
 from werkzeug.security import check_password_hash
-from ..db import user_db
-from ..db import order_db
+from app.db import user_db
+from app.db import order_db
+from app import lm
+#import ..db.user_db as user_db
+#import ..db.order_db as order_db
 
 # load_user
 #   sets things up for loading a user since we use mongo instead of sqllite
