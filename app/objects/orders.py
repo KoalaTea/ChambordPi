@@ -16,12 +16,22 @@ class Order(object):
 
     def cancel_order(self):
         if self.status.lower() == 'queued':
-            order_db.cancel_order(order)
-            user_db.cancel_order(order)
+            order_db.cancel_order(self)
+            #TODO status = cancelled; make pastorder
+            user_db.cancel_order(self)
         else:
             pass
 
     def update_order(self):
+        if self.status == 'queued':
+            order_db.update_order_status(self, 'inprogress')
+        elif self.status == 'inprogress':
+            order_db.update_order_status(self, 'ready')
+        elif self.statys == 'ready':
+            order_db.delete(self)
+            self.status = 'complete'
+            #TODO create past order unique new _id
+            user_db.complete_order(self)
         #compare statuses and update based off of that
         pass
 

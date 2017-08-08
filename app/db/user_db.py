@@ -9,8 +9,11 @@ def order_drink(user, drink):
 
 
 def cancel_order(order):
-    resp = db.Users.update_one[{'username': order.username},
+    resp = db.Users.update_one({'username': order.username},
             {'$inc': {'credits': order.cost, 'drinks_ordered': -1}})
+
+def complete_order(order):
+    db.Users.update_one({'username': order.username}, {'$inc': {'drinks_ordered': -1}})
 
 def remove_credits(credits):
     pass
