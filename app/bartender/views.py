@@ -137,15 +137,14 @@ def update_menu():
                 #TODO decide on format
                 return '{"okay":"cool"}'
             else:
-                drinks = db.Drinks.find({"available": True})
+                drinks = get_available_drinks()
                 for drink in drinks:
-                    for ingredient in drink["recipe"]:
+                    for ingredient in drink.recipe:
                         if(ingredient["type"] == data["type"] and ingredient["flavor"] == data["flavor"]):
                             #TODO update the drinks availability to false
                             #TODO maybe complete?
-                            db.Drinks.delete_one(drink)
-                            drink["available"] = False
-                            db.Drinks.insert_one(drink)
+
+                            drink.set_unavailable()
                             return '{"New": "Menu"}'
     return "{}"
 
@@ -154,9 +153,10 @@ def update_menu():
 @login_required
 @bartender_required
 def current_orders():
-    orders = db.Orders.find()
+    orders = get_orders()
     return render_template('bartender/current_orders.html', title='Orders', user=current_user, orders=orders)
 
+#TODO do not need?
 @bartender.route("/order_complete", methods=["POST"])
 @login_required
 @bartender_required
