@@ -56,7 +56,7 @@ def signup():
     if(form.validate_on_submit()):
         user = db.Users.find_one({"username": form.username.data})
         if(user is None and (form.password.data == form.repassword.data)):
-            db.Users.insert_one({"username":form.username.data, "password":generate_password_hash(form.password.data), "credits":0, "roles":["user"], "drinksOrdered":0})
+            db.Users.insert_one({"username":form.username.data, "password":generate_password_hash(form.password.data), "credits":0, "roles":["user"], "drinks_ordered":0})
         else:
             return redirect(url_for('auth.signup'))
         return redirect('index')

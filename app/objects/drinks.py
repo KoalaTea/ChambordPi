@@ -13,7 +13,11 @@ class Drink(object):
         self.drink_type = fields_dict['drink_type']
         self.drink_id = fields_dict['drink_id'] # still don't know if I need this
 
-    def purchase():
+    def purchase(self):
         drink_db.purchase(self._id)
         #need to import and update db
         #import session from main and create drink order
+
+    def set_unavailable(self):
+        self.available = False
+        drink_db.set_unavailable(self._id)
