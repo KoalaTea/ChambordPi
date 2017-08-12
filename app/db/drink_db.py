@@ -1,7 +1,7 @@
-from .db import db
+from app.db import db
 
 def set_unavailable(_id):
-    db.Users.update_one({'_id': _id}, {'$set': {'available': False}})
+    db.db_obj.Users.update_one({'_id': _id}, {'$set': {'available': False}})
 
 def remove_credits(credits):
     pass

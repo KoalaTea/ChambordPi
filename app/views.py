@@ -5,13 +5,13 @@ from app import app
 from bson.objectid import ObjectId
 from werkzeug.security import check_password_hash
 from flask_login import login_required, login_user, logout_user, current_user
-from .objects.users import User
-from .decorators import bartender_required, admin_required
-from .db.db import db
+from app.objects.users import User
+from app.decorators import bartender_required, admin_required
+from app.db.db import db_obj as db # Temporary work around to my problem
 from pymongo import MongoClient
-from .db.db_getters import get_drinks
-from .db.db_getters import get_available_drinks
-from .db.db_getters import get_drink
+from app.db.db_getters import get_drinks
+from app.db.db_getters import get_available_drinks
+from app.db.db_getters import get_drink
 #TODO move current_user to using the objects version
 
 CURRENT_STAT_FILE = 1
@@ -62,8 +62,8 @@ def list_drinks():
 
 @app.route("/menu", methods=["GET"])
 def menu():
+    drinks = get_available_drinks()
     if(current_user.is_authenticated):
-        drinks = get_available_drinks()
         return render_template('menu_auth.html', title='Menu',
                            user=current_user,
                            credits=get_user_credits(current_user.username),
