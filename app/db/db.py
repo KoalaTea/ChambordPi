@@ -1,9 +1,9 @@
 from pymongo import MongoClient
 
 client = MongoClient()
-db = client.ChambordPi
+db_obj = client.ChambordPi
 
-ingredients_col = db.Ingredients
-past_orders_col = db.PastOrders
-drinks_col = db.Drinks
-orders_col = db.Orders
+ingredients_col = db_obj.Ingredients
+past_orders_col = db_obj.PastOrders
+drinks_col = db_obj.Drinks
+orders_col = db_obj.Orders
