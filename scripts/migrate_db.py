@@ -18,8 +18,9 @@ ingredients = db.Ingredients
 
 all_ing = ingredients.find()
 for ing in all_ing:
-    if 'bottles' in ing:
+    if 'bottles' in ing and 'cost' in ing:
         ingredients.delete_one(ing)
+        print(ing)
         real_ing = {'measure':'bottles', 'cost':ing['cost'], 'available':ing['available'],
                 'stock':ing['bottles'], 'name':ing['name'], 'ingredient_class':ing['class'],
                 'ingredient_type':ing['type'], 'flavor':ing['flavor'],
@@ -27,14 +28,14 @@ for ing in all_ing:
         ingredients.insert_one(real_ing)
 
 all_drinks = drinks.find()
-for drink in drinks:
+for drink in all_drinks:
     if 'id' in drink:
         drinks.delete_one(drink)
         real_drink = {'_id':drink['_id'], 'available':drink['available'], 'cost':drink['cost'],
                 'name':drink['name'], 'times_ordered':drink['times_ordered'],
                 'recipe':drink['recipe'], 'image':drink['image'], 'drink_type':drink['type'],
                 'drink_id':drink['id']}
-        drinks.insert_one(drink)
+        drinks.insert_one(real_drink)
 
 all_orders = orders.find()
 for order in all_orders:

@@ -157,8 +157,6 @@ ingredients.insert_one(
         }
 )
 
-drinks.create_index([("id", ASCENDING)], unique=True)
-
 drinks.insert_one(
         {
             "id": 0,
