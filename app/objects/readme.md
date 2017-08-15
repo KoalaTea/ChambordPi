@@ -48,8 +48,8 @@ Ingredients
     measure: "Measure Word, bottles|bushels|fruits(for lemons/limes)"
 
     name: "name of ingredient",
-    class: "mixer|alchohol",
-    type: "rum|vodka|water|soda|...|jager"
+    ingredient_class: "mixer|alchohol",
+    ingredient_type: "rum|vodka|water|soda|...|jager"
     flavor: "null|coconut|lemon-lime|...."
 
     times_ordered: int(#ordered) <------------- is this removable? If so restructure it out
