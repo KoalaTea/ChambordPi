@@ -20,7 +20,7 @@ def get_drink(name):
 def get_orders(**kwargs):
     mongo_orders = db.db_obj.Orders.find(kwargs)
     order_objects = [Order(mongo_order) for mongo_order in mongo_orders]
-    return orders
+    return order_objects
 
 def get_order(order_id):
     mongo_order = db.db_obj.Orders.find_one({'_id': order_id})

@@ -1,11 +1,12 @@
 from flask import render_template, redirect, request, url_for
 from . import auth
-from .forms import LoginForm, SignUpForm
+from app.auth.forms import LoginForm, SignUpForm
 from pymongo import MongoClient
 from werkzeug.security import check_password_hash, generate_password_hash
 from flask_login import login_user, logout_user
-from ..objects.users import User
+from app.objects.users import User
 from app.db import db_getters
+from app.db import user_db
 
 # TODO:
 #   set all pages to check for authentication and if none - guest@Hackerbar
@@ -53,10 +54,10 @@ def logout():
 def signup():
     form = SignUpForm()
     if(form.validate_on_submit()):
-        user = db.Users.find_one({"username": form.username.data})
+        user = db_getters.get_user({form.username.data})
         if(user is None and (form.password.data == form.repassword.data)):
-            db.Users.insert_one({"username":form.username.data, "password":generate_password_hash(form.password.data), "credits":0, "roles":["user"], "drinks_ordered":0})
+            user_db.create_user(form.username.data, form.password.data)
         else:
             return redirect(url_for('auth.signup'))
-        return redirect('index')
+        return redirect('auth.login')
     return render_template('auth/signup.html', title='Sign Up', form=form)

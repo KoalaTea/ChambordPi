@@ -1,4 +1,5 @@
 from app.db import db
+from werkzeug.security import generate_password_hash
 from IPython import embed
 
 def order_drink(user, drink):
@@ -7,6 +8,10 @@ def order_drink(user, drink):
     print('db/user_db.order_drink embed')
     embed()
 
+def create_user(username, password):
+    resp = db.db_obj.Users.insert_one({'username': username,
+        'password': generate_password_hash(password), 'credits': 0, 'roles': ['user'],
+        'drinks_ordered': 0})
 
 def cancel_order(order):
     resp = db.db_obj.Users.update_one({'username': order.username},
