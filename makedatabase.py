@@ -891,7 +891,7 @@ users.insert_one(
             "password" : generate_password_hash("temporary2017koalatea"),
             "credits" : 1000000,
             "roles" : [ "bartender", "admin", "user" ],
-            "drinksOrdered" : 0
+            "drinks_ordered" : 0
         }
 )
 users.insert_one(
@@ -900,7 +900,7 @@ users.insert_one(
             "password" : generate_password_hash("bartender"),
             "credits" : 1000000,
             "roles" : [ "admin" ],
-            "drinksOrdered" : 0
+            "drinks_ordered" : 0
         }
 )
 users.insert_one(
@@ -909,6 +909,6 @@ users.insert_one(
             "password" : generate_password_hash("user"),
             "credits" : 1000,
             "roles" : [ "user" ],
-            "drinksOrdered" : 0
+            "drinks_ordered" : 0
         }
 )

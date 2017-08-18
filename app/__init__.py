@@ -12,6 +12,8 @@ lm.session_protection = 'strong'
 lm.login_view = 'auth.login'
 lm.init_app(app)
 
+
+
 from auth import auth as auth_blueprint
 from bartender import bartender as bartender_blueprint
 from admin import admin as admin_blueprint
@@ -32,5 +34,18 @@ def create_app(config_name):
     lm.login_view = 'auth.login'
     lm.init_app(app)
     return app
+
+from app.db import db_getters
+# load_user
+#   sets things up for loading a user since we use mongo instead of sqllite
+#
+# returns
+#   User object of the user from the database
+@lm.user_loader
+def load_user(username):
+    u = db_getters.get_user(username)
+    if not u:
+        return None
+    return u
 
 from app import views

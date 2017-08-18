@@ -1,26 +1,14 @@
 from werkzeug.security import check_password_hash
 from app.db import user_db
 from app.db import order_db
-from app import lm
 #import ..db.user_db as user_db
 #import ..db.order_db as order_db
-
-# load_user
-#   sets things up for loading a user since we use mongo instead of sqllite
-#
-# returns
-#   User object of the user from the database
-@lm.user_loader
-def load_user(username):
-    u = db.Users.find_one({"username": username})
-    if not u:
-        return None
-    return User(u)
 
 class User(object):
 
     def __init__(self, user_json):
         self.username = user_json['username']
+        self.password = user_json['password']
         self.credits = user_json['credits']
         self.roles = user_json['roles']
         self.drinks_ordered = user_json['drinks_ordered']

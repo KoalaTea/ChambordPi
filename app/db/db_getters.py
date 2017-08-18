@@ -3,6 +3,7 @@ from app.objects.drinks import Drink
 from app.objects.orders import Order
 from app.objects.past_orders import PastOrder
 from app.objects.ingredients import Ingredient
+from app.objects.users import User
 
 def get_drinks(**kwargs):
     mongo_drinks = db.db_obj.Drinks.find(kwargs)
@@ -40,3 +41,8 @@ def get_available_ingredients():
 
 def get_users():
     pass #probs not gonan be a function
+
+def get_user(username):
+    mongo_user = db.db_obj.Users.find_one({'username': username})
+    if mongo_user is not None:
+        return User(mongo_user)

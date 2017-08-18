@@ -5,7 +5,7 @@ from pymongo import MongoClient
 from werkzeug.security import check_password_hash, generate_password_hash
 from flask_login import login_user, logout_user
 from ..objects.users import User
-from ..db import db
+from app.db import db_getters
 
 # TODO:
 #   set all pages to check for authentication and if none - guest@Hackerbar
@@ -26,10 +26,9 @@ from ..db import db
 def login():
     form = LoginForm()
     if(request.method == "POST" and form.validate_on_submit()):
-        user = db.Users.find_one({"username": form.username.data})
-        if(user is not None and User.validate_login(user['password'], form.password.data)):
-            user_obj = User(user)
-            login_user(user_obj)
+        user = db_getters.get_user(form.username.data)
+        if(user is not None and user.validate_login(user.password, form.password.data)):
+            login_user(user)
         else:
             return render_template('auth/login.html', title='Sign In', form=form, message='Login Failed')
             #TODO
