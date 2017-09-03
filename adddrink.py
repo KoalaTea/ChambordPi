@@ -9,21 +9,36 @@ db = client.ChambordPi
 users = db.Drinks
 users.insert_one(
 	{
-		"name": "Hot Pepper",
-		"id": 111,
+		"name": "Ginger Berry",
+		"id": 120,
 		"type":"mixed",
 		"image":"dirty_martini.png",
 		"cost":25,
 		"recipe": [
 		{
-			"type": "Dr Pepper mini",
+			"type": "Vodka",
 			"flavor": None,
-			"amount": "drink some"
+			"amount": "3 Tbsp"
 		},
 		{
-			"type": "fireball",
+			"type": "Ginger Beer",
 			"flavor": None,
-			"amount": "fill"
+			"amount": "1/2 cup"
+		},
+		{
+			"type": "Muddled Ginger Slices and Blackberries",
+			"flavor": None,
+			"amount": "2 and 4"
+		},
+		{
+			"type": "Juice",
+			"flavor": "Lime",
+			"amount": "1 Tbsp"
+		},
+		{
+			"type": "Ice",
+			"flavor": None,
+			"amount": "some"
 		}
 		],
 		"available":True,

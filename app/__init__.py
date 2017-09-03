@@ -4,7 +4,6 @@ from pymongo import MongoClient
 app = Flask(__name__)
 app.config.from_object('config')
 
-
 from flask_login import LoginManager
 
 lm = LoginManager()
