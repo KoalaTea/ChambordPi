@@ -10,7 +10,7 @@ def create_order(user, drink, instructions):
     print('db/order_db.create_order embed')
     embed()
 
-def cancel_order(order):
+def delete_order(order):
     db.db_obj.Orders.delete_one({'_id': order._id})
 
 def update_order_status(order, status):

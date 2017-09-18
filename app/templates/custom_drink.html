@@ -19,11 +19,11 @@
     <select class="custom-select btn btn-primary mb-2 mr-sm-2 mb-sm-0" id="ingredientSelector">
       {% for ingredient in ingredients %}
       <option value="{{loop.index}}">
-        {% if ingredient['flavor']|lower != "none" %}
-          {{ingredient['flavor']}}
+        {% if ingredient.flavor|lower != "none" %}
+          {{ingredient.flavor}}
         {% endif %}
-        {{ingredient['name']|capitalize}}
-        {{ingredient['type']|capitalize}}
+        {{ingredient.name|capitalize}}
+        {{ingredient.type|capitalize}}
       </option>
       {% endfor %}
   </select>

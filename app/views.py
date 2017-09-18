@@ -9,9 +9,8 @@ from app.objects.users import User
 from app.decorators import bartender_required, admin_required
 from app.db.db import db_obj as db # Temporary work around to my problem
 from pymongo import MongoClient
-from app.db.db_getters import get_drinks
-from app.db.db_getters import get_available_drinks
-from app.db.db_getters import get_drink
+from app.db import db_getters
+from app.db import order_db
 #TODO move current_user to using the objects version
 
 CURRENT_STAT_FILE = 1
@@ -51,7 +50,7 @@ def index():
 @app.route("/list_drinks", methods=["GET", "POST"])
 @app.route("/recipes", methods=["GET", "POST"])
 def list_drinks():
-    drinks = get_drinks()
+    drinks = db_getters.get_drinks()
     return render_template('recipes.html', title='All Drinks', user=current_user, drinks=drinks)
 
 # menu
@@ -62,7 +61,7 @@ def list_drinks():
 
 @app.route("/menu", methods=["GET"])
 def menu():
-    drinks = get_available_drinks()
+    drinks = db_getters.get_available_drinks()
     if(current_user.is_authenticated):
         return render_template('menu_auth.html', title='Menu',
                            user=current_user,
@@ -75,7 +74,8 @@ def menu():
 @app.route("/recent_orders")
 @login_required
 def recent_orders():
-    orders = db.Orders.find({"user": current_user.username})
+    #orders = db_getters.get_orders()
+    orders = db_getters.get_orders(user=current_user.username)
     return render_template('recent_orders.html',
                            title='Orders',
                            user=current_user,
@@ -87,7 +87,7 @@ def recent_orders():
 @app.route('/review_order/<drinkname>')
 @login_required
 def review_order(drinkname):
-    drink = get_drink(drinkname)
+    drink = db_getters.get_drink(drinkname)
     if drink is not None:
         return render_template('review_order.html', title='Review and Order', user=current_user, drink=drink)
     else:
@@ -98,15 +98,16 @@ def review_order(drinkname):
 @login_required
 def order_drink():
     postData = dict(request.form)
-    drink = get_drink(postData['drink'][0])
+    drink = db_getters.get_drink(postData['drink'][0])
     instructions = postData['instructions'][0]
     if drink is not None:
         current_user.order_drink(drink, instructions)
-        #TODO figure out this return incase drink order fails
-        #return '{"status": "failed - not enough credits"}'
+        # TODO figure out this return incase drink order fails
+        # return '{"status": "failed - not enough credits"}'
         print("trying statistics")
         try:
             global CURRENT_STAT_FILE
+            # Yeah maybe not
             stats = db.Statistics.find_one({"id": CURRENT_STAT_FILE})
             if stats is not None:
                 # loop through stats see until not exist or less than current stat file time
@@ -166,14 +167,14 @@ def order_drink():
 def cancel_drink():
     postData = dict(request.form)
     orderid = ObjectId(postData['order'][0])
-    order = get_order(order_id)
+    order = db_getters.get_order(order_id)
     if order is not None:
         order.cancel_order()
 
 @app.route('/custom_drink')
 @login_required
 def custom_drink():
-    ingredients = get_available_ingredients()
+    ingredients = db_getters.get_available_ingredients()
     return render_template('custom_drink.html', ingredients=ingredients)
 
 # TODO
@@ -181,13 +182,13 @@ def custom_drink():
 @login_required
 def order_custom_drink():
     recipe = []
-    postData = dict(request.form)
-    print(postData['recipe[]'])
+    post_data = dict(request.form)
+    print(post_data['recipe[]'])
     if get_user_credits(current_user.username) < CUSTOM_COST:
         print ("Can't afford drink")
         return '{"status": "failed - not enough credits"}'
 
-    for ing in postData['recipe[]']:
+    for ing in post_data['recipe[]']: #TODO????
         print(ing)
 
         ingredient = {}
@@ -196,46 +197,27 @@ def order_custom_drink():
         ingredient['amount'] = ""
         recipe.append(ingredient)
 
-    db.Users.update_one({'username': current_user.username},
-                        {
-                        '$inc': {
-                                'credits': -CUSTOM_COST,
-                                'drinksOrdered': 1
-                            }
-                        })
-    db.Orders.insert_one(
-         {
-             "name": "Custom Drink",
-             "cost": CUSTOM_COST,
-             "type": "custom",
-             "recipe": recipe,
-             "image": 'custom_drink.png',
-             "timeOrdered": int(time.time()),
-             "user": current_user.username,
-             "instructions": postData['instructions'][0],
-             "status": "queued"
-         }
-    )
+    current_user.order_custom_drink(
+            {"name": "Custom Drink", "cost": CUSTOM_COST, "drink_type": "custom", "recipe": recipe,
+                "image": 'custom_drink.png'}
+            post_data['instructions'][0]})
+
     return '{"status": "okay"}'
 
 # TODO wait what is this doing? come back to it later figure out why it is doing things
 # I do not seem to understand
+# TODO wait this may be done
 @app.route("/order_complete", methods=["POST"])
 @login_required
 @bartender_required
 def order_complete():
-    print(current_user.username)
     data = request.json
-    print(data)
     if(set(data.keys()) == set(["_id"])):
-        print("we here")
-        the_order = db.Orders.find_one({"_id": ObjectId(data["_id"])})
-        db.PastOrders.insert_one(the_order)
-        print(the_order)
+        the_order = db_getters.get_order(ObjectId(data["_id"])
+        #db.PastOrders.insert_one(the_order) TODO remove
         if(the_order is not None):
-            #?order.complete_order()
-            db.Orders.delete_one({"_id": ObjectId(data["_id"])})
-    orders = db.Orders.find()
+            the_order.complete_order()
+    orders = db_getters.get_orders()
     return render_template('current_orders.html', title='Orders', user=current_user, orders=orders)
 
 # do not really care about these anymore

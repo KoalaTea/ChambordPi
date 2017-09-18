@@ -4,9 +4,9 @@ from pymongo import MongoClient
 from bson.objectid import ObjectId
 from werkzeug.security import check_password_hash
 from flask_login import login_required, login_user, logout_user, current_user
-from ..objects.users import User
-from ..decorators import bartender_required, admin_required
-from ..db.db_getters import get_orders, get_available_drinks
+from app.objects.users import User
+from app.decorators import bartender_required, admin_required
+from app.db import db_getters
 import json
 import time
 
@@ -102,9 +102,10 @@ def remove_alchohol():
 @login_required
 @bartender_required
 def orders():
-    Orders = get_orders()
-    Drinks = get_available_drinks() #?
-    return render_template('bartender/orders.html', title='Bartender', user=current_user, orders=Orders, drinks=Drinks)
+    orders = db_getters.get_orders()
+    drinks = db_getters.get_available_drinks()
+    return render_template('bartender/orders.html', title='Bartender', user=current_user,
+            orders=orders, drinks=drinks)
 
 @bartender.route("/update_order", methods=["POST"])
 @login_required
@@ -114,7 +115,7 @@ def update_order():
     post_data = dict(request.form)
     order_up = ObjectId(post_data['id'][0])
     status = post_data['status'][0]
-    order = get_order(order_up)
+    order = db_getters.get_order(order_up)
     if status.lower() == order.status:
         order.update_order()
 
@@ -137,7 +138,7 @@ def update_menu():
                 #TODO decide on format
                 return '{"okay":"cool"}'
             else:
-                drinks = get_available_drinks()
+                drinks = db_getters.get_available_drinks()
                 for drink in drinks:
                     for ingredient in drink.recipe:
                         if(ingredient["type"] == data["type"] and ingredient["flavor"] == data["flavor"]):
@@ -153,7 +154,7 @@ def update_menu():
 @login_required
 @bartender_required
 def current_orders():
-    orders = get_orders()
+    orders = db_getters.get_orders()
     return render_template('bartender/current_orders.html', title='Orders', user=current_user, orders=orders)
 
 #TODO do not need?
@@ -166,7 +167,7 @@ def order_complete():
     print(data)
     if(set(data.keys()) == set(["_id"])):
         print("we here")
-        the_order = db.Orders.find_one({"_id": ObjectId(data["_id"])})
+        the_order = db_getters.get_order(data['_id'])
         db.PastOrders.insert_one(the_order)
         print(the_order)
         if(the_order is not None):

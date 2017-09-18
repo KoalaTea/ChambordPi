@@ -16,7 +16,7 @@ class Order(object):
 
     def cancel_order(self):
         if self.status.lower() == 'queued':
-            order_db.cancel_order(self)
+            order_db.delete_order(self)
             #TODO status = cancelled; make pastorder
             user_db.cancel_order(self)
         else:
@@ -35,6 +35,7 @@ class Order(object):
         #compare statuses and update based off of that
         pass
 
-    def complete():
+    def complete_order():
+        # TODO need to do the entire pastorder db
         #import session make new past order
-        pass
+        order_db.delete_order(self)

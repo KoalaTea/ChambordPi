@@ -1,4 +1,5 @@
 from werkzeug.security import check_password_hash
+from collections import namedtuple
 from app.db import user_db
 from app.db import order_db
 #import ..db.user_db as user_db
@@ -39,12 +40,27 @@ class User(object):
             print('order created')
         else:
             pass
-        db.Users.update({
-            'username': self.username
-        },{
-            '$set': {'credits': existing - credits }
-        }, upsert=False)
+        db.Users.update({'username': self.username},
+                {'$set': {'credits': existing - credits }},
+                upsert=False)
 
+    def order_custom_drink(self, drink, instructions):
+        #look up how to lock the database
+        if self.credits >= drink.cost:
+            self.credits -= credits
+            self.drinks_ordered += 1
+            user_db.update(user)
+            print('credits updated for {}'.format(username))
+            Drink = namedtuple('Drink', ['name', 'cost', 'drink_type', 'recipe', 'image'])
+            drink = Drink(drink['name'], drink['cost'], drink['drink_type'], drink['recipe'],
+                    drinkt['image'])
+            order_db.create_order(self, drink, instructions)
+            print('order created')
+        else:
+            pass
+        db.Users.update({'username': self.username},
+                {'$set': {'credits': existing - credits }},
+                upsert=False)
 
     @staticmethod
     def validate_login(password_hash, password):
