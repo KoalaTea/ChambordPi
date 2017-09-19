@@ -199,8 +199,8 @@ def order_custom_drink():
 
     current_user.order_custom_drink(
             {"name": "Custom Drink", "cost": CUSTOM_COST, "drink_type": "custom", "recipe": recipe,
-                "image": 'custom_drink.png'}
-            post_data['instructions'][0]})
+                "image": 'custom_drink.png'},
+            post_data['instructions'][0])
 
     return '{"status": "okay"}'
 
@@ -213,9 +213,9 @@ def order_custom_drink():
 def order_complete():
     data = request.json
     if(set(data.keys()) == set(["_id"])):
-        the_order = db_getters.get_order(ObjectId(data["_id"])
+        the_order = db_getters.get_order(ObjectId(data["_id"]))
         #db.PastOrders.insert_one(the_order) TODO remove
-        if(the_order is not None):
+        if the_order is not None:
             the_order.complete_order()
     orders = db_getters.get_orders()
     return render_template('current_orders.html', title='Orders', user=current_user, orders=orders)
