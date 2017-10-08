@@ -171,6 +171,6 @@ def order_complete():
         db.PastOrders.insert_one(the_order)
         print(the_order)
         if(the_order is not None):
-            db.Orders.delete_one({"_id": ObjectId(data["_id"])})
-    orders = db.Orders.find()
+            the_order.complete_order()
+    orders = db_getters.get_orders()
     return render_template('bartender/current_orders.html', title='Orders', user=current_user, orders=orders)
