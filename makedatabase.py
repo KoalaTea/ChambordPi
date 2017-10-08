@@ -11,7 +11,7 @@ db = client.ChambordPi
 
 drinks = db.Drinks
 alcohol = db.Alchohol
-users = db.Users
+users = db.user
 orders = db.Orders
 mixers = db.Mixers
 beer = db.Beer

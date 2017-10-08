@@ -7,6 +7,7 @@ from flask_login import login_user, logout_user
 from app.objects.users import User
 from app.db import db_getters
 from app.db import user_db
+from app.objects import users
 
 # TODO:
 #   set all pages to check for authentication and if none - guest@Hackerbar
@@ -27,13 +28,14 @@ from app.db import user_db
 def login():
     form = LoginForm()
     if(request.method == "POST" and form.validate_on_submit()):
-        user = db_getters.get_user(form.username.data)
-        if(user is not None and user.validate_login(user.password, form.password.data)):
-            login_user(user)
-        else:
-            return render_template('auth/login.html', title='Sign In', form=form, message='Login Failed')
-            #TODO
-        return redirect(url_for('index'))
+        try:
+            user = users.User.objects.get(username=form.username.data)
+            if user.validate_login(user.password, form.password.data):
+                login_user(user)
+                return redirect(url_for('index'))
+        except:
+            pass
+        return render_template('auth/login.html', title='Sign In', form=form, message='Login Failed')
     return render_template('auth/login.html', title='Sign In', form=form, message=None)
 
 # logout
@@ -54,7 +56,7 @@ def logout():
 def signup():
     form = SignUpForm()
     if(form.validate_on_submit()):
-        user = db_getters.get_user({form.username.data})
+        user = users.User.objects.get({form.username.data})
         if(user is None and (form.password.data == form.repassword.data)):
             user_db.create_user(form.username.data, form.password.data)
         else:

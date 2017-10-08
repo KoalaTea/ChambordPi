@@ -4,15 +4,22 @@ from app.db import user_db
 from app.db import order_db
 #import ..db.user_db as user_db
 #import ..db.order_db as order_db
+from app import the_real_db as db
 
-class User(object):
-
+class User(db.Document):
+    username = db.StringField(required=True, unique=True)
+    password = db.StringField(required=True)
+    roles = db.ListField(db.StringField())
+    credits = db.IntField()
+    drinks_ordered = db.IntField()
+    '''
     def __init__(self, user_json):
         self.username = user_json['username']
         self.password = user_json['password']
         self.credits = user_json['credits']
         self.roles = user_json['roles']
         self.drinks_ordered = user_json['drinks_ordered']
+    '''
 
     def is_authenticated(self):
         return True
@@ -65,3 +72,12 @@ class User(object):
     @staticmethod
     def validate_login(password_hash, password):
         return check_password_hash(password_hash, password)
+
+'''
+@lm.user_loader
+def load_user(username):
+    u = users.User.objects.get(username=username)
+    if not u:
+        return None
+    return u
+'''
