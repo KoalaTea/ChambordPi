@@ -8,7 +8,7 @@ class Ingredient(db.Document):
     stock = db.IntField()
     ingredient_class = db.StringField()
     ingredient_type = db.StringField()
-    available = db.BoolField()
+    available = db.BooleanField()
     flavor = db.StringField()
     times_ordered = db.IntField()
     '''

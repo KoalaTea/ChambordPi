@@ -11,7 +11,10 @@ from app.db.db import db_obj as db # Temporary work around to my problem
 from pymongo import MongoClient
 from app.db import db_getters
 from app.db import order_db
+
 from app.objects import drinks
+from app.objects import orders
+
 #TODO move current_user to using the objects version
 
 CURRENT_STAT_FILE = 1
@@ -31,7 +34,7 @@ CUSTOM_COST=150
 @app.route("/")
 @app.route("/index")
 def index():
-    drinks = [
+    drink_list = [
         {
             'drink_name' : 'Godfather',
             'ingredients' : [ 'half ameretto', 'half scotch whiskey' ]
@@ -41,7 +44,7 @@ def index():
             'ingredients' : [ 'nothing', 'more nothing' ]
         }
     ]
-    return render_template('index.html', title='Home', user=current_user, drinks=drinks)
+    return render_template('index.html', title='Home', user=current_user, drinks=drink_list)
 
 # list_drinks
 #   lists all drink recipes in the database
@@ -51,8 +54,8 @@ def index():
 @app.route("/list_drinks", methods=["GET", "POST"])
 @app.route("/recipes", methods=["GET", "POST"])
 def list_drinks():
-    drinks = drinks.Drink.objects.get()
-    return render_template('recipes.html', title='All Drinks', user=current_user, drinks=drinks)
+    drink_list = drinks.Drink.objects()
+    return render_template('recipes.html', title='All Drinks', user=current_user, drinks=drink_list)
 
 # menu
 #   lists all available drinks based on alchohol currently in stock
@@ -62,25 +65,25 @@ def list_drinks():
 
 @app.route("/menu", methods=["GET"])
 def menu():
-    drinks = drinks.Drink.objects.get(available=True)
+    drink_list = drinks.Drink.objects(available=True)
     if(current_user.is_authenticated):
         return render_template('menu_auth.html', title='Menu',
                            user=current_user,
                            credits=get_user_credits(current_user.username),
-                           drinks=drinks)
+                           drinks=drink_list)
     else:
          return render_template('menu_unauth.html', title='Menu',
-                           drinks=drinks)
+                           drinks=drink_list)
 
 @app.route("/recent_orders")
 @login_required
 def recent_orders():
     #orders = db_getters.get_orders()
-    orders = orders.Order.objects(user=current_user.username)
+    order_list = orders.Order.objects(user=current_user.username)
     return render_template('recent_orders.html',
                            title='Orders',
                            user=current_user,
-                           orders=orders,
+                           orders=order_list,
                            totaldrinks=get_user_drinks(current_user.username),
                            credits=get_user_credits(current_user.username))
 
@@ -218,7 +221,7 @@ def order_complete():
         #db.PastOrders.insert_one(the_order) TODO remove
         if the_order is not None:
             the_order.complete_order()
-    orders = db_getters.get_orders()
+    order_list = db_getters.get_orders()
     return render_template('current_orders.html', title='Orders', user=current_user, orders=orders)
 
 # do not really care about these anymore

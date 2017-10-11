@@ -9,18 +9,18 @@ client = MongoClient()
 client.drop_database("ChambordPi")
 db = client.ChambordPi
 
-drinks = db.Drinks
-alcohol = db.Alchohol
+drinks = db.drink
+alcohol = db.alchohol
 users = db.user
-orders = db.Orders
-mixers = db.Mixers
-beer = db.Beer
-ingredients = db.Ingredients
+orders = db.order
+mixers = db.mixer
+beer = db.beer
+ingredients = db.ingredient
 
 ingredients.insert_one(
         {
-            "class": "alcohol",
-            "type" : "vodka",
+            "ingredient_class": "alcohol",
+            "ingredient_type" : "vodka",
             "name" : "sky",
             "flavor" : None,
             "bottles" : 1,
@@ -31,8 +31,8 @@ ingredients.insert_one(
 )
 ingredients.insert_one(
         {
-            "class": "alcohol",
-            "type" : "",
+            "ingredient_class": "alcohol",
+            "ingredient_type" : "",
             "name" : "Jager",
             "flavor" : None,
             "bottles" : 1,
@@ -43,8 +43,8 @@ ingredients.insert_one(
 )
 ingredients.insert_one(
         {
-            "class": "alcohol",
-            "type" : "rum",
+            "ingredient_class": "alcohol",
+            "ingredient_type" : "rum",
             "name" : "Malibu",
             "flavor" : "Coconut",
             "bottles" : 1,
@@ -56,8 +56,8 @@ ingredients.insert_one(
 )
 ingredients.insert_one(
         {
-            "class": "alcohol",
-            "type" : "rum",
+            "ingredient_class": "alcohol",
+            "ingredient_type" : "rum",
             "name" : "Bacardi",
             "flavor" : None,
             "bottles" : 1,
@@ -69,8 +69,8 @@ ingredients.insert_one(
 )
 ingredients.insert_one(
         {
-            "class": "alcohol",
-            "type" : "Gin",
+            "ingredient_class": "alcohol",
+            "ingredient_type" : "Gin",
             "name" : "New Amsterdam",
             "flavor" : None,
             "bottles" : 1,
@@ -82,8 +82,8 @@ ingredients.insert_one(
 )
 ingredients.insert_one(
         {
-            "class": "alcohol",
-            "type" : "Whiskey",
+            "ingredient_class": "alcohol",
+            "ingredient_type" : "Whiskey",
             "name" : "Jack Daniels",
             "flavor" : None,
             "bottles" : 1,
@@ -95,8 +95,8 @@ ingredients.insert_one(
 )
 ingredients.insert_one(
         {
-            "class": "alcohol",
-            "type" : "vodka",
+            "ingredient_class": "alcohol",
+            "ingredient_type" : "vodka",
             "name" : "UV Blue",
             "flavor" : None,
             "bottles" : 1,
@@ -110,7 +110,7 @@ ingredients.insert_one(
 
 ingredients.insert_one(
         {
-            "class": "mixer",
+            "ingredient_class": "mixer",
             "name": "Orange Juice",
             "bottles": 5,
             "available": True
@@ -118,7 +118,7 @@ ingredients.insert_one(
 )
 ingredients.insert_one(
         {
-            "class": "mixer",
+            "ingredient_class": "mixer",
             "name": "Sprite",
             "bottles": 5,
             "available": True
@@ -126,7 +126,7 @@ ingredients.insert_one(
 )
 ingredients.insert_one(
         {
-            "class": "mixer",
+            "ingredient_class": "mixer",
             "name": "Coca-Cola",
             "bottles": 5,
             "available": True
@@ -134,7 +134,7 @@ ingredients.insert_one(
 )
 ingredients.insert_one(
         {
-            "class": "mixer",
+            "ingredient_class": "mixer",
             "name": "Ginger Ale",
             "bottles": 5,
             "available": True
@@ -142,7 +142,7 @@ ingredients.insert_one(
 )
 ingredients.insert_one(
         {
-            "class": "mixer",
+            "ingredient_class": "mixer",
             "name": "Lemonade",
             "bottles": 5,
             "available": True
@@ -150,7 +150,7 @@ ingredients.insert_one(
 )
 ingredients.insert_one(
         {
-            "class": "mixer",
+            "ingredient_class": "mixer",
             "name": "Tonic",
             "bottles": 5,
             "available": True
@@ -161,7 +161,7 @@ drinks.insert_one(
         {
             "id": 0,
             "name": "Miller High Life",
-            "type": "beer",
+            "drink_type": "beer",
             "image": "beer.png",
             "recipe": [
                 {
@@ -179,7 +179,7 @@ drinks.insert_one(
         {
             "id": 1,
             "name": "Miller Lite",
-            "type": "beer",
+            "drink_type": "beer",
             "image": "beer.png",
             "recipe": [
                 {
@@ -198,7 +198,7 @@ drinks.insert_one(
         {
             "id": 2,
             "name": "Budweiser",
-            "type": "beer",
+            "drink_type": "beer",
             "image": "beer.png",
             "recipe": [
                 {
@@ -217,7 +217,7 @@ drinks.insert_one(
         {
             "id": 3,
             "name": "Shock Top",
-            "type": "beer",
+            "drink_type": "beer",
             "image": "beer.png",
             "recipe": [
                 {
@@ -236,7 +236,7 @@ drinks.insert_one(
         {
             "id": 4,
             "name": "Screwdriver",
-            "type": "mixed",
+            "drink_type": "mixed",
             "image": "dirty_martini.png",
             "recipe": [
                 {
@@ -260,7 +260,7 @@ drinks.insert_one(
         {
             "id": 5,
             "name": "Godfather",
-            "type": "mixed",
+            "drink_type": "mixed",
             "image": "dirty_martini.png",
             "recipe": [
                 {
@@ -284,7 +284,7 @@ drinks.insert_one(
         {
             "id": 6,
             "name": "Mojito",
-            "type": "mixed",
+            "drink_type": "mixed",
             "image": "dirty_martini.png",
             "recipe": [
                 {
@@ -323,7 +323,7 @@ drinks.insert_one(
         {
             "id": 7,
             "name": "Dark and Stormy",
-            "type": "mixed",
+            "drink_type": "mixed",
             "image": "dirty_martini.png",
             "recipe": [
                 {
@@ -352,7 +352,7 @@ drinks.insert_one(
         {
             "id": 8,
             "name": "Moscow Mule",
-            "type": "mixed",
+            "drink_type": "mixed",
             "image": "dirty_martini.png",
             "recipe": [
                 {
@@ -381,7 +381,7 @@ drinks.insert_one(
         {
             "id": 9,
             "name": "Rum Chata TODO",
-            "type": "mixed",
+            "drink_type": "mixed",
             "image": "dirty_martini.png",
             "recipe": [
                 {
@@ -410,7 +410,7 @@ drinks.insert_one(
         {
             "id": 10,
             "name": "Electric Boogaloo",
-            "type": "mixed",
+            "drink_type": "mixed",
             "image": "dirty_martini.png",
             "recipe": [
                 {
@@ -439,7 +439,7 @@ drinks.insert_one(
         {
             "id": 11,
             "name": "Martini",
-            "type": "mixed",
+            "drink_type": "mixed",
             "image": "dirty_martini.png",
             "recipe": [
                 {
@@ -468,7 +468,7 @@ drinks.insert_one(
         {
             "id": 12,
             "name": "Rum and Coke",
-            "type": "mixed",
+            "drink_type": "mixed",
             "image": "dirty_martini.png",
             "recipe": [
                 {
@@ -492,7 +492,7 @@ drinks.insert_one(
         {
             "id": 13,
             "name": "Whiskey and Coke",
-            "type": "mixed",
+            "drink_type": "mixed",
             "image": "dirty_martini.png",
             "recipe": [
                 {
@@ -516,7 +516,7 @@ drinks.insert_one(
         {
             "id": 14,
             "name": "Whiskey Sour",
-            "type": "mixed",
+            "drink_type": "mixed",
             "image": "dirty_martini.png",
             "recipe": [
                 {
@@ -540,7 +540,7 @@ drinks.insert_one(
         {
             "id": 15,
             "name": "Rum and Sprite",
-            "type": "mixed",
+            "drink_type": "mixed",
             "image": "dirty_martini.png",
             "recipe": [
                 {
@@ -564,7 +564,7 @@ drinks.insert_one(
         {
             "id": 16,
             "name": "Shirley Temple",
-            "type": "mixed",
+            "drink_type": "mixed",
             "image": "dirty_martini.png",
             "recipe": [
                 {
@@ -598,7 +598,7 @@ drinks.insert_one(
         {
             "id": 17,
             "name": "Yellow Thunder",
-            "type": "mixed",
+            "drink_type": "mixed",
             "image": "dirty_martini.png",
             "recipe": [
                 {
@@ -622,7 +622,7 @@ drinks.insert_one(
         {
             "id": 18,
             "name": "Jagerbomb",
-            "type": "mixed",
+            "drink_type": "mixed",
             "image": "dirty_martini.png",
             "recipe": [
                 {
@@ -646,7 +646,7 @@ drinks.insert_one(
         {
             "id": 19,
             "name": "Gin Sour",
-            "type": "mixed",
+            "drink_type": "mixed",
             "image": "dirty_martini.png",
             "recipe": [
                 {
@@ -675,7 +675,7 @@ drinks.insert_one(
         {
             "id": 20,
             "name": "Blowjob Shot",
-            "type": "shot",
+            "drink_type": "shot",
             "image": "dirty_martini.png",
             "recipe": [
                 {
@@ -699,7 +699,7 @@ drinks.insert_one(
         {
             "id": 21,
             "name": "Gin and Tonic",
-            "type": "mixed",
+            "drink_type": "mixed",
             "image": "dirty_martini.png",
             "recipe": [
                 {
@@ -723,7 +723,7 @@ drinks.insert_one(
         {
             "id": 22,
             "name": "Alexander",
-            "type": "mixed",
+            "drink_type": "mixed",
             "image": "dirty_martini.png",
             "recipe": [
                 {
@@ -752,7 +752,7 @@ drinks.insert_one(
         {
             "id": 23,
             "name": "White Russian",
-            "type": "mixed",
+            "drink_type": "mixed",
             "image": "dirty_martini.png",
             "recipe": [
                 {
@@ -781,7 +781,7 @@ drinks.insert_one(
         {
             "id": 24,
             "name": "Vodka Red Bull",
-            "type": "mixed",
+            "drink_type": "mixed",
             "image": "dirty_martini.png",
             "recipe": [
                 {
@@ -805,7 +805,7 @@ drinks.insert_one(
         {
             "id": 25,
             "name": "Black Russian",
-            "type": "mixed",
+            "drink_type": "mixed",
             "image": "dirty_martini.png",
             "recipe": [
                 {
@@ -829,7 +829,7 @@ drinks.insert_one(
         {
             "id": 26,
             "name": "Grasshopper TODO Blended?",
-            "type": "mixed",
+            "drink_type": "mixed",
             "image": "dirty_martini.png",
             "recipe": [
                 {
@@ -858,7 +858,7 @@ drinks.insert_one(
         {
             "id": 27,
             "name": "B-52",
-            "type": "part",
+            "drink_type": "part",
             "image": "dirty_martini.png",
             "recipe": [
                 {

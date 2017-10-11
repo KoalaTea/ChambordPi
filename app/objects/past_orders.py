@@ -4,7 +4,7 @@ from app import the_real_db as db
 class PastOrder(db.Document):
     status = db.StringField()
     name = db.StringField()
-    recipe = db.Dictfield()
+    recipe = db.DictField()
     cost = db.IntField()
     user = db.StringField()
     order_type = db.StringField()

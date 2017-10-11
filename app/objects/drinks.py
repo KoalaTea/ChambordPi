@@ -3,7 +3,7 @@ from app import the_real_db as db
 
 class Drink(db.Document):
     name = db.StringField(required=True)
-    available = db.BoolField()
+    available = db.BooleanField()
     cost = db.IntField()
     times_ordered = db.IntField()
     recipe = db.DictField(required=True)
