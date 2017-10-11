@@ -1,7 +1,18 @@
 from ..db import order_db
 from ..db import user_db
+from app import the_real_db as db
 
-class Order(object):
+class Order(db.Document):
+    username = db.StringField()
+    status = db.StringField()
+    cost = db.IntField()
+    recipe = db.DictField()
+    name = db.StringField()
+    image = db.StringField()
+    instructions = db.StringField()
+    order_type = db.StringField()
+    times_ordered = db.IntField()
+    '''
     def __init__(self, fields_dict):
         _id = fields_dict['_id']
         username = fields_dict['username']
@@ -13,6 +24,7 @@ class Order(object):
         instructions = fields_dict['instructions']
         order_type = fields_dict['order_type']
         time_ordered = fields_dict['times_ordered'] #maybe/maybe not meant for here
+    '''
 
     def cancel_order(self):
         if self.status.lower() == 'queued':

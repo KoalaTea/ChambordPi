@@ -1,6 +1,17 @@
 from app.db import ingredient_db
+from app import the_real_db as db
 
-class Ingredient(object):
+class Ingredient(db.Document):
+    name = db.StringField()
+    cost = db.IntField()
+    measure = db.StringField()
+    stock = db.IntField()
+    ingredient_class = db.StringField()
+    ingredient_type = db.StringField()
+    available = db.BoolField()
+    flavor = db.StringField()
+    times_ordered = db.IntField()
+    '''
     def __init__(self, fields_dict):
         self.available = fields_dict['available']
         self.cost =  fields_dict['cost']
@@ -11,6 +22,7 @@ class Ingredient(object):
         self.ingredient_type = fields_dict['ingredient_type']
         self.flavor = fields_dict['flavor']
         self.times_ordered = fields_dict['times_ordered']
+    '''
 
     def add(self, added_stock):
         ingredient_db.add_stock(added_stock)

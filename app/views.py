@@ -11,6 +11,7 @@ from app.db.db import db_obj as db # Temporary work around to my problem
 from pymongo import MongoClient
 from app.db import db_getters
 from app.db import order_db
+from app.objects import drinks
 #TODO move current_user to using the objects version
 
 CURRENT_STAT_FILE = 1
@@ -50,7 +51,7 @@ def index():
 @app.route("/list_drinks", methods=["GET", "POST"])
 @app.route("/recipes", methods=["GET", "POST"])
 def list_drinks():
-    drinks = db_getters.get_drinks()
+    drinks = drinks.Drink.objects.get()
     return render_template('recipes.html', title='All Drinks', user=current_user, drinks=drinks)
 
 # menu
@@ -61,7 +62,7 @@ def list_drinks():
 
 @app.route("/menu", methods=["GET"])
 def menu():
-    drinks = db_getters.get_available_drinks()
+    drinks = drinks.Drink.objects.get(available=True)
     if(current_user.is_authenticated):
         return render_template('menu_auth.html', title='Menu',
                            user=current_user,
@@ -75,7 +76,7 @@ def menu():
 @login_required
 def recent_orders():
     #orders = db_getters.get_orders()
-    orders = db_getters.get_orders(user=current_user.username)
+    orders = orders.Order.objects(user=current_user.username)
     return render_template('recent_orders.html',
                            title='Orders',
                            user=current_user,
