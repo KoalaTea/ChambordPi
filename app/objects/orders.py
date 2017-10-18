@@ -11,7 +11,7 @@ class Order(db.Document):
     image = db.StringField()
     instructions = db.StringField()
     order_type = db.StringField()
-    times_ordered = db.IntField()
+    time_ordered = db.IntField()
     '''
     def __init__(self, fields_dict):
         _id = fields_dict['_id']

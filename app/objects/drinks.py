@@ -1,5 +1,6 @@
 from ..db import drink_db
 from app import the_real_db as db
+from app.objects import order
 
 class Drink(db.Document):
     name = db.StringField(required=True)
@@ -25,10 +26,9 @@ class Drink(db.Document):
     '''
 
     def purchase(self):
-        drink_db.purchase(self._id)
-        #need to import and update db
-        #import session from main and create drink order
+        self.times_ordered += 1
+        self.save()
 
     def set_unavailable(self):
         self.available = False
-        drink_db.set_unavailable(self._id)
+        self.save()

@@ -91,7 +91,7 @@ def recent_orders():
 @app.route('/review_order/<drinkname>')
 @login_required
 def review_order(drinkname):
-    drink = db_getters.get_drink(drinkname)
+    drink = drinks.Drink.get(name=drinkname)
     if drink is not None:
         return render_template('review_order.html', title='Review and Order', user=current_user, drink=drink)
     else:

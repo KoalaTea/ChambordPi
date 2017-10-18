@@ -4,7 +4,9 @@ from app.db import user_db
 from app.db import order_db
 #import ..db.user_db as user_db
 #import ..db.order_db as order_db
+import time
 from app import the_real_db as db
+from app.objects import orders
 
 class User(db.Document):
     username = db.StringField(required=True, unique=True)
@@ -41,33 +43,35 @@ class User(db.Document):
         if self.credits >= drink.cost:
             self.credits -= credits
             self.drinks_ordered += 1
-            user_db.update(user)
+            self.save()
             print('credits updated for {}'.format(username))
-            order_db.create_order(self, drink, instructions)
+
+            order = orders.Order(username=self.username, status='queued', cost=drink.cost,
+                    recipe=drink.recipe, name=drink.name, image=drink.image,
+                    instructions=instructions, order_type=drink.drink_type,
+                    time_ordered=int(time.time()))
+            order.save()
+            drink.purchase()
             print('order created')
         else:
-            pass
-        db.Users.update({'username': self.username},
-                {'$set': {'credits': existing - credits }},
-                upsert=False)
+            print('user {} does not have enough credits to order {}').format(username, drink.name)
 
     def order_custom_drink(self, drink, instructions):
         #look up how to lock the database
-        if self.credits >= drink.cost:
+        if self.credits >= CUSTOM_DRINK_COST:
             self.credits -= credits
             self.drinks_ordered += 1
-            user_db.update(user)
+            self.save()
             print('credits updated for {}'.format(username))
-            Drink = namedtuple('Drink', ['name', 'cost', 'drink_type', 'recipe', 'image'])
-            drink = Drink(drink['name'], drink['cost'], drink['drink_type'], drink['recipe'],
-                    drinkt['image'])
-            order_db.create_order(self, drink, instructions)
+
+            order = orders.Order(username=self.username, status='queued', cost=CUSTOM_DRINK_COST,
+                    recipe=drink.recipe, name=drink.name, image=drink.image,
+                    instructions=instructions, order_type=drink.drink_type,
+                    time_ordered=int(time.time()))
+            order.save()
             print('order created')
         else:
-            pass
-        db.Users.update({'username': self.username},
-                {'$set': {'credits': existing - credits }},
-                upsert=False)
+            print('user {} does not have enough credits to order {}').format(username, drink.name)
 
     @staticmethod
     def validate_login(password_hash, password):
