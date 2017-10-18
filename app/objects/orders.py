@@ -36,16 +36,16 @@ class Order(db.Document):
 
     def update_order(self):
         if self.status == 'queued':
-            order_db.update_order_status(self, 'inprogress')
+            self.status = 'inprogress')
         elif self.status == 'inprogress':
-            order_db.update_order_status(self, 'ready')
-        elif self.statys == 'ready':
+            self.status = 'ready'
+        elif self.status == 'ready':
             order_db.delete(self)
             self.status = 'complete'
             #TODO create past order unique new _id
             user_db.complete_order(self)
-        #compare statuses and update based off of that
-        pass
+            return
+        self.save()
 
     def complete_order():
         # TODO need to do the entire pastorder db

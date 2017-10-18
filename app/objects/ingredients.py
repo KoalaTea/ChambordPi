@@ -25,7 +25,9 @@ class Ingredient(db.Document):
     '''
 
     def add(self, added_stock):
-        ingredient_db.add_stock(added_stock)
+        self.stock += added_stock
+        self.save()
 
     def remove(self, removed_stock):
-        ingredient_db.remove_stock(removed_stock)
+        self.stock -= removed_stock
+        self.save()
