@@ -5,8 +5,6 @@ from pymongo import MongoClient
 from werkzeug.security import check_password_hash, generate_password_hash
 from flask_login import login_user, logout_user
 from app.objects.users import User
-from app.db import db_getters
-from app.db import user_db
 from app.objects import users
 
 # TODO:
@@ -58,7 +56,7 @@ def signup():
     if(form.validate_on_submit()):
         user = users.User.objects.get({form.username.data})
         if(user is None and (form.password.data == form.repassword.data)):
-            user_db.create_user(form.username.data, form.password.data)
+            users.create_user(form.username.data, form.password.data)
         else:
             return redirect(url_for('auth.signup'))
         return redirect('auth.login')

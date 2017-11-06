@@ -1,6 +1,11 @@
 from ..db import drink_db
 from app import the_real_db as db
-from app.objects import order
+
+def create_drink(name, recipe, drink_type):
+    drink.Drink(name=name, cost=25, times_ordered=0, recipe=recipe, image='dirty_martini.png',
+            drink_type=drink_type) # TODO need drink id....
+    # check if available
+    drink.commit()
 
 class Drink(db.Document):
     name = db.StringField(required=True)

@@ -14,6 +14,7 @@ from app.db import order_db
 
 from app.objects import drinks
 from app.objects import orders
+from app.objects import ingredients
 
 #TODO move current_user to using the objects version
 
@@ -102,12 +103,13 @@ def review_order(drinkname):
 @login_required
 def order_drink():
     postData = dict(request.form)
-    drink = db_getters.get_drink(postData['drink'][0])
+    drink = drinks.Drink.get(name=postData['drink'][0])
     instructions = postData['instructions'][0]
     if drink is not None:
         current_user.order_drink(drink, instructions)
         # TODO figure out this return incase drink order fails
-        # return '{"status": "failed - not enough credits"}'
+        # return '{"status": "failed - not enough credits"}'i
+        '''
         print("trying statistics")
         try:
             global CURRENT_STAT_FILE
@@ -165,20 +167,21 @@ def order_drink():
         return '{"status": "okay"}'
     else:
         return '{"status": "failed - no such drink"}'
+    '''
 
 @app.route('/cancel_drink', methods=["POST"])
 @login_required
 def cancel_drink():
     postData = dict(request.form)
     orderid = ObjectId(postData['order'][0])
-    order = db_getters.get_order(order_id)
+    order = orders.Order.get(id=order_id)
     if order is not None:
         order.cancel_order()
 
 @app.route('/custom_drink')
 @login_required
 def custom_drink():
-    ingredients = db_getters.get_available_ingredients()
+    ingredients = ingredients.Ingredient.objects()
     return render_template('custom_drink.html', ingredients=ingredients)
 
 # TODO
@@ -188,25 +191,18 @@ def order_custom_drink():
     recipe = []
     post_data = dict(request.form)
     print(post_data['recipe[]'])
-    if get_user_credits(current_user.username) < CUSTOM_COST:
-        print ("Can't afford drink")
-        return '{"status": "failed - not enough credits"}'
 
     for ing in post_data['recipe[]']: #TODO????
         print(ing)
-
         ingredient = {}
         ingredient['type'] = ing
         ingredient['flavor'] = ''
         ingredient['amount'] = ""
         recipe.append(ingredient)
 
-    current_user.order_custom_drink(
+    return current_user.order_custom_drink(
             {"name": "Custom Drink", "cost": CUSTOM_COST, "drink_type": "custom", "recipe": recipe,
-                "image": 'custom_drink.png'},
-            post_data['instructions'][0])
-
-    return '{"status": "okay"}'
+                "image": 'custom_drink.png'}, post_data['instructions'][0])
 
 # TODO wait what is this doing? come back to it later figure out why it is doing things
 # I do not seem to understand
@@ -217,11 +213,11 @@ def order_custom_drink():
 def order_complete():
     data = request.json
     if(set(data.keys()) == set(["_id"])):
-        the_order = db_getters.get_order(ObjectId(data["_id"]))
+        order = orders.Order.get(id=ObjectId(data["_id"]))
         #db.PastOrders.insert_one(the_order) TODO remove
-        if the_order is not None:
-            the_order.complete_order()
-    order_list = db_getters.get_orders()
+        if order is not None:
+            order.complete_order()
+    order_list = orders.Order.objects()
     return render_template('current_orders.html', title='Orders', user=current_user, orders=orders)
 
 # do not really care about these anymore

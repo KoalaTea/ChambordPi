@@ -1,6 +1,12 @@
 from ..db import order_db
 from ..db import user_db
 from app import the_real_db as db
+from app.objects import users
+
+def create_order(drink, user, instructions):
+    order = Order(username=user.username, status='queued', cost=drink.cost, recipe=drink.recipe,
+            name=drink.name, image=drink.image, instructions=instructions) # TODO add time and order_type
+
 
 class Order(db.Document):
     username = db.StringField()
@@ -28,15 +34,13 @@ class Order(db.Document):
 
     def cancel_order(self):
         if self.status.lower() == 'queued':
-            order_db.delete_order(self)
             #TODO status = cancelled; make pastorder
-            user_db.cancel_order(self)
-        else:
-            pass
+            users.User.get(username=self.username).cancel_order(self)
+            self.delete()
 
     def update_order(self):
         if self.status == 'queued':
-            self.status = 'inprogress')
+            self.status = 'inprogress'
         elif self.status == 'inprogress':
             self.status = 'ready'
         elif self.status == 'ready':
