@@ -32,7 +32,7 @@
                         <div class="col col-xs-4" align=left>
                             <h5 class="drink-title"><b>{{order.name}} - {{order.user}}</b></h5>
                           <ul>
-                            {% for ingredient in order['recipe'] %}
+                            {% for ingredient in order.recipe %}
                               <li class="drink-text">{{ingredient['amount']}}
                                   {% if ingredient['flavor']|lower != "none" %}
                                     {{ingredient['flavor']}}
@@ -55,7 +55,7 @@
                           <label class="drink-text">{{order.instructions}}</label>
                         </div>
 
-                        {% elif order['status']|lower == "inprogress" %}
+                        {% elif order.status|lower == "inprogress" %}
                         <div class="col col-xs-4" align=left>
                           <h5 class="drink-title"><b>{{order.name}}</b></h5>
                           <ul>

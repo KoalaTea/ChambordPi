@@ -73,7 +73,7 @@
             </li>
             {% if current_user.is_role('admin') or current_user.is_role('bartender') %}
             <li>
-              <a href="{{ url_for('bartender.orders') }}">
+              <a href="{{ url_for('bartender.list_orders') }}">
                 <span class="menu-icon glyphicon glyphicon-shopping-cart"></span>
                 Bartender
               </a>

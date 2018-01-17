@@ -1,5 +1,5 @@
-from ..db import drink_db
-from app import the_real_db as db
+#from ..db import drink_db
+from app import db
 
 def create_drink(name, recipe, drink_type):
     drink.Drink(name=name, cost=25, times_ordered=0, recipe=recipe, image='dirty_martini.png',

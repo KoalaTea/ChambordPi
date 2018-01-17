@@ -1,5 +1,4 @@
-from app.db import ingredient_db
-from app import the_real_db as db
+from app import db
 
 class Ingredient(db.Document):
     name = db.StringField()

@@ -6,7 +6,10 @@ from werkzeug.security import check_password_hash
 from flask_login import login_required, login_user, logout_user, current_user
 from app.objects.users import User
 from app.decorators import bartender_required, admin_required
-from app.db import db_getters
+
+from app.objects import orders
+from app.objects import drinks
+
 import json
 import time
 
@@ -101,11 +104,13 @@ def remove_alchohol():
 @bartender.route("/orders", methods=["GET"])
 @login_required
 @bartender_required
-def orders():
-    orders = db_getters.get_orders()
-    drinks = db_getters.get_available_drinks()
+def list_orders():
+    order_list = orders.Order.objects()
+    #orders = db_getters.get_orders()
+    drink_list = drinks.Drink.objects(available=True)
+    #drinks = db_getters.get_available_drinks()
     return render_template('bartender/orders.html', title='Bartender', user=current_user,
-            orders=orders, drinks=drinks)
+            orders=order_list, drinks=drink_list)
 
 @bartender.route("/update_order", methods=["POST"])
 @login_required
@@ -115,11 +120,12 @@ def update_order():
     post_data = dict(request.form)
     order_up = ObjectId(post_data['id'][0])
     status = post_data['status'][0]
-    order = db_getters.get_order(order_up)
+    order = orders.Order.get(id=order_up)
+    #order = db_getters.get_order(order_up)
     if status.lower() == order.status:
         order.update_order()
 
-    return redirect(url_for('bartender.orders'))
+    return redirect(url_for('bartender.list_orders'))
 
 @bartender.route("/update_menu", methods=["POST"])
 @login_required
@@ -138,8 +144,9 @@ def update_menu():
                 #TODO decide on format
                 return '{"okay":"cool"}'
             else:
-                drinks = db_getters.get_available_drinks()
-                for drink in drinks:
+                #drinks = db_getters.get_available_drinks()
+                drink_list = drinks.Drink.objects(available=True)
+                for drink in drink_list:
                     for ingredient in drink.recipe:
                         if(ingredient["type"] == data["type"] and ingredient["flavor"] == data["flavor"]):
                             #TODO update the drinks availability to false
@@ -154,8 +161,10 @@ def update_menu():
 @login_required
 @bartender_required
 def current_orders():
-    orders = db_getters.get_orders()
-    return render_template('bartender/current_orders.html', title='Orders', user=current_user, orders=orders)
+    order_list = orders.Order.objects()
+    #orders = db_getters.get_orders()
+    return render_template('bartender/current_orders.html', title='Orders', user=current_user,
+                           orders=order_list)
 
 #TODO do not need?
 @bartender.route("/order_complete", methods=["POST"])
@@ -167,10 +176,13 @@ def order_complete():
     print(data)
     if(set(data.keys()) == set(["_id"])):
         print("we here")
-        the_order = db_getters.get_order(data['_id'])
+        #the_order = db_getters.get_order(data['_id'])
+        the_order = orders.Order.get(id=ObjectId(data['_id']))
         db.PastOrders.insert_one(the_order)
         print(the_order)
         if(the_order is not None):
             the_order.complete_order()
-    orders = db_getters.get_orders()
-    return render_template('bartender/current_orders.html', title='Orders', user=current_user, orders=orders)
+    #orders = db_getters.get_orders()
+    order_list = orders.Order.objects()
+    return render_template('bartender/current_orders.html', title='Orders', user=current_user,
+                           orders=orders)

@@ -2,7 +2,7 @@
     <div class="orders">
         <p>{{ order.drink.name }}, {{ order.drink.type }}</p>
         {% for ingredient in order.drink.recipe %}
-        <button type="button" class="btn btn-primary btn-cons {{ order._id }} {{ ingredient.type }} {{ ingredient.flavor }} is-closed" onclick="slide_bar('{{ order._id }}', '{{ ingredient.type }}', '{{ ingredient.flavor }}')"><b>
+        <button type="button" class="btn btn-primary btn-cons {{ order.id }} {{ ingredient.type }} {{ ingredient.flavor }} is-closed" onclick="slide_bar('{{ order._id }}', '{{ ingredient.type }}', '{{ ingredient.flavor }}')"><b>
             {% if ingredient.flavor is not none %}
                 {{ ingredient.flavor }}
             {% endif %}
