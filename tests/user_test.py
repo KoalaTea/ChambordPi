@@ -10,7 +10,7 @@ from tests.makedatabase import make_database
 TEST_DB_NAME = 'ChambordPi_testdb'
 
 def create_app():
-    return app.create_app(MONGODB_SETTINGS={'db': 'ChambordPiTesting'}, TESTING=True, CSRF_ENABLED=False)
+    return app.create_app(MONGODB_SETTINGS={'db': 'ChambordPi_testdb'}, LOGIN_DISABLED=False, TESTING=True, CSRF_ENABLED=False)
 
 #TODO test alchohol changes
 class TestOrderDrink(unittest.TestCase):
@@ -19,22 +19,21 @@ class TestOrderDrink(unittest.TestCase):
         make_database(TEST_DB_NAME)
         self.test_app = create_app().test_client()
         self.test_app.testing = True
-        mongoengine.connection.disconnect()
-        mongoengine.connection.connect(TEST_DB_NAME)
         #TODO run a database set up script here
 
-    def test_user_auth(self):
+    def test_user_password_check(self):
         #TODO conver to grabbing a user from the db
+        print("ETSTJ")
+        print(mongoengine.connection.get_db())
         user = users.User.objects.get(username='koalatea')
         self.assertEqual(True, user.validate_login(user.password, 'temporary2017koalatea'))
-    """
+
     @classmethod
     def tearDownClass(self):
         if mongoengine.connection.get_db().name == TEST_DB_NAME:
             mongoengine.connection.get_db().client.drop_database(TEST_DB_NAME)
         else:
             print('not correct db')
-    """
 
 if __name__ == '__main__':
     unittest.main()
