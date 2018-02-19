@@ -358,7 +358,7 @@ def make_database(db_name):
     users.insert_one(
             {
                 "username" : "bartender",
-                "password" : generate_password_hash("temporary2017koalatea"),
+                "password" : generate_password_hash("bartender"),
                 "credits" : 1000000,
                 "roles" : [ "bartender" ],
                 "drinks_ordered" : 0

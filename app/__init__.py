@@ -16,15 +16,6 @@ lm.login_view = 'auth.login'
 #lm.init_app(app)
 
 
-'''
-from app.auth import auth as auth_blueprint
-from app.bartender import bartender as bartender_blueprint
-from app.admin import admin as admin_blueprint
-app.register_blueprint(auth_blueprint, url_prefix="/auth")
-app.register_blueprint(bartender_blueprint, url_prefix="/bartender")
-app.register_blueprint(admin_blueprint, url_prefix="/admin")
-'''
-
 def create_app(**config_overrides):
     app = Flask(__name__)
     app.config.from_object('config')
@@ -42,8 +33,6 @@ def create_app(**config_overrides):
     db.init_app(app)
     return app
 
-#app = create_app()
-
 from app.objects import users
 # load_user
 #   sets things up for loading a user since we use mongo instead of sqllite
@@ -56,5 +45,3 @@ def load_user(username):
     if not u:
         return None
     return u
-
-#from app import views
