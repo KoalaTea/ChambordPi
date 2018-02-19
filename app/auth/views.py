@@ -25,14 +25,15 @@ from app.objects import users
 @auth.route("/signin", methods=["POST", "GET"])
 def login():
     form = LoginForm()
-    if(request.method == "POST" and form.validate_on_submit()):
-        try:
-            user = users.User.objects.get(username=form.username.data)
-            if user.validate_login(user.password, form.password.data):
-                login_user(user)
-                return redirect(url_for('index'))
-        except:
-            pass
+    if(request.method == "POST"):
+        if form.validate_on_submit():
+            try:
+                user = users.User.objects.get(username=form.username.data)
+                if user.validate_login(user.password, form.password.data):
+                    login_user(user)
+                    return redirect(url_for('views.index'))
+            except:
+                pass
         return render_template('auth/login.html', title='Sign In', form=form, message='Login Failed')
     return render_template('auth/login.html', title='Sign In', form=form, message=None)
 
@@ -48,7 +49,7 @@ def login():
 @auth.route("/signout")
 def logout():
     logout_user()
-    return redirect('index')
+    return redirect('views.index')
 
 @auth.route("/signup", methods=["POST", "GET"])
 def signup():
