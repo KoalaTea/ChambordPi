@@ -49,7 +49,7 @@ def login():
 @auth.route("/signout")
 def logout():
     logout_user()
-    return redirect('views.index')
+    return redirect(url_for('views.index'))
 
 @auth.route("/signup", methods=["POST", "GET"])
 def signup():

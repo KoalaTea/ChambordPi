@@ -6,11 +6,14 @@ from app import db
 from app.objects import orders
 
 def create_user(username, password):
-    if User.objects.get(username=username):
-        return None
+    try:
+        if User.objects.get(username=username):
+            return None
+    except User.DoesNotExist:
+        pass
     password_hash = generate_password_hash(password)
     user = User(username, password_hash, ['user'], 0, 0)
-    user.commit()
+    user.save()
     return user
 
 class User(db.Document):
@@ -59,7 +62,8 @@ class User(db.Document):
             drink.purchase()
             print('order created')
         else:
-            print('user {} does not have enough credits to order {}').format(self.username, drink.name)
+            print('user {} does not have enough credits to order {}').format(self.username,
+                drink.name)
 
     def order_custom_drink(self, drink, instructions):
         #look up how to lock the database
@@ -77,7 +81,8 @@ class User(db.Document):
             print('order created')
             return '{"status": "completed"}'
         else:
-            print('user {} does not have enough credits to order {}').format(self.username, drink.name)
+            print('user {} does not have enough credits to order {}').format(self.username,
+                drink.name)
             return '{"status": "failed - not enough credits"}'
 
     def cancel_order(self, order):
@@ -85,6 +90,7 @@ class User(db.Document):
         self.drinks_ordered -= 1
         self.save()
 
+    # wait why does this not just take the password? why do we need the hash it is stored already
     @staticmethod
     def validate_login(password_hash, password):
         return check_password_hash(password_hash, password)

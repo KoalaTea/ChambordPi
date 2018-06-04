@@ -8,7 +8,7 @@ class Order(db.Document):
     username = db.StringField()
     status = db.StringField()
     cost = db.IntField()
-    recipe = db.DictField() # one day move this to using objects through reference (maybe?)
+    recipe = db.ListField(db.DictField(), required=True)
     name = db.StringField()
     image = db.StringField()
     instructions = db.StringField()

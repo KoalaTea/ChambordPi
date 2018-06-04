@@ -159,7 +159,7 @@ def make_database(db_name):
 
     drinks.insert_one(
             {
-                "id": 0,
+                "drink_id": 0,
                 "name": "Miller High Life",
                 "drink_type": "beer",
                 "image": "beer.png",
@@ -178,7 +178,7 @@ def make_database(db_name):
 
     drinks.insert_one(
             {
-                "id": 1,
+                "drink_id": 1,
                 "name": "Moscow Mule",
                 "drink_type": "mixed",
                 "image": "dirty_martini.png",
@@ -207,7 +207,7 @@ def make_database(db_name):
 
     drinks.insert_one(
             {
-                "id": 2,
+                "drink_id": 2,
                 "name": "Rum and Coke",
                 "drink_type": "mixed",
                 "image": "dirty_martini.png",
@@ -231,7 +231,7 @@ def make_database(db_name):
 
     drinks.insert_one(
             {
-                "id": 3,
+                "drink_id": 3,
                 "name": "Whiskey and Coke",
                 "drink_type": "mixed",
                 "image": "dirty_martini.png",
@@ -255,7 +255,7 @@ def make_database(db_name):
 
     drinks.insert_one(
             {
-                "id": 4,
+                "drink_id": 4,
                 "name": "Whiskey Sour",
                 "drink_type": "mixed",
                 "image": "dirty_martini.png",
@@ -279,7 +279,7 @@ def make_database(db_name):
 
     drinks.insert_one(
             {
-                "id": 5,
+                "drink_id": 5,
                 "name": "Rum and Sprite",
                 "drink_type": "mixed",
                 "image": "dirty_martini.png",
@@ -303,7 +303,7 @@ def make_database(db_name):
 
     drinks.insert_one(
             {
-                "id": 6,
+                "drink_id": 6,
                 "name": "Shirley Temple",
                 "drink_type": "mixed",
                 "image": "dirty_martini.png",

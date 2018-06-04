@@ -12,7 +12,7 @@ class Drink(db.Document):
     available = db.BooleanField()
     cost = db.IntField()
     times_ordered = db.IntField()
-    recipe = db.DictField(required=True)
+    recipe = db.ListField(db.DictField(), required=True)
     image = db.StringField()
     drink_type = db.StringField()
     drink_id = db.IntField()

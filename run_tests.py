@@ -1,12 +1,14 @@
 import unittest
 
-testmodules = [
+TEST_MODULES = [
     'tests.auth_test',
+    #'tests.user_test',
+    #'tests.test_pages'
     ]
 
 suite = unittest.TestSuite()
 
-for t in testmodules:
+for t in TEST_MODULES:
     try:
         # If the module defines a suite() function, call it to get the suite.
         mod = __import__(t, globals(), locals(), ['suite'])

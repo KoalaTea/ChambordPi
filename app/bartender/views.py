@@ -29,7 +29,7 @@ CUSTOM_COST=150
 #
 # returns
 #   alchohol template which has all alchohols available
-@bartender.route("/list_alchohol", methods=["GET", "POST"])
+@bartender.route("/list_alcohol", methods=["GET", "POST"])
 def list_alchohol():
     return render_template('bartender/alchohol.html', title='Alchohol', user=current_user, alchohol_list=db.Alchohol.find())
 
@@ -46,7 +46,7 @@ def list_alchohol():
 #
 # Returns
 #   the new alchohol database entry or empty set if failed
-@bartender.route("/add_alchohol", methods=["POST"])
+@bartender.route("/add_alcohol", methods=["POST"])
 @login_required
 @bartender_required
 def add_alchohol():
