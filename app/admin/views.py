@@ -4,7 +4,7 @@ from .forms import AddCreditsForm
 from pymongo import MongoClient
 from werkzeug.security import check_password_hash
 from flask_login import login_user, logout_user, login_required
-from ..objects.users import User
+from ..objects import users
 #from ..db import db
 from ..decorators import admin_required
 
@@ -29,8 +29,8 @@ def admin_page():
 @admin_required
 def manage_credits():
     form = AddCreditsForm()
-    users = db.Users.find()
-    return render_template("admin/credits.html", users=users, form=form, cred_default=500)
+    user_objs = users.User.objects()
+    return render_template("admin/credits.html", users=user_objs, form=form, cred_default=500)
 
 @admin.route("/add_credits/<username>", methods=["POST", "GET"])
 @login_required

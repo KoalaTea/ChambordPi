@@ -79,7 +79,7 @@ def add_alchohol():
 #
 # Returns
 #   the new alchohol database entry or empty set if failed
-@bartender.route("/remove_alchohol", methods=["POST"])
+@bartender.route("/remove_alcohol", methods=["POST"])
 @login_required
 @bartender_required
 def remove_alchohol():

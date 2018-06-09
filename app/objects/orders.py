@@ -24,7 +24,7 @@ class Order(db.Document):
                                                time_ordered=self.time_ordered,
                                                instructions=self.instructions)
             past_order.save()
-            users.User.get(username=self.username).cancel_order(self)
+            users.User.objects.get(username=self.username).cancel_order(self)
             self.delete()
 
     def update_order(self):

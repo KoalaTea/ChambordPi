@@ -4,9 +4,9 @@ from app import db
 class PastOrder(db.Document):
     status = db.StringField()
     name = db.StringField()
-    recipe = db.DictField()
+    recipe = db.ListField(db.DictField(), required=True)
     cost = db.IntField()
     username = db.StringField()
     order_type = db.StringField()
     time_ordered = db.IntField()
-    insructions = db.StringField()
+    instructions = db.StringField()

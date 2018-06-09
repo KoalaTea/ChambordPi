@@ -5,7 +5,7 @@ class TestPages(TestPagesObject):
     def test_view_pages(self):
         # custom_drink is broken
         #endpoints = ['index', 'recipes', 'menu', 'recent_orders', 'custom_drink']
-        endpoints = ['index', 'recipes', 'menu', 'recent_orders']
+        endpoints = ['index', 'recipes', 'menu', 'recent_orders', 'review_order/Moscow Mule']
         with self.test_app:
             self._login('admin')
             for endpoint in endpoints:

@@ -23,7 +23,8 @@ ingredients.insert_one(
             "ingredient_type" : "vodka",
             "name" : "sky",
             "flavor" : None,
-            "bottles" : 1,
+            "measure" : "bottles",
+            "stock": 1,
             "available": True,
             "cost": 25,
             "times_ordered" : 0
@@ -35,7 +36,8 @@ ingredients.insert_one(
             "ingredient_type" : "",
             "name" : "Jager",
             "flavor" : None,
-            "bottles" : 1,
+            "measure" : "bottles",
+            "stock": 1,
             "available": True,
             "cost": 25,
             "times_ordered" : 0
@@ -47,7 +49,8 @@ ingredients.insert_one(
             "ingredient_type" : "rum",
             "name" : "Malibu",
             "flavor" : "Coconut",
-            "bottles" : 1,
+            "measure" : "bottles",
+            "stock": 1,
             "available": True,
             "cost": 25,
             "times_ordered" : 0
@@ -60,7 +63,8 @@ ingredients.insert_one(
             "ingredient_type" : "rum",
             "name" : "Bacardi",
             "flavor" : None,
-            "bottles" : 1,
+            "measure" : "bottles",
+            "stock": 1,
             "available": True,
             "cost": 25,
             "times_ordered" : 0
@@ -73,7 +77,8 @@ ingredients.insert_one(
             "ingredient_type" : "Gin",
             "name" : "New Amsterdam",
             "flavor" : None,
-            "bottles" : 1,
+            "measure" : "bottles",
+            "stock": 1,
             "available": True,
             "cost": 25,
             "times_ordered" : 0
@@ -86,7 +91,8 @@ ingredients.insert_one(
             "ingredient_type" : "Whiskey",
             "name" : "Jack Daniels",
             "flavor" : None,
-            "bottles" : 1,
+            "measure" : "bottles",
+            "stock": 1,
             "available": True,
             "cost": 25,
             "times_ordered" : 0
@@ -99,7 +105,8 @@ ingredients.insert_one(
             "ingredient_type" : "vodka",
             "name" : "UV Blue",
             "flavor" : None,
-            "bottles" : 1,
+            "measure" : "bottles",
+            "stock": 1,
             "available": True,
             "cost": 25,
             "times_ordered" : 0
@@ -112,7 +119,8 @@ ingredients.insert_one(
         {
             "ingredient_class": "mixer",
             "name": "Orange Juice",
-            "bottles": 5,
+            "measure" : "bottles",
+            "stock": 1,
             "available": True
         }
 )
@@ -120,7 +128,8 @@ ingredients.insert_one(
         {
             "ingredient_class": "mixer",
             "name": "Sprite",
-            "bottles": 5,
+            "measure" : "bottles",
+            "stock": 1,
             "available": True
         }
 )
@@ -128,7 +137,8 @@ ingredients.insert_one(
         {
             "ingredient_class": "mixer",
             "name": "Coca-Cola",
-            "bottles": 5,
+            "measure" : "bottles",
+            "stock": 1,
             "available": True
         }
 )
@@ -136,7 +146,8 @@ ingredients.insert_one(
         {
             "ingredient_class": "mixer",
             "name": "Ginger Ale",
-            "bottles": 5,
+            "measure" : "bottles",
+            "stock": 1,
             "available": True
         }
 )
@@ -144,7 +155,8 @@ ingredients.insert_one(
         {
             "ingredient_class": "mixer",
             "name": "Lemonade",
-            "bottles": 5,
+            "measure" : "bottles",
+            "stock": 1,
             "available": True
         }
 )
@@ -152,7 +164,8 @@ ingredients.insert_one(
         {
             "ingredient_class": "mixer",
             "name": "Tonic",
-            "bottles": 5,
+            "measure" : "bottles",
+            "stock": 1,
             "available": True
         }
 )

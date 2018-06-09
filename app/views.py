@@ -108,22 +108,24 @@ def order_drink():
     if drink is not None:
         current_user.order_drink(drink, instructions)
         # TODO figure out this return incase drink order fails
-        # return '{"status": "failed - not enough credits"}'i
+        # return '{"status": "failed - not enough credits"}'
+    return '{"result": "success"}'
 
 @views.route('/cancel_drink', methods=["POST"])
 @login_required
 def cancel_drink():
     postData = dict(request.form)
-    orderid = ObjectId(postData['order'][0])
+    order_id = ObjectId(postData['order'][0])
     order = orders.Order.objects.get(id=order_id)
     if order is not None:
         order.cancel_order()
+    return '{"result": "success"}'
 
 @views.route('/custom_drink')
 @login_required
 def custom_drink():
-    ingredients = ingredients.Ingredient.objects()
-    return render_template('custom_drink.html', ingredients=ingredients)
+    ing_objects = ingredients.Ingredient.objects()
+    return render_template('custom_drink.html', ingredients=ing_objects)
 
 # TODO
 @views.route('/order_custom_drink', methods=["POST"])
