@@ -1,2 +1,0 @@
-now that views is a blueprint, find out how to change the redirects from just "index" and similiar things to this
-move over to forms to make use of the csrf tokens

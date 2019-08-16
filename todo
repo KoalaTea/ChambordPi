@@ -1,9 +1,0 @@
-SOO MUCH
-move from users.py to object/users # verify this works how I want it to
-convert app/views.py to use objects
-convert app/bartender to use objects
-convert app/admin to use objects
-check if auth requires a switch to use objects
-change all used templates to work with the new format
-confirm objects makes all legal calls in its editing functions
-move prints to logger

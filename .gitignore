@@ -1,7 +1,4 @@
-flask/
-*/__pycache__/
-*.pyc
-config.file
-venv/
-backups/
-ChambordPi.sock
+.vscode
+.pyre
+__pycache__
+.mypy_cache

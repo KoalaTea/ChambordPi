@@ -1,0 +1,7 @@
+{
+  "binary": "/home/koalatea/.virtualenvs/chambordpi2/bin/pyre.bin",
+  "source_directories": [
+    "."
+  ],
+  "typeshed": "/home/koalatea/.virtualenvs/chambordpi2/lib/pyre_check/typeshed/"
+}
