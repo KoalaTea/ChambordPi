@@ -8,7 +8,7 @@ async def handler(request):
     return web.Response(text="abc")
 
 
-def create_app():
+def create_app(**options):
     app = web.Application()
     app.add_routes([web.get("/", handler)])
 
