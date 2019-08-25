@@ -4,11 +4,11 @@ from aiohttp import web
 _LOG = logging.getLogger(__name__)
 
 
-async def handler(request):
+async def handler(request: web.Request) -> web.Response:
     return web.Response(text="abc")
 
 
-def create_app(**options):
+def create_app(**options) -> web.Application:
     app = web.Application()
     app.add_routes([web.get("/", handler)])
 
