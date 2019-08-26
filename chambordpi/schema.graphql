@@ -1,0 +1,27 @@
+type Drink {
+  name: String!
+}
+
+type Ingredient {
+  name: String!
+  stock: Int!
+  measure: String!
+}
+
+type User {
+  id: ID!
+  name: String!
+  orders: [Order]
+}
+
+type Order {
+  user: User!
+  status: String!
+  drink: Drink!
+  completed: Bool!
+}
+
+type Query {
+  user: User
+  drinks: [Drink!]
+}
