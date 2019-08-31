@@ -2,7 +2,7 @@ import logging
 from aiohttp import web
 from chambordpi import views
 
-_LOG = logging.getLogger()
+_LOG: logging.Logger = logging.getLogger()
 
 
 def add_routes(app: web.Application) -> None:

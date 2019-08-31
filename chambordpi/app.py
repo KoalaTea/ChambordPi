@@ -1,15 +1,17 @@
+# pyre-strict
 import logging
+from typing import Dict, Any
 from aiohttp import web
 from chambordpi import routes
 
-_LOG = logging.getLogger(__name__)
+_LOG: logging.Logger = logging.getLogger(__name__)
 
 
 async def handler(request: web.Request) -> web.Response:
     return web.Response(text="abc")
 
 
-def create_app(**options) -> web.Application:
+def create_app(**kwargs: Any) -> web.Application:
     app = web.Application()
     app.add_routes([web.get("/", handler)])
     routes.add_routes(app)
