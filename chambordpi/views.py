@@ -1,3 +1,4 @@
+# pyre-strict
 import logging
 from aiohttp import web
 
