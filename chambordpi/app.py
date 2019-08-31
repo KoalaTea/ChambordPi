@@ -1,5 +1,6 @@
 import logging
 from aiohttp import web
+from . import routes
 
 _LOG = logging.getLogger(__name__)
 
@@ -11,6 +12,7 @@ async def handler(request: web.Request) -> web.Response:
 def create_app(**options) -> web.Application:
     app = web.Application()
     app.add_routes([web.get("/", handler)])
+    routes.add_routes(app)
 
     return app
 
