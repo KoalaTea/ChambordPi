@@ -1,6 +1,6 @@
 import logging
 from aiohttp import web
-from . import routes
+from chambordpi import routes
 
 _LOG = logging.getLogger(__name__)
 
