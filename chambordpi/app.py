@@ -7,14 +7,15 @@ from chambordpi import routes
 _LOG: logging.Logger = logging.getLogger(__name__)
 
 
-async def handler(request: web.Request) -> web.Response:
-    return web.Response(text="abc")
-
-
 def create_app(**kwargs: Any) -> web.Application:
+    """
+    initialize chambordpi aiohttp web.Application
+    """
     app = web.Application()
-    app.add_routes([web.get("/", handler)])
     routes.add_routes(app)
+    # this can move to extras if I go that route of defining a full logging setup.
+    registered_routes = [(route.method, route.get_info()["path"]) for route in app.router.routes()]
+    _LOG.debug("routes registered: %s", registered_routes)
 
     return app
 
