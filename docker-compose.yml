@@ -1,0 +1,11 @@
+version: "3"
+
+services:
+  chambordpi:
+    build: .
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+  db:
+    image: dgraph/dgraph

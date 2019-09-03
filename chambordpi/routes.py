@@ -1,3 +1,6 @@
+"""
+module for managing uris to the application
+"""
 # pyre-strict
 import logging
 from aiohttp import web

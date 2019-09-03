@@ -1,3 +1,6 @@
+"""
+module for the handlers of web requests
+"""
 # pyre-strict
 import logging
 from aiohttp import web
