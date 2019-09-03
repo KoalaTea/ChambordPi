@@ -6,7 +6,7 @@ import logging
 import pydgraph
 from aiohttp import web
 
-_LOG = logging.getLogger(__name__)
+_LOG: logging.Logger = logging.getLogger(__name__)
 
 
 def initialize_db(app: web.Application) -> None:

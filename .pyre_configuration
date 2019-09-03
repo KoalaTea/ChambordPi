@@ -3,6 +3,6 @@
   "source_directories": [
     "."
   ],
-  "search_path": [{"site-package": "aiohttp"}],
+  "search_path": [{"site-package": "aiohttp"}, {"site-package": "pydgraph"}],
   "typeshed": "/usr/local/lib/pyre_check/typeshed/"
 }
