@@ -17,10 +17,9 @@ type Ingredient {
 }
 
 type Stock {
+  raw_ingredient: RawIngredient!
   name: String! # brand name full name of product
-  type: String! # enum this? (vodka, fruit, soda)
   brand: String!
-  flavor: String? # enum
   stock: Int!
   measure: String!
 }

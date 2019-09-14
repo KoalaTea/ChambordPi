@@ -1,0 +1,17 @@
+[
+  {
+    "name": "screwdriver",
+    "instructions": "drink",
+    "ingredients": [
+      {
+        "type": "vodka",
+        "amount": "1/2"
+      },
+      {
+        "type": "juice",
+        "flavor": "orange",
+        "amount": "1/2"
+      }
+    ]
+  }
+]
