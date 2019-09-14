@@ -4,17 +4,22 @@ type Drink {
   instructions: String!
 }
 
+type RawIngredient {
+  type: String!
+  name: String?
+  flavor: String?
+}
+
 type Ingredient {
-  type: String! # enum (vodka, fruit, soda)
-  name: String? # generic name for if flavor and type don't define well
-  flavor: String? # enum
+  raw_ingredient: RawIngredient!
   amount: String!
-  suggested: Stock! # brands
+  suggested: Stock? # brands
 }
 
 type Stock {
   name: String! # brand name full name of product
   type: String! # enum this? (vodka, fruit, soda)
+  brand: String!
   flavor: String? # enum
   stock: Int!
   measure: String!
@@ -24,7 +29,7 @@ type Order {
   user: User!
   status: String! # enum (in progress,canceled,complete...)
   drink: Drink! # have overrides as a field?
-  instructions: String?
+  user_instructions: String?
   completed: Bool!
 }
 
