@@ -12,11 +12,11 @@
         _:screwdriverrecipe1 <raw_ingredient> _:orangejuice .
         _:screwdriverrecipe2 <amount> "1/2" .
         _:screwdriverrecipe2 <raw_ingredient> _:vodka .
-        
+
         _:screwdriver <name> "screwdriver" .
         _:screwdriver <instructions> "drink" .
         _:screwdriver <dgraph.type> "Drink" .
-        _:screwdriver <ingredients> _:screwdriverrecipe1 .
-        _:screwdriver <ingredients> _:screwdriverrecipe2 .
+        _:screwdriver <ingredients> _:vodka (amount="1/2") .
+        _:screwdriver <ingredients> _:orangejuice (amount="1/2") .
     }
 }
