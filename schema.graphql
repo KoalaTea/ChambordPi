@@ -11,9 +11,9 @@ type RawIngredient {
 }
 
 type Ingredient {
-  raw_ingredient: RawIngredient!
-  amount: String!
-  suggested: Stock? # brands
+  raw_ingredient: RawIngredient! # do these as facets instead?
+  amount: String! # facet?
+  suggested: Stock? # brands facet?
 }
 
 type Stock {
