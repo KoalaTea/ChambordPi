@@ -19,5 +19,5 @@ def initialize_db(app: web.Application) -> None:
 
 
 async def get_drinks(db: pydgraph.DgraphClient) -> None:
-    txn = db.txn()
+    txn = db.txn()  # pylint: disable=unused-variable
     return
