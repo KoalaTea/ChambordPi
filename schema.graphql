@@ -1,33 +1,43 @@
 type Drink {
-  name: String!
-  ingredients: [Ingredient]
-  instructions: String!
+  name: String!             # a beer
+  mixture: [Portion]        # 1 beer
+  instructions: String!     # serve in a litre stein
 }
 
-type RawIngredient {
-  type: String!
-  name: String?
-  flavor: String?
+type Portion {
+  category: Category!     # beer (this is a category)
+  flavor: String?         # N/A
+  amount: String!         # 1 can
+  default: Ingredient!    # brands facet? # suggested options?
+}
+
+type Category {
+  category: Category?         # null       / beer
+  name: String!               # beer       / porter
 }
 
 type Ingredient {
-  raw_ingredient: RawIngredient! # do these as facets instead?
-  amount: String! # facet?
-  suggested: Stock? # brands facet?
+  categories: [Category] # beer       beer
+  name: String!          # blue moon  guiness
+  flavor: String?        # orange     null
 }
 
 type Stock {
-  raw_ingredient: RawIngredient!
-  name: String! # brand name full name of product
-  brand: String!
-  stock: Int!
-  measure: String!
+  ingredient: Ingredient! # beer
+  stock: Int!             # 10
+  measure: String!        # bottles
+}
+
+type Rating {
+  ingredient: Ingredient! # blue moon
+  rating: Int!            # 2.75 / 0-5
 }
 
 type Order {
   user: User!
   status: String! # enum (in progress,canceled,complete...)
   drink: Drink! # have overrides as a field?
+  ingredients: [Ingredient]!
   user_instructions: String?
   completed: Bool!
 }
