@@ -34,12 +34,12 @@ type Rating {
 }
 
 type Order {
-  user: User!
-  status: String! # enum (in progress,canceled,complete...)
-  drink: Drink! # have overrides as a field?
-  ingredients: [Ingredient]!
-  user_instructions: String?
-  completed: Bool!
+  user: User!                 # who ordered /// have who made it?
+  status: String!             # enum (in progress,canceled,complete...)
+  drink: Drink!               # recipe
+  ingredients: [Ingredient]!  # actual ingredients to use
+  user_instructions: String?  # user specfic instructions
+  completed: Bool!            # is the order done with it's lifecycle (created/cancelled)? (long term storage)
 }
 
 type User {
