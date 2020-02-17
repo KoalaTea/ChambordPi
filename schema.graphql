@@ -12,8 +12,9 @@ type Portion {
 }
 
 type Category {
-  category: Category?         # null       / beer
+  larger_category: Category?  # null       / beer
   name: String!               # beer       / porter
+  categories: [Category]?     # back ref for categories
 }
 
 type Ingredient {
@@ -24,8 +25,7 @@ type Ingredient {
 
 type Stock {
   ingredient: Ingredient! # beer
-  stock: Int!             # 10
-  measure: String!        # bottles
+  uses: Int!              # 2 (meaning 2 cans/bottle/cups)
 }
 
 type Rating {
