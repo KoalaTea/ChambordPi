@@ -60,7 +60,7 @@ type Query {
   me: User
   drinks(ingredients: [ID], categories: [ID], name: String): [Drink]
   categories: [Category]
-  orders: [Order]
+  orders: [Order] # maybe just a filter from the user object?
   currentOrders: [Order]
 }
 
