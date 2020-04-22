@@ -24,7 +24,7 @@ type Ingredient {
   id: ID!
   categories: [Category] # beer       beer
   name: String!          # blue moon  guiness
-  flavor: String?        # orange     null
+  flavor: String?        # orange     null      ? should it be a category/ies?
 }
 
 type Stock {
@@ -58,7 +58,8 @@ type User {
 
 type Query {
   me: User
-  drinks: [Drink]
+  drinks(ingredients: [ID], categories: [ID], name: String): [Drink]
+  categories: [Category]
   orders: [Order]
   currentOrders: [Order]
 }
