@@ -60,7 +60,7 @@ type Query {
   me: User
   drinks: [Drink]
   orders: [Order]
-
+  currentOrders: [Order]
 }
 
 type Input {
